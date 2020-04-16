@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0958EC</color>
+    <color name="colorPrimaryDark">#578EE8</color>
+    <color name="colorAccent">@color/colorPrimaryDark</color>
+    <color name="colorGoogleLogin">#E12717</color>
+    <color name="colorFacebookLogin">#3B5998</color>
+    <color name="colorApproved">#A6F4A6</color>
+    <color name="colorReject">#F4B8B8</color>
+    <color name="colorPending">#F2EF91</color>
+    <color name="colorGray">#777777</color>
+</resources>
