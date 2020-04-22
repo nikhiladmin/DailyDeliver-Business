@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -96,7 +97,11 @@ public class WalkThroughActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        get_started__btn.setWidth((int)(dpWidth * 1.8));
+        double displaydp = Math.sqrt(dpHeight*dpHeight + dpWidth * dpWidth);
+        Log.i("ans is","dpheight" + dpHeight);
+        Log.i("ans is","dpwidth" + dpWidth);
+        get_started__btn.setWidth((int)(dpWidth * 0.7));
+        get_started__btn.setTextSize((float) (displaydp * 0.025));
     }
 
     private boolean restorePrefData() {

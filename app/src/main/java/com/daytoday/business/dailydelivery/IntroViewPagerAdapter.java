@@ -41,8 +41,8 @@ public class IntroViewPagerAdapter extends PagerAdapter {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         double displaydp = Math.sqrt(dpHeight*dpHeight + dpWidth * dpWidth);
         walk_through_text.setTextSize((float) (displaydp *0.025));
-        walk_through_img.getLayoutParams().height = (int)(dpHeight * 0.80);
-        walk_through_img.getLayoutParams().width = (int)(dpWidth * 1.50);
+        walk_through_img.getLayoutParams().height = (int)(dpHeight * 0.50);
+        walk_through_img.getLayoutParams().width = (int)(dpWidth * 0.50);
         container.addView(layoutScreen);
 
         return layoutScreen;
