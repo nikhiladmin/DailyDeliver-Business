@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomePage">
+    >
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView"
@@ -71,37 +71,53 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/roboto_regular"
-        android:text="sign in with phone number"
-        android:padding="15dp"
+        android:text="Sign in with Phone Number"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:drawableLeft="@drawable/ic_call"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView3" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
+        android:layout_gravity="start"
+        android:gravity="start" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="sign in with google"
+        android:text="Sign in with Google"
+        android:drawableLeft="@drawable/ic_google"
         android:fontFamily="@font/roboto_regular"
         android:backgroundTint="@color/colorGoogleLogin"
-        android:padding="15dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+        app:layout_constraintTop_toBottomOf="@+id/btn1"
+        android:layout_gravity="start"
+        android:textAllCaps="false"
+        android:gravity="start"/>
 
     <Button
         android:id="@+id/btn3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:padding="15dp"
-        android:text="sign in with facebook"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Sign in with Facebook"
+        android:drawableLeft="@drawable/ic_facebook"
         android:fontFamily="@font/roboto_regular"
+        android:textAllCaps="false"
         android:backgroundTint="@color/colorFacebookLogin"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/btn2" />
+        app:layout_constraintTop_toBottomOf="@+id/btn2"
+        android:layout_gravity="start"
+        android:gravity="start"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
