@@ -3,9 +3,9 @@
     <item>
         <shape android:shape="ring"
             android:innerRadius="0dp"
-            android:thickness="4dp"
+            android:thickness="5dp"
             android:useLevel="false" >
-            <solid android:color="@color/colorGray" />
+            <solid android:color="#B8B6B6" />
         </shape>
     </item>
 </layer-list>

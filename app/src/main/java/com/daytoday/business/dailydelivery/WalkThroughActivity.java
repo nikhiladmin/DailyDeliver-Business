@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,6 +23,7 @@ public class WalkThroughActivity extends AppCompatActivity {
     private IntroViewPagerAdapter introViewPagerAdapter;
     private TabLayout tab_indicator_of_walkthrough;
     private Button get_started__btn;
+    Animation btn_Get_Started_Anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,11 @@ public class WalkThroughActivity extends AppCompatActivity {
         //Tab Inndicator
         tab_indicator_of_walkthrough = findViewById(R.id.tab_indicator_of_walkthrough);
         get_started__btn = findViewById(R.id.get_started_btn);
+        btn_Get_Started_Anim= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.btngetstarted_animation);
 
         //fill the list screen
         final List<ScreenItem> list_of_items = new ArrayList<>();
-        list_of_items.add(new ScreenItem(R.drawable.smartphone,"Manage Your Daily Product in Efficient Way abd de your all digitalize records"));
+        list_of_items.add(new ScreenItem(R.drawable.smartphone,"Manage Your daily product in efficient way and  digitalize your all records"));
         list_of_items.add(new ScreenItem(R.drawable.intro_twoxxxhdpi,"Easy to distinguish your different types of request in your daily buisness"));
 
 
@@ -92,7 +96,7 @@ public class WalkThroughActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        get_started__btn.setWidth((int)(dpWidth * 2.5));
+        get_started__btn.setWidth((int)(dpWidth * 1.8));
     }
 
     private boolean restorePrefData() {
@@ -110,6 +114,6 @@ public class WalkThroughActivity extends AppCompatActivity {
 
     private void loadLastScreen(){
         get_started__btn.setVisibility(View.VISIBLE);
-
+        get_started__btn.setAnimation(btn_Get_Started_Anim);
     }
 }
