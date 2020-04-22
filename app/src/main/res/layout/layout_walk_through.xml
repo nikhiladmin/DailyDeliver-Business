@@ -18,7 +18,7 @@
         android:id="@+id/walk_through_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:padding="20dp"
         android:textColor="@color/colorGray"
         android:textSize="35sp"
         android:textAlignment="center"
