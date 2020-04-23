@@ -1,9 +1,11 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import com.daytoday.business.dailydelivery.R;
 
 public class BlankActivity extends AppCompatActivity {
     @Override

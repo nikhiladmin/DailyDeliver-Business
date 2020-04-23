@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -14,6 +14,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.daytoday.business.dailydelivery.adapter.IntroViewPagerAdapter;
+import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Model.ScreenItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class WalkThroughActivity extends AppCompatActivity {
 
 
         if(restorePrefData()) {
-            Intent intent = new Intent(getApplicationContext(),BlankActivity.class);
+            Intent intent = new Intent(getApplicationContext(), BlankActivity.class);
             startActivity(intent);
         }
 

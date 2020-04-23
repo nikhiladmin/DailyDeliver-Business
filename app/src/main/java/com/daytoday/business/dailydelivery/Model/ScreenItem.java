@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.Model;
 
 public class ScreenItem {
     int ScreenImg;
