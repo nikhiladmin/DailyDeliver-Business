@@ -10,9 +10,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".activity.WalkThroughActivity"></activity>
-        <activity android:name=".activity.BlankActivity" />
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".WalkThrough.IntroViewPagerAdapter$WalkThroughActivity"></activity>
+        <activity android:name=".BlankActivity" />
+        <activity android:name=".BlankActivity$SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
