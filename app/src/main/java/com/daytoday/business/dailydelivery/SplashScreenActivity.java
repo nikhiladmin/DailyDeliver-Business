@@ -20,9 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this,WelcomePage.class);
-                startActivity(intent);
-                finish();
+
             }
         },SPLASH_SCREEN_TIME);  /*This is the Code For Holding the Screen For 3 Seconds */
     }
