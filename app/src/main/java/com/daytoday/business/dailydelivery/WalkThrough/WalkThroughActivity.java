@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.WalkThrough;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -14,6 +14,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.daytoday.business.dailydelivery.LoginActivity.WelcomePage;
+import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.WalkThrough.IntroViewPagerAdapter;
+import com.daytoday.business.dailydelivery.WalkThrough.ScreenItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -36,7 +40,8 @@ public class WalkThroughActivity extends AppCompatActivity {
 
 
         if(restorePrefData()) {
-            Intent intent = new Intent(getApplicationContext(),BlankActivity.class);
+            Intent intent = new Intent(getApplicationContext(),WelcomePage.class);
+            finish();
             startActivity(intent);
         }
 
@@ -83,10 +88,10 @@ public class WalkThroughActivity extends AppCompatActivity {
         get_started__btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),BlankActivity.class);
+                Intent intent = new Intent(getApplicationContext(), WelcomePage.class);
                 startActivity(intent);
                 // save the data into shared preference
-                savePrefData();
+               savePrefData();
             }
         });
     }

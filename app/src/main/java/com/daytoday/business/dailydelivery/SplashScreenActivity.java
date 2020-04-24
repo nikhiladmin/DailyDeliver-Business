@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
 import android.view.WindowManager;
+
+import com.daytoday.business.dailydelivery.WalkThrough.WalkThroughActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN_TIME = 3000; /*This is the Splash screen time which is 3 seconds*/
@@ -20,7 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this,WalkThroughActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, WalkThroughActivity.class);
                 startActivity(intent);
                 finish();
             }
