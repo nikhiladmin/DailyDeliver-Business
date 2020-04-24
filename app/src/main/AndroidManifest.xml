@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        >
-        <activity android:name=".WelcomePage"/>
+        android:theme="@style/SplashTheme">
+        <activity android:name=".WalkThroughActivity"></activity>
         <activity android:name=".BlankActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
