@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".verification_activity">
+    tools:context=".LoginActivity.verification_activity">
 
     <EditText
         android:id="@+id/editText6"
@@ -81,18 +81,19 @@
         android:id="@+id/textView3"
         android:layout_width="268dp"
         android:layout_height="53dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center_horizontal"
         android:text="Enter the OTP you recieved on your phone."
         android:textAlignment="center"
-        android:fontFamily="@font/montserrat_regular"
-        android:textSize="20dp"
         android:textColor="#777777"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.065"
-        android:gravity="center_horizontal" />
+        app:layout_constraintVertical_bias="0.049" />
 
     <TextView
         android:id="@+id/textView2"

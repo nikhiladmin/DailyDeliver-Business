@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.daytoday.business.dailydelivery.R;
 import com.hbb20.CountryCodePicker;
 
 public class activity_login extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class activity_login extends AppCompatActivity {
         send_otp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_login.this,verification_activity.class);
+                Intent intent = new Intent(activity_login.this, verification_activity.class);
                 activity_login.this.startActivity(intent);
             }
         });
