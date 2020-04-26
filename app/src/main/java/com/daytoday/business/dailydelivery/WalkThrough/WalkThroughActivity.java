@@ -105,7 +105,7 @@ public class WalkThroughActivity extends AppCompatActivity {
         double displaydp = Math.sqrt(dpHeight*dpHeight + dpWidth * dpWidth);
         Log.i("ans is","dpheight" + dpHeight);
         Log.i("ans is","dpwidth" + dpWidth);
-        get_started__btn.setWidth((int)(dpWidth * 0.7));
+        get_started__btn.setWidth((int)(dpWidth * 2));
         get_started__btn.setTextSize((float) (displaydp * 0.025));
     }
 
