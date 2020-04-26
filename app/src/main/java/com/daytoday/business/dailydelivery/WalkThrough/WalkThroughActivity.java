@@ -28,7 +28,7 @@ public class WalkThroughActivity extends AppCompatActivity {
     private IntroViewPagerAdapter introViewPagerAdapter;
     private TabLayout tab_indicator_of_walkthrough;
     private Button get_started__btn;
-    Animation btn_Get_Started_Anim;
+    private Animation btn_Get_Started_Anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
