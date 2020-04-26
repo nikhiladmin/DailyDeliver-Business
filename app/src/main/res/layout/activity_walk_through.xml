@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.70" />
+        app:layout_constraintGuide_begin="512dp" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/Walk_through_pager"

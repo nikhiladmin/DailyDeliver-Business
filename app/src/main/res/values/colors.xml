@@ -9,6 +9,7 @@
     <color name="colorReject">#F4B8B8</color>
     <color name="colorPending">#F2EF91</color>
     <color name="colorGray">#777777</color>
+    <color name="colorLightGray">#AFAEAE</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorIndicatorSelected">#4c84ff</color>
 </resources>
