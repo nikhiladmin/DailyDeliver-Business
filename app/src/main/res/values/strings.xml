@@ -3,4 +3,17 @@
     <string name="buisness">Buisness</string>
     <string name="get_started">Get Started</string>
     <string name="Login_description">Your number is safe with us. We won\'t share any details with anyone.</string>
+    <string name="nav_draw_open">Open navigation drawer</string>
+    <string name="nav_draw_close">Close navigation drawer</string>
+    <!--menu items strings start-->
+    <string name="earning">Earning</string>
+    <string name="myacc">My Account</string>
+    <string name="paypaytm">Pay with PayTM</string>
+    <string name="payphonep">Pay with PhonePe</string>
+    <string name="paygoogle">Pay with GooglePay</string>
+    <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--menu item strings end-->
 </resources>
