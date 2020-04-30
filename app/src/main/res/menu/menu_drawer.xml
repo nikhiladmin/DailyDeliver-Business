@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Accounts">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="Home"/>
+                <item
+                    android:id="@+id/nav_earning"
+                    android:icon="@drawable/ic_rupee"
+                    android:title="@string/earning" />
+                <item
+                    android:id="@+id/nav_account"
+                    android:icon="@drawable/menu_user"
+                    android:title="@string/myacc" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/img_settings"
+                    android:title="@string/settings" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Payments">
+        <menu>
+            <item
+                android:id="@+id/nav_paytm"
+                android:icon="@drawable/ic_payment"
+                android:title="@string/paypaytm" />
+            <item
+                android:id="@+id/nav_phonepe"
+                android:icon="@drawable/ic_payment"
+                android:title="@string/payphonep" />
+            <item
+                android:id="@+id/nav_googlepay"
+                android:icon="@drawable/ic_payment"
+                android:title="@string/paygoogle" />
+        </menu>
+    </item>
+
+</menu>
