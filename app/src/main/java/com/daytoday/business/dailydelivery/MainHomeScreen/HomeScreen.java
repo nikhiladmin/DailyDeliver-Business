@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,22 +19,34 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ImageView imageView;
+
+    private FirebaseAuth mAuth;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        mAuth = FirebaseAuth.getInstance();
+
         toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
+
+
+
         getSupportActionBar().setDisplayShowTitleEnabled(false); //disabling title name in this acitivty to show logo here
         //-------------------- initialization of all the elements starts here------------------------------------
 
@@ -67,8 +81,23 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 Snackbar.make(v,"Welcome to DAILY DELIVER action Coming soon", Snackbar.LENGTH_LONG).show();
             }
         });
+
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser==null){
+         Intent loginIntent=new Intent(HomeScreen.this, LoginPage.class);
+         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+         startActivity(loginIntent);
+         finish();
+        }
+    }
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
