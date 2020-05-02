@@ -37,6 +37,7 @@ public class OtpVerification extends AppCompatActivity {
     private TextView textTimer;
     private int time=60;  //Time OUT resend OTP
     private String code;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,7 @@ public class OtpVerification extends AppCompatActivity {
         textTimer = findViewById(R.id.timer);
 
         phone=getIntent().getStringExtra("phoneNo");
-
-        Log.i("PHONENO", "onCreate: "+phone);
-
+        name=getIntent().getStringExtra("Name");
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -159,6 +158,7 @@ public class OtpVerification extends AppCompatActivity {
 
     public void SendUserHomePage(){
         Intent loginIntent=new Intent(OtpVerification.this, HomeScreen.class);
+        loginIntent.putExtra("Name",name);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
