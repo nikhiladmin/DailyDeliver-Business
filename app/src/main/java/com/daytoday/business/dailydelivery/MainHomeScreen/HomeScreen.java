@@ -12,11 +12,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
@@ -31,7 +33,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ImageView imageView;
-
+    TextView userName;
+    String name;
     private FirebaseAuth mAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -46,16 +49,15 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         setSupportActionBar(toolbar);
 
 
-
         getSupportActionBar().setDisplayShowTitleEnabled(false); //disabling title name in this acitivty to show logo here
         //-------------------- initialization of all the elements starts here------------------------------------
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navbar_home);
         imageView=findViewById(R.id.bell_icon_click);
+        userName=findViewById(R.id.userName);
 
         //-----------------------initialization ends here-------------------------------------------------------
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_draw_open, R.string.nav_draw_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();

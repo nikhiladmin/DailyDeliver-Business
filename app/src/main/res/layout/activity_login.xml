@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
     <EditText
-        android:id="@+id/phoneNumber"
+        android:id="@+id/editText_carrierNumber"
         android:layout_width="245dp"
         android:layout_height="54dp"
         android:ems="10"
