@@ -12,4 +12,5 @@
     <color name="colorLightGray">#AFAEAE</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorIndicatorSelected">#4c84ff</color>
+    <color name="colorDelete">#F44336</color>
 </resources>
