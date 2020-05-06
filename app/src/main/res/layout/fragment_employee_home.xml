@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#41DAD9D9"
     tools:context=".MainHomeScreen.EmployeeHomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
