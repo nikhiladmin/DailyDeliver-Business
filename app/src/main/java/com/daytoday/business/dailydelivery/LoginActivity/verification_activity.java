@@ -44,6 +44,8 @@ public class verification_activity extends AppCompatActivity {
         e2.addTextChangedListener(new OTPTextWatcher(e2));
         e3.addTextChangedListener(new OTPTextWatcher(e3));
         e4.addTextChangedListener(new OTPTextWatcher(e4));
+        e5.addTextChangedListener(new OTPTextWatcher(e5));
+        e6.addTextChangedListener(new OTPTextWatcher(e6));
     }
 
 
@@ -90,10 +92,10 @@ public class verification_activity extends AppCompatActivity {
                 case R.id.edittext4:
                     if (otp.length() == 1) {
                         Log.e(TAG, "afterTextChanged: 1");
-                        Intent intent = new Intent(verification_activity.this, HomeScreen.class);
-                        startActivity(intent);
-                        finish();
-                        e6.requestFocus();
+                        //Intent intent = new Intent(verification_activity.this, HomeScreen.class);
+                        //startActivity(intent);
+                        //finish();
+                        e5.requestFocus();
                     } else if (otp.length() == 0)
                         e3.requestFocus();
                     break;
@@ -106,13 +108,14 @@ public class verification_activity extends AppCompatActivity {
                 case R.id.edittext6:
                     if (otp.length() == 1) {
                         String tempotp = "1111";
-                        Log.e(TAG, "afterTextChanged: "+e3 );
+                        Log.e(TAG, "afterTextChanged: "+ e3 );
                         Intent intent = new Intent(verification_activity.this, HomeScreen.class);
                         startActivity(intent);
                         finish();
-                    } else if (otp.length() == 0)
+                    } else if (otp.length() == 0){
                         Log.e(TAG, "afterTextChanged:jdhjs " );
                         e3.requestFocus();
+                    }
                     break;
                 default:
                     Intent intent = new Intent(verification_activity.this, HomeScreen.class);

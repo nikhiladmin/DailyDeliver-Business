@@ -9,7 +9,6 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         />
     <!-- code for blue background movie it to Tablayout tag
     android:background="@color/colorPrimary"
