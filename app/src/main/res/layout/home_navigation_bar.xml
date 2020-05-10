@@ -8,7 +8,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView3"
+        android:id="@+id/ImgEmpCardView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:shape="ring"

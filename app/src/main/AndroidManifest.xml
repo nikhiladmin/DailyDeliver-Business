@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.daytoday.business.dailydelivery">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +13,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".MainHomeScreen.HomeScreen"
-            android:theme="@style/SplashTheme.NoActionBarNavBar"
-            ></activity>
+        <activity android:name=".MainHomeScreen.EmpInfoActivity"></activity>
+        <activity
+            android:name=".MainHomeScreen.HomeScreen"
+            android:theme="@style/SplashTheme.NoActionBarNavBar" />
         <activity android:name=".WalkThrough.WalkThroughActivity" />
         <activity android:name=".BlankActivity" />
         <activity android:name=".LoginActivity.LoginPage" />

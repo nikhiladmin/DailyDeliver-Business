@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView3"
+        android:id="@+id/ImgEmpCardView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="15dp"
@@ -82,7 +82,7 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView3" />
+        app:layout_constraintTop_toBottomOf="@+id/ImgEmpCardView" />
 
     <Button
         android:id="@+id/btn2"

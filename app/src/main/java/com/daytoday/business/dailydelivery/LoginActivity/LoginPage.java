@@ -7,21 +7,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class LoginPage extends AppCompatActivity {
     private Button phoneLogin;
     private Button googleLogin;
     private Button facebookLogin;
+
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -41,6 +45,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -54,4 +59,5 @@ public class LoginPage extends AppCompatActivity {
             finish();
         }
     }
+
 }

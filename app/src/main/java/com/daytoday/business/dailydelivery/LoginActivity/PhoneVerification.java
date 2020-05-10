@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.EditText;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
@@ -17,15 +18,18 @@ import com.hbb20.CountryCodePicker;
 
 import java.util.regex.Pattern;
 
+
 public class PhoneVerification extends AppCompatActivity {
 
     CountryCodePicker ccp;
     Button send_otp;
+
     EditText phoneNo;
     EditText first;
     EditText last;
     String ft,lt,fullname;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class PhoneVerification extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
         ccp=findViewById(R.id.ccp);
+
         send_otp=findViewById(R.id.send_otp);
 
         phoneNo=findViewById(R.id.editText_carrierNumber);
@@ -65,6 +70,7 @@ public class PhoneVerification extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onStart() {

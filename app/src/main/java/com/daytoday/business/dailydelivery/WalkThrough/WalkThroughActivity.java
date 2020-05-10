@@ -15,7 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
+
 import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
+
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -87,7 +89,9 @@ public class WalkThroughActivity extends AppCompatActivity {
         get_started__btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(WalkThroughActivity.this, HomeScreen.class);
+
                 startActivity(intent);
                 // save the data into shared preference
                savePrefData();
