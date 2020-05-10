@@ -4,18 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 
-public class verification_activity extends AppCompatActivity {
+public class OtpVerification extends AppCompatActivity {
     EditText e1, e2, e3, e4, e5, e6;
     private static int SPLASH_SCREEN_TIME = 10000; /*This is the Splash screen time which is 3 seconds*/
     static final String TAG="verification_activity";
@@ -109,7 +107,7 @@ public class verification_activity extends AppCompatActivity {
                     if (otp.length() == 1) {
                         String tempotp = "1111";
                         Log.e(TAG, "afterTextChanged: "+ e3 );
-                        Intent intent = new Intent(verification_activity.this, HomeScreen.class);
+                        Intent intent = new Intent(OtpVerification.this, HomeScreen.class);
                         startActivity(intent);
                         finish();
                     } else if (otp.length() == 0){
@@ -118,7 +116,7 @@ public class verification_activity extends AppCompatActivity {
                     }
                     break;
                 default:
-                    Intent intent = new Intent(verification_activity.this, HomeScreen.class);
+                    Intent intent = new Intent(OtpVerification.this, HomeScreen.class);
                     startActivity(intent);
                     finish();
             }

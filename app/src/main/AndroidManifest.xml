@@ -19,9 +19,9 @@
             android:theme="@style/SplashTheme.NoActionBarNavBar" />
         <activity android:name=".WalkThrough.WalkThroughActivity" />
         <activity android:name=".BlankActivity" />
-        <activity android:name=".LoginActivity.WelcomePage" />
-        <activity android:name=".LoginActivity.verification_activity" />
-        <activity android:name=".LoginActivity.activity_login" />
+        <activity android:name=".LoginActivity.LoginPage" />
+        <activity android:name=".LoginActivity.OtpVerification" />
+        <activity android:name=".LoginActivity.PhoneVerification" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

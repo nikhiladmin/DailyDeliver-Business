@@ -5,13 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import com.daytoday.business.dailydelivery.R;
 import com.hbb20.CountryCodePicker;
 
-public class activity_login extends AppCompatActivity {
+public class PhoneVerification extends AppCompatActivity {
 
     CountryCodePicker ccp;
     Button send_otp;
@@ -31,8 +30,8 @@ public class activity_login extends AppCompatActivity {
         send_otp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_login.this, verification_activity.class);
-                activity_login.this.startActivity(intent);
+                Intent intent = new Intent(PhoneVerification.this, OtpVerification.class);
+                PhoneVerification.this.startActivity(intent);
             }
         });
     }
