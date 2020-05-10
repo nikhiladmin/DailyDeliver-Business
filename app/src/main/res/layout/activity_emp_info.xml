@@ -4,16 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainHomeScreen.BussinessHomeFragment">
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/buss_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-
-
+    tools:context=".MainHomeScreen.EmpInfoActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
