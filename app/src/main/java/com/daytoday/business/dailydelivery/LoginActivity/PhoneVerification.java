@@ -7,13 +7,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.EditText;
+
+import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hbb20.CountryCodePicker;
+
+import java.util.regex.Pattern;
+
 
 public class PhoneVerification extends AppCompatActivity {
 
     CountryCodePicker ccp;
     Button send_otp;
+
+    EditText phoneNo;
+    EditText first;
+    EditText last;
+    String ft,lt,fullname;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,31 +39,53 @@ public class PhoneVerification extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
         ccp=findViewById(R.id.ccp);
-        send_otp=(Button) findViewById(R.id.send_otp);
 
+        send_otp=findViewById(R.id.send_otp);
 
-        //for working of send otp button
+        phoneNo=findViewById(R.id.editText_carrierNumber);
+        first =findViewById(R.id.firstName);
+        last  =findViewById(R.id.lastName);
+
+        mAuth = FirebaseAuth.getInstance();
+
         send_otp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PhoneVerification.this, OtpVerification.class);
-                PhoneVerification.this.startActivity(intent);
+                ft=first.getText().toString().trim();
+                lt=last.getText().toString().trim();
+                String completePhoneNo=ccp.getFullNumberWithPlus()+phoneNo.getText().toString();
+                if(ft.isEmpty()||lt.isEmpty()){
+                    Snackbar.make(v,"Fill the First and Last Name", Snackbar.LENGTH_LONG).show();
+                }else if(!(ft.matches("^[A-Za-z]+$")&&lt.matches("^[a-zA-Z]+$"))){
+                    Snackbar.make(v,"Only Alphabets allowed in First and Last Name", Snackbar.LENGTH_LONG).show();
+                }else if(phoneNo.getText().toString().isEmpty()){
+                    Snackbar.make(v,"Enter Phone Number", Snackbar.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(PhoneVerification.this, OtpVerification.class);
+                    intent.putExtra("phoneNo",completePhoneNo);
+                    intent.putExtra("Name",ft+" "+lt);
+                    PhoneVerification.this.startActivity(intent);
+                }
+
             }
         });
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            Intent loginIntent=new Intent(PhoneVerification.this, HomeScreen.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(loginIntent);
+            finish();
+        }
+    }
     //country code picker function starts
-    public void onCountryPickerClick(View view) {
-
-        ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
-            @Override
-            public void onCountrySelected() {
-                String selected_country_code = ccp.getSelectedCountryCode();
-            }
-        });
-
-    }
     //country code picker function ends
 
 }
