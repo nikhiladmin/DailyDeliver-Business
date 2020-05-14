@@ -1,6 +1,7 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -51,17 +52,18 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
         holder.customers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(),CustomerActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
 
         holder.prdct_detail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(),BusinessDetailActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -71,14 +73,12 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
 
     class BussinessViewHolder extends RecyclerView.ViewHolder
     {
-
         ImageView buss1_image;
         TextView buss_name, cust_count, earning, tot_earning, prdct_amt, tarrif;
         Button customers_btn, prdct_detail_btn;
 
         public BussinessViewHolder(@NonNull View itemView) {
             super(itemView);
-
             buss1_image = itemView.findViewById(R.id.bussl_img);
             buss_name =  itemView.findViewById(R.id.buss_name);
             cust_count = itemView.findViewById(R.id.cust_count);
