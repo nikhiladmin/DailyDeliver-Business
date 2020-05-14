@@ -1,5 +1,6 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.daytoday.business.dailydelivery.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class BussinessHomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     BussinessAdapter bussinessAdapter;
+
+    FloatingActionButton fab;
 
     List<Bussiness> bussinessList;
 
@@ -52,6 +56,13 @@ public class BussinessHomeFragment extends Fragment {
                 bussinessAdapter = new BussinessAdapter(view.getContext(), bussinesses);
                 recyclerView.setAdapter(bussinessAdapter);
 
+            }
+        });
+        fab=view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),BusinessAddition.class));
             }
         });
 

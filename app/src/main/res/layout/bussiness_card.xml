@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="376dp" />
+                app:layout_constraintGuide_percent="0.97" />
 
 
             <com.google.android.material.card.MaterialCardView
@@ -61,7 +61,7 @@
                     android:layout_height="match_parent" />
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/buss_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="@+id/ImgBussCardView"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/cust_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/buss_name"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/earning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cust_count"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tot_earning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,42 +127,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/cust_count"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/prdct_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/colorBlack"
-                android:gravity="center_horizontal"
-                android:textFontWeight="500"
                 android:fontFamily="@font/montserrat_regular"
+                android:gravity="center_horizontal"
                 android:text="Rs.27"
-                app:layout_constraintEnd_toEndOf="@+id/guideline6"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/buss_name"
+                android:textColor="@color/colorBlack"
+                android:textFontWeight="500"
+                app:layout_constraintEnd_toEndOf="@+id/prdct_detail_btn"
                 app:layout_constraintTop_toTopOf="@+id/ImgBussCardView" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tarrif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:gravity="center_horizontal"
+                android:text="Monthly"
                 android:textColor="@color/colorBlack"
                 android:textFontWeight="500"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Monthly"
                 app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="@+id/guideline6"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/cust_count"
+                app:layout_constraintEnd_toEndOf="@+id/prdct_detail_btn"
                 app:layout_constraintTop_toBottomOf="@+id/prdct_amt"
                 app:layout_constraintVertical_bias="0.085" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/customers_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -181,7 +173,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline4"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/prdct_detail_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

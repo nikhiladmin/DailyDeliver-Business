@@ -13,7 +13,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".MainHomeScreen.EmpInfoActivity"></activity>
+        <activity android:name=".MainHomeScreen.BusinessAddition"
+            ></activity>
+        <activity android:name=".MainHomeScreen.EmpInfoActivity" />
         <activity
             android:name=".MainHomeScreen.HomeScreen"
             android:theme="@style/SplashTheme.NoActionBarNavBar" />
