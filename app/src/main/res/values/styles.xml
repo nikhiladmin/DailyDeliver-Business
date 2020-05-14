@@ -18,11 +18,17 @@
     <style name="SplashTheme.NoActionBarNavBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <!--item name="elevation">0dp</item--> <!-- This line is for matching the actionbar with toolbar-->
+        <item name="elevation">0dp</item> <!-- This line is for matching the actionbar with toolbar-->
     </style>
     <style name="menu_text">
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
     <!--Menu item style ends here-->
+
+    <style name="RadioButtonStyle" parent="SplashTheme">
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+    </style>
 
 </resources>
