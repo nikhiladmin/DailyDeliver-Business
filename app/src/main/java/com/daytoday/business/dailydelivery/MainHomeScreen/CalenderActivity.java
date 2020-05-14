@@ -25,6 +25,7 @@ public class CalenderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Calender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         calendarView = findViewById(R.id.calendar);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         DatesViewModel datesViewModel = new DatesViewModel();
 
 
