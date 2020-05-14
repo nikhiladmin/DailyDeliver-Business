@@ -25,4 +25,10 @@
     </style>
     <!--Menu item style ends here-->
 
+    <style name="RadioButtonStyle" parent="SplashTheme">
+        <item name="colorControlNormal">@color/colorGray</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+    </style>
+
 </resources>
