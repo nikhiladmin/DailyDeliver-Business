@@ -23,6 +23,7 @@ public class CustomerActivity extends AppCompatActivity {
         customerlist.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle("My Customers");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         CustomerViewModel viewModel = new CustomerViewModel();
         viewModel.getCustomers().observe(this, new Observer<List<Customers>>() {

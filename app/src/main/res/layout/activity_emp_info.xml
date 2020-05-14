@@ -41,6 +41,8 @@
         android:layout_marginTop="20dp"
         android:padding="5dp"
         android:text="Aditya Mishra"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/roboto_medium"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +54,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/colorLightGray"
         app:layout_constraintTop_toBottomOf="@+id/emp_name"
         android:textSize="20sp"
         android:text="ID : 1234567890"
@@ -70,21 +74,23 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray"
+            android:layout_height="0.1dp"
+            android:background="@color/colorLightGray"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <TextView
                 android:id="@+id/emp_salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Salary"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_alignParentLeft="true"
                 android:textSize="20sp" />
 
@@ -92,6 +98,8 @@
                 android:id="@+id/salary_emp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_alignParentRight="true"
                 android:layout_toEndOf="@+id/emp_salary"
                 android:layout_toRightOf="@+id/emp_salary"
@@ -105,8 +113,8 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray"
+            android:layout_height="0.1dp"
+            android:background="@color/colorLightGray"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
@@ -114,13 +122,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <TextView
                 android:id="@+id/emp_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_alignParentLeft="true"
                 android:textSize="20sp" />
 
@@ -130,6 +140,8 @@
                 android:layout_height="wrap_content"
                 android:text="RB II 671/D Limpus club A road"
                 android:layout_alignParentRight="true"
+                android:textColor="@color/colorGray"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_toEndOf="@+id/emp_address"
                 android:layout_toRightOf="@+id/emp_address"
                 android:textSize="20sp"
@@ -141,21 +153,23 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray"
+            android:layout_height="0.1dp"
+            android:background="@color/colorLightGray"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <TextView
                 android:id="@+id/emp_address2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="Number"
+                android:textColor="@color/colorBlack"
+                android:fontFamily="@font/roboto_regular"
                 android:layout_alignParentLeft="true"
                 android:textSize="20sp" />
 
@@ -166,6 +180,9 @@
                 android:layout_toEndOf="@+id/emp_address2"
                 android:layout_toRightOf="@+id/emp_address2"
                 android:textSize="20sp"
+                android:textColor="@color/colorGray"
+                android:fontFamily="@font/roboto_regular"
+
                 android:layout_marginLeft="5dp"
                 android:textAlignment="viewEnd"
                 android:gravity="end"
@@ -175,8 +192,8 @@
         <View
             android:id="@+id/addressOfEmp2"
             android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray"
+            android:layout_height="0.1dp"
+            android:background="@color/colorLightGray"
             android:paddingBottom="10dp" />
 
     </LinearLayout>

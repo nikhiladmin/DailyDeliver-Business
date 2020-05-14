@@ -41,6 +41,8 @@
             android:layout_marginTop="20dp"
             android:padding="5dp"
             android:text="Milk"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/roboto_medium"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +57,8 @@
             app:layout_constraintTop_toBottomOf="@+id/BusinessName"
             android:textSize="20sp"
             android:text="ID : 1234567890"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/colorLightGray"
             android:padding="5dp"/>
 
         <LinearLayout
@@ -70,21 +74,23 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorGray"
+                android:layout_height="0.1dp"
+                android:background="@color/colorLightGray"
                 android:paddingBottom="10dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/BusinessMonthly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Monthly/Daily"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/roboto_regular"
                     android:textSize="20sp"
                     android:layout_alignParentLeft="true"/>
 
@@ -105,8 +111,8 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorGray"
+                android:layout_height="0.1dp"
+                android:background="@color/colorLightGray"
                 android:paddingBottom="10dp" />
 
             <RelativeLayout
@@ -114,13 +120,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/payment_mode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Payment Mode"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_alignParentLeft="true"
                     android:textSize="20sp" />
 
@@ -141,8 +149,8 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/colorGray"
+                android:layout_height="0.1dp"
+                android:background="@color/colorLightGray"
                 android:paddingBottom="10dp" />
 
             <RelativeLayout
@@ -150,13 +158,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Address"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_alignParentLeft="true"
                     android:textSize="20sp" />
 

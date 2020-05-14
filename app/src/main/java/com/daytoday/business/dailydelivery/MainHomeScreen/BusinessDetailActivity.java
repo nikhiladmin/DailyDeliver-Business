@@ -13,12 +13,14 @@ import com.daytoday.business.dailydelivery.R;
 
 public class BusinessDetailActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
         getSupportActionBar().setTitle("Milk");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
     @Override
