@@ -13,8 +13,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
+
+        <activity android:name=".MainHomeScreen.CalenderActivity"></activity>
+        <activity android:name=".MainHomeScreen.CustomerActivity" />
+        <activity android:name=".MainHomeScreen.BusinessDetailActivity" />
+
         <activity android:name=".MainHomeScreen.BusinessAddition"
             ></activity>
+
         <activity android:name=".MainHomeScreen.EmpInfoActivity" />
         <activity
             android:name=".MainHomeScreen.HomeScreen"
