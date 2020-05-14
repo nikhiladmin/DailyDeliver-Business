@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
 import com.daytoday.business.dailydelivery.WalkThrough.WalkThroughActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
