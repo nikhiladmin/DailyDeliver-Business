@@ -73,7 +73,7 @@
         android:layout_gravity="start"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimary"
-        android:drawableLeft="@drawable/ic_call"
+        android:drawableLeft="@drawable/ic_call_white_24dp"
         android:fontFamily="@font/roboto_regular"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
