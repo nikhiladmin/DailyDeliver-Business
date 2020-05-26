@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daytoday.business.dailydelivery.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.BussinessViewHolder> {
@@ -48,6 +50,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
         holder.tarrif.setText(bussiness.getTarrif());
         holder.tot_earning.setText(bussiness.getEarning());
         holder.prdct_amt.setText(bussiness.getPrice());
+        holder.cust_count.setText("( " +bussiness.getCust_cout() + " Customers )");
+        holder.tarrif.setText(bussiness.getPay_mode());
 
         holder.customers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),BusinessDetailActivity.class);
+                intent.putExtra("buisness-object", bussiness);
                 v.getContext().startActivity(intent);
             }
         });
