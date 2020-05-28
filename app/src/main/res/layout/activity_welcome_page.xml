@@ -50,6 +50,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/menu_user"
             />
+
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -74,11 +75,10 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimary"
         android:drawableLeft="@drawable/ic_call_white_24dp"
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/roboto_bold"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="Sign in with Phone Number"
-        android:textAlignment="center"
         android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -92,33 +92,33 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/colorGoogleLogin"
         android:drawableLeft="@drawable/ic_google"
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/roboto_bold"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="Sign in with Google"
-        android:textAlignment="center"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/btn1"
         app:layout_constraintStart_toStartOf="@+id/btn1"
         app:layout_constraintTop_toBottomOf="@+id/btn1" />
 
-    <Button
+
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/btn3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/colorFacebookLogin"
-        android:drawableLeft="@drawable/ic_facebook"
-        android:fontFamily="@font/roboto_regular"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:textColor="@color/colorWhite"
         android:text="Sign in with Facebook"
-        android:textAlignment="center"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/btn2"
         app:layout_constraintStart_toStartOf="@+id/btn2"
         app:layout_constraintTop_toBottomOf="@+id/btn2" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
