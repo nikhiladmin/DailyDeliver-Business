@@ -35,7 +35,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView3"
+            android:id="@+id/UsersName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -49,14 +49,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/currId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:text="ID-KSWUIloP1Yj6y8"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/materialTextView3"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
+            app:layout_constraintStart_toStartOf="@+id/UsersName"
+            app:layout_constraintTop_toBottomOf="@+id/UsersName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
