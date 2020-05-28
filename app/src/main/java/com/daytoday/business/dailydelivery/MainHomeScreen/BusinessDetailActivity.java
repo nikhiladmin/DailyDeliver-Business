@@ -2,25 +2,34 @@ package com.daytoday.business.dailydelivery.MainHomeScreen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.R;
 
 public class BusinessDetailActivity extends AppCompatActivity {
-
+    TextView buisness_name,MOrD,PayMode,Price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
-        getSupportActionBar().setTitle("Milk");
+        Bussiness bussiness = getIntent().getParcelableExtra("buisness-object");
+        getSupportActionBar().setTitle("My Business");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        buisness_name = findViewById(R.id.BusinessName);
+        MOrD = findViewById(R.id.BusinessMorD);
+        PayMode = findViewById(R.id.BusinessPayMode);
+        Price = findViewById(R.id.BusinessPrice);
+        buisness_name.setText(bussiness.getProductName());
+        Price.setText(bussiness.getPrice());
+        MOrD.setText(bussiness.getTarrif());
+        PayMode.setText(bussiness.getPay_mode());
     }
 
     @Override

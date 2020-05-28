@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -25,15 +26,18 @@ import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.zip.Inflater;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ImageView imageView;
-    TextView userName;
+    MaterialTextView userName;
     String name;
     private FirebaseAuth mAuth;
 
@@ -44,7 +48,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_home_screen);
 
         mAuth = FirebaseAuth.getInstance();
-
+        imageView= findViewById(R.id.bell_icon_click);
         toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
 
@@ -54,9 +58,8 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navbar_home);
-        imageView=findViewById(R.id.bell_icon_click);
-        userName=findViewById(R.id.userName);
 
+        //Log.i("msg",userName.getText().toString());
         //-----------------------initialization ends here-------------------------------------------------------
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_draw_open, R.string.nav_draw_close);
         drawerLayout.addDrawerListener(toggle);
@@ -69,7 +72,12 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
         //-----changing color of status bar ends here ------------------------------------------------------//
 
+        //-------------------addition of name of user--------------------------------------------//
         navigationView.setNavigationItemSelectedListener(this);
+        Log.i("msg", navigationView.getHeaderCount() + " ");
+        View view = navigationView.getHeaderView(0);
+        userName= view.findViewById(R.id.userName);
+        userName.setText(mAuth.getCurrentUser().getDisplayName());
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, new HomeFragment()).commit();
@@ -83,8 +91,6 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 Snackbar.make(v,"Welcome to DAILY DELIVER action Coming soon", Snackbar.LENGTH_LONG).show();
             }
         });
-
-
     }
 
     @Override
@@ -92,6 +98,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.i("msg",currentUser.getDisplayName());
         if(currentUser==null){
          Intent loginIntent=new Intent(HomeScreen.this, LoginPage.class);
          loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
