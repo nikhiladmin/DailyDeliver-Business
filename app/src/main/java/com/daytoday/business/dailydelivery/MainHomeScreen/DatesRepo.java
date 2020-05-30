@@ -1,49 +1,103 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen;
 
+import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DatesRepo {
-    public MutableLiveData<List<CalendarDay>> requestPendingList() {
-        MutableLiveData<List<CalendarDay>> liveData = new MutableLiveData<>();
-        List<CalendarDay> list = new ArrayList<>();
-        list.add(CalendarDay.from(2020,5,21));
-        list.add(CalendarDay.from(2020,5,23));
-        list.add(CalendarDay.from(2020,5,04));
-        list.add(CalendarDay.from(2020,5,03));
+    public MutableLiveData<List<Dates>> requestPendingList(String bussId,String custId) {
+        MutableLiveData<List<Dates>> liveData = new MutableLiveData<>();
+        List<Dates> list = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("Buss-Cust-DayWise").child(bussId).child(custId).child("Pending")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterator iterator = dataSnapshot.getChildren().iterator();
+                        while (iterator.hasNext())
+                        {
+                            DataSnapshot currentSnapshot = (DataSnapshot)iterator.next();
+                            Log.i("msgdata",currentSnapshot.child("Year").getValue().toString());
+                            String year = currentSnapshot.child("Year").getValue().toString();
+                            String  mon = currentSnapshot.child("Mon").getValue().toString();
+                            String day = currentSnapshot.child("Day").getValue().toString();
+                            String quantity = currentSnapshot.child("quantity").getValue().toString();
+                            Log.i("msg",year + " " + mon + " " + day + " " + quantity);
+                            if (quantity != null)
+                            {
+                                list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
+                            }
+                        }
+                        liveData.setValue(list);
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+        return liveData;
+    }
+
+    public MutableLiveData<List<Dates>> requestAcceptedList(String bussId,String custId) {
+        MutableLiveData<List<Dates>> liveData = new MutableLiveData<>();
+        List<Dates> list = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("Buss-Cust-DayWise").child(bussId).child(custId).child("Accepted")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterator iterator = dataSnapshot.getChildren().iterator();
+                        while (iterator.hasNext())
+                        {
+                            DataSnapshot currentSnapshot = (DataSnapshot)iterator.next();
+                            Log.i("msg",currentSnapshot.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
         liveData.setValue(list);
         return liveData;
     }
 
-    public MutableLiveData<List<CalendarDay>> requestAcceptedList() {
-        MutableLiveData<List<CalendarDay>> liveData = new MutableLiveData<>();
-        List<CalendarDay> list = new ArrayList<>();
-        list.add(CalendarDay.from(2020,5,18));
-        list.add(CalendarDay.from(2020,5,17));
-        list.add(CalendarDay.from(2020,5,16));
-        list.add(CalendarDay.from(2020,5,15));
-        Log.i("ans","done2");
+    public MutableLiveData<List<Dates>> requestCancelledList(String bussId,String custId) {
+        MutableLiveData<List<Dates>> liveData = new MutableLiveData<>();
+        List<Dates> list = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("Buss-Cust-DayWise").child(bussId).child(custId).child("Rejected")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterator iterator = dataSnapshot.getChildren().iterator();
+                        while (iterator.hasNext())
+                        {
+                            DataSnapshot currentSnapshot = (DataSnapshot)iterator.next();
+                            Log.i("msg",currentSnapshot.toString());
+                        }
+                    }
 
-        liveData.setValue(list);
-        return liveData;
-    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    public MutableLiveData<List<CalendarDay>> requestCancelledList() {
-        MutableLiveData<List<CalendarDay>> liveData = new MutableLiveData<>();
-        List<CalendarDay> list = new ArrayList<>();
-        list.add(CalendarDay.from(2020,5,11));
-        list.add(CalendarDay.from(2020,5,13));
-        list.add(CalendarDay.from(2020,5,01));
-        list.add(CalendarDay.from(2020,5,02));
-
-
+                    }
+                });
         liveData.setValue(list);
         return liveData;
     }
