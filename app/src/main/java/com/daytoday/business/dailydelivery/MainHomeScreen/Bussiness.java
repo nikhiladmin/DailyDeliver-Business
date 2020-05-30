@@ -11,8 +11,9 @@ public class Bussiness implements Parcelable {
     private String image;
     private String cust_cout;
     private String pay_mode;
+    private String id;
 
-    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode) {
+    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode, String id) {
         this.productName = productName;
         this.tarrif = tarrif;
         this.price = price;
@@ -20,6 +21,15 @@ public class Bussiness implements Parcelable {
         this.image = image;
         this.cust_cout = cust_cout;
         this.pay_mode = pay_mode;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     protected Bussiness(Parcel in) {

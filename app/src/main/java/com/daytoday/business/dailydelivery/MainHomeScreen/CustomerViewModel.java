@@ -11,13 +11,15 @@ import java.util.List;
 public class CustomerViewModel extends ViewModel {
     private CustomerRepo customerRepo;
     private MutableLiveData<List<Customers>> mutableLiveData = new MutableLiveData<>();
-    public CustomerViewModel()
+    String bussId;
+    public CustomerViewModel(String bussId)
     {
         customerRepo = new CustomerRepo();
+        this .bussId = bussId;
     }
     public LiveData<List<Customers>> getCustomers()
     {
-        mutableLiveData = customerRepo.requestCustomers();
+        mutableLiveData = customerRepo.requestCustomers(bussId);
         Log.i("msg","done2");
         return mutableLiveData;
     }

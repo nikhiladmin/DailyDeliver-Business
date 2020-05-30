@@ -9,29 +9,32 @@ import java.util.List;
 
 public class DatesViewModel extends ViewModel {
     private DatesRepo datesRepo;
-    private MutableLiveData<List<CalendarDay>> pendinglivedata = new MutableLiveData<>();
-    private MutableLiveData<List<CalendarDay>> acceptedlivedata = new MutableLiveData<>();
-    private MutableLiveData<List<CalendarDay>> canceledlivedata = new MutableLiveData<>();
+    private MutableLiveData<List<Dates>> pendinglivedata = new MutableLiveData<>();
+    private MutableLiveData<List<Dates>> acceptedlivedata = new MutableLiveData<>();
+    private MutableLiveData<List<Dates>> canceledlivedata = new MutableLiveData<>();
+    String bussId,custId;
 
-    public DatesViewModel() {
+    public DatesViewModel(String bussId, String custId) {
         datesRepo = new DatesRepo();
+        this.bussId = bussId;
+        this.custId = custId;
     }
 
-    public MutableLiveData<List<CalendarDay>> getPendingList()
+    public MutableLiveData<List<Dates>> getPendingList()
     {
-        pendinglivedata = datesRepo.requestPendingList();
+        pendinglivedata = datesRepo.requestPendingList(bussId,custId);
         return pendinglivedata;
     }
 
-    public MutableLiveData<List<CalendarDay>> getAcceptedList()
+    public MutableLiveData<List<Dates>> getAcceptedList()
     {
-        acceptedlivedata = datesRepo.requestAcceptedList();
+        acceptedlivedata = datesRepo.requestAcceptedList(bussId,custId);
         return acceptedlivedata;
     }
 
-    public MutableLiveData<List<CalendarDay>> getCancelledList()
+    public MutableLiveData<List<Dates>> getCancelledList()
     {
-        canceledlivedata = datesRepo.requestCancelledList();
+        canceledlivedata = datesRepo.requestCancelledList(bussId,custId);
         return canceledlivedata;
     }
 }
