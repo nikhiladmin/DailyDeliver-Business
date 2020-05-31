@@ -21,10 +21,13 @@ import java.util.List;
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
     Context context;
     List<Customers> customersList;
+    String bussName,bussId;
 
-    public CustomerAdapter(Context context, List<Customers> customersList) {
+    public CustomerAdapter(Context context, List<Customers> customersList, String bussName, String bussId) {
         this.context = context;
         this.customersList = customersList;
+        this.bussName = bussName;
+        this.bussId = bussId;
     }
 
     @NonNull
@@ -38,12 +41,14 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
         holder.customer_name.setText(customersList.get(position).getName());
-        holder.product_name.setText(customersList.get(position).getProductName());
+        holder.product_name.setText(bussName);
         holder.customer_address.setText(customersList.get(position).getAdress());
         holder.customer_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CalenderActivity.class);
+                intent.putExtra("buisness-Id",bussId);
+                intent.putExtra("Customer-Id",customersList.get(position).getId());
                 v.getContext().startActivity(intent);
             }
         });
