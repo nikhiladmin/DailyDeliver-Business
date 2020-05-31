@@ -23,4 +23,8 @@
     <string name="customers">Customers</string>
     <!--bussiness fragement strings starts-->
 
+    <string name="facebook_app_id">535536857326543</string>
+    <string name="fb_login_protocol_scheme">fb535536857326543</string>
+
+
 </resources>
