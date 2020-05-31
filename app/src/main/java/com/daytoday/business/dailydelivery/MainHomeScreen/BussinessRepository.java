@@ -65,8 +65,9 @@ public class BussinessRepository {
                                             Log.i("msgDta",MD);
                                             String cust_cou = (String) documentSnapshot.get("No-Of-Cust");
                                             String pay_mode = (String) documentSnapshot.get("Pay-Mode");
+                                            String bussId = currentSnapshot.getKey();
                                             if (name != null && earning != null && price != null && MD != null)
-                                                bussinesses.add(new Bussiness(name,MD,price,earning,"gooogle.com",cust_cou,pay_mode));
+                                                bussinesses.add(new Bussiness(name,MD,price,earning,"gooogle.com",cust_cou,pay_mode,bussId));
                                             liveData.setValue(bussinesses);
                                         }
                                     });

@@ -30,7 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class OtpVerification extends AppCompatActivity {
@@ -147,6 +149,7 @@ public class OtpVerification extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Log.d(TAG, "User profile updated.");
+                                                    createUserProfile(name);
                                                     SendUserHomePage();
                                                 }
                                             }
@@ -161,6 +164,16 @@ public class OtpVerification extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void createUserProfile(String name) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        HashMap<String,String> data = new HashMap<>();
+        data.put("Name",name);
+        data.put("PhoneNo",currentUser.getPhoneNumber());
+        data.put("Address","RB II 671 / D A Road");
+        firestore.collection("Buss-User-Info").document(currentUser.getUid()).set(data);
     }
 
     @Override

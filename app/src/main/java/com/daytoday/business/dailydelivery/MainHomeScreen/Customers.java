@@ -7,14 +7,14 @@ import android.widget.TextView;
 public class Customers {
     String name;
     String adress;
-    String productName;
+    String Id;
     String photoUrl;
     String phoneNo;
 
-    public Customers(String name, String adress, String productName, String photoUrl, String phoneNo) {
+    public Customers(String name, String adress, String id, String photoUrl, String phoneNo) {
         this.name = name;
         this.adress = adress;
-        this.productName = productName;
+        Id = id;
         this.photoUrl = photoUrl;
         this.phoneNo = phoneNo;
     }
@@ -35,12 +35,12 @@ public class Customers {
         this.adress = adress;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getId() {
+        return Id;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getPhotoUrl() {

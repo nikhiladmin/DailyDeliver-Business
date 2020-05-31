@@ -146,6 +146,8 @@ public class BusinessAddition extends AppCompatActivity {
         data.put("Tot-Pen","0");
         data.put("M-Or-D",monthOrDay);
         data.put("Pay-Mode",pay_mode);
+        data.put("Address","RB II 671 / D A Road");
+        data.put("PhoneNo",currentUser.getPhoneNumber());
         Log.i("msg",data.toString());
         Log.i("msg",referenceofCollection.getId());
         referenceofCollection.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {

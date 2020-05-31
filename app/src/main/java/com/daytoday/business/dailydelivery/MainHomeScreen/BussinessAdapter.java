@@ -57,6 +57,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CustomerActivity.class);
+                intent.putExtra("buisness-Id", bussiness.getId());
+                intent.putExtra("buisness-Name",bussiness.getProductName());
                 v.getContext().startActivity(intent);
             }
         });
