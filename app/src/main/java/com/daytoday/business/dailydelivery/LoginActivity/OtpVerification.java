@@ -14,13 +14,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.chaos.view.PinView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -36,15 +41,16 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class OtpVerification extends AppCompatActivity {
-    EditText e1, e2, e3, e4, e5, e6;
+    private PinView pinView;
     static final String TAG="verification_activity";
     private String phone;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
     private TextView textTimer;
     private int time=60;  //Time OUT resend OTP
     private String code;
     private String name;
+    private String verification;
+    private Button resend;
 
     private int SPLASH_SCREEN_TIME = 10000; /*This is the Splash screen time which is 3 seconds*/
 
@@ -58,75 +64,36 @@ public class OtpVerification extends AppCompatActivity {
         getSupportActionBar().hide();
 
         mAuth = FirebaseAuth.getInstance();
-
-
-        e1 = findViewById(R.id.edittext1);
-        e2 = findViewById(R.id.edittext2);
-        e3 = findViewById(R.id.edittext3);
-        e4 = findViewById(R.id.edittext4);
-
-        e5 = findViewById(R.id.edittext5);
-        e6 = findViewById(R.id.edittext6);
-
+        pinView=findViewById(R.id.firstPinView);
         textTimer = findViewById(R.id.timer);
-
+        resend=findViewById(R.id.resend);
         phone=getIntent().getStringExtra("phoneNo");
         name=getIntent().getStringExtra("Name");
+        resend.setEnabled(false);
+        phoneAuthProvider();
 
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
+        pinView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
-                Log.d(TAG, "onVerificationCompleted:" + credential);
-                signInWithPhoneAuthCredential(credential);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onVerificationFailed(FirebaseException e) {
-
-                Log.w("onVerifivcation", "onVerificationFailed", e);
-
-                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                    // ...
-                    Log.i(TAG, "onVerificationFailed: "+e);
-                } else if (e instanceof FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                    Log.i(TAG, "onVerificationFailed: "+e);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                code=s.toString();
+                if((code!=null) && (code.length()==6)){
+                    verifyCode(code);
                 }
-            }
-            @Override
-            public void onCodeSent(@NonNull String verificationId,
-                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                Log.i(TAG, "beforeTextChanged: "+s);
+            }});
 
-               // PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-               // signInWithPhoneAuthCredential(credential);
-            }
-        };
-
-          phoneAuthProvider();
-
-
-       // e5 = findViewById(R.id.edittext5);
-        e5=findViewById(R.id.edittext5);
-        e6 = findViewById(R.id.edittext6);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getSupportActionBar().hide();
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(verification_activity.this, HomeScreen.class);
-                startActivity(intent);
-                finish();
-            }
-        }, SPLASH_SCREEN_TIME);*/
-
-        e1.addTextChangedListener(new OTPTextWatcher(e1));
-        e2.addTextChangedListener(new OTPTextWatcher(e2));
-        e3.addTextChangedListener(new OTPTextWatcher(e3));
-        e4.addTextChangedListener(new OTPTextWatcher(e4));
-        e5.addTextChangedListener(new OTPTextWatcher(e5));
-        e6.addTextChangedListener(new OTPTextWatcher(e6));
+        resend.setOnClickListener(v -> {
+            time=60;
+            Snackbar.make(v,"We Just Send You OTP again .Please Try Again !",Snackbar.LENGTH_LONG).show();
+            phoneAuthProvider();
+        });
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -135,7 +102,7 @@ public class OtpVerification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            //   Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
                             if (user != null)
@@ -186,7 +153,13 @@ public class OtpVerification extends AppCompatActivity {
         }
     }
 
-    public void phoneAuthProvider(){
+    private void verifyCode(String code){
+        PhoneAuthCredential credential =PhoneAuthProvider.getCredential(verification,code);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private void phoneAuthProvider(){
+        Log.i(TAG, "phoneAuthProvider: ");
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,        // Phone number to verify
                 60,                 // Timeout duration
@@ -195,16 +168,47 @@ public class OtpVerification extends AppCompatActivity {
                 mCallbacks);
 
         new CountDownTimer(60000, 1000) {
-           public void onTick(long millisUntilFinished) {
+            public void onTick(long millisUntilFinished) {
                 textTimer.setText("0:"+checkDigit(time));
                 time--;
             }
             public void onFinish() {
-                textTimer.setText("try again");
+                textTimer.setText("Change Mobile Number");
+                resend.setEnabled(true);
             }
         }.start();
 
-  }
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential credential) {
+            Log.i(TAG, "onVerificationCompleted: ");
+            code=credential.getSmsCode();
+            if(code!=null&&code.length()==6){
+                pinView.setText(code);
+            }
+        }
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+
+            Log.w("onVerifivcation", "onVerificationFailed", e);
+            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_LONG);
+                Log.i(TAG, "onVerificationFailed: "+e);
+            } else if (e instanceof FirebaseTooManyRequestsException) {
+                // The SMS quota for the project has been exceeded
+                Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_LONG);
+                Log.i(TAG, "onVerificationFailed: "+e);
+            }
+        }
+        @Override
+        public void onCodeSent(@NonNull String verificationId,
+                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
+            verification=verificationId;
+        }
+    };
+
     public String checkDigit(int number) {
         return number <= 9 ? "0" + number : String.valueOf(number);
     }
@@ -218,81 +222,4 @@ public class OtpVerification extends AppCompatActivity {
         finish();
     }
 
-    //-------------------------OTP WATCHER CLASS--------------------------------------//
-    public class OTPTextWatcher implements TextWatcher {
-        private View view;
-
-        public OTPTextWatcher(View view) {
-            this.view = view;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String otp = s.toString();
-            switch (view.getId()) {
-                case R.id.edittext1:
-                    if (otp.length() == 1) {
-                        e2.requestFocus();
-                    } else if (otp.length() == 0)
-                        e1.requestFocus();
-                    break;
-                case R.id.edittext2:
-                    if (otp.length() == 1) {
-                        e3.requestFocus();
-                    } else if (otp.length() == 0)
-                       e2.requestFocus();
-                    break;
-                case R.id.edittext3:
-                    if (otp.length() == 1) {
-                        e4.requestFocus();
-                    } else if (otp.length() == 0)
-                        e3.requestFocus();
-                    break;
-                case R.id.edittext4:
-                    if (otp.length() == 1) {
-                        e5.requestFocus();
-                    } else if (otp.length() == 0)
-                        e4.requestFocus();
-                    break;
-                case R.id.edittext5:
-                    if (otp.length() == 1) {
-                        e6.requestFocus();
-                    }else {
-                        e2.requestFocus();
-                    }
-                    break;
-                case R.id.edittext6:
-                    if (otp.length() == 1) {
-
-//                      code=e1.getText().toString()+e2.getText().toString()+e3.getText().toString()
-//                      +e4.getText().toString()+e5.getText().toString()+e6.getText().toString();
-//                      phoneAuthProvider();
-                    }else{
-                        e5.requestFocus();
-                        String tempotp = "1111";
-                        Log.e(TAG, "afterTextChanged: "+ e3 );
-                        Intent intent = new Intent(OtpVerification.this, HomeScreen.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    break;
-                default:
-                    Intent intent = new Intent(OtpVerification.this, HomeScreen.class);
-                    startActivity(intent);
-                    finish();
-            }
-
-        }
-    }
-    //-------------------------OTP watcher class ends here-------------------------------------------------------//
 }
