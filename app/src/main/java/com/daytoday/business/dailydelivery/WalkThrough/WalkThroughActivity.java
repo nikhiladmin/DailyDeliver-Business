@@ -16,7 +16,7 @@ import android.widget.Button;
 
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.tabs.TabLayout;

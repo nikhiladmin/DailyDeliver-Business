@@ -9,14 +9,12 @@ import android.widget.Button;
 
 import android.widget.EditText;
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hbb20.CountryCodePicker;
-
-import java.util.regex.Pattern;
 
 
 public class PhoneVerification extends AppCompatActivity {
@@ -75,7 +73,7 @@ public class PhoneVerification extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             Intent loginIntent=new Intent(PhoneVerification.this, HomeScreen.class);

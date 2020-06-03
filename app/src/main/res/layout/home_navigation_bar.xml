@@ -36,6 +36,7 @@
         android:text="Nikhil Kumar Singh"
         android:textColor="#fff"
         android:textSize="15dp"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"

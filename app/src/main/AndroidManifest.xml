@@ -14,23 +14,23 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
 
-        <activity android:name=".MainHomeScreen.CalenderActivity"></activity>
-        <activity android:name=".MainHomeScreen.CustomerActivity" />
-        <activity android:name=".MainHomeScreen.BusinessDetailActivity" />
+        <activity android:name=".MainHomeScreen.UI.CalenderActivity"></activity>
+        <activity android:name=".MainHomeScreen.View.CustomerActivity" />
+        <activity android:name=".MainHomeScreen.UI.BusinessDetailActivity" />
 
-        <activity android:name=".MainHomeScreen.BusinessAddition"
+        <activity android:name=".MainHomeScreen.UI.BusinessAddition"
             ></activity>
 
-        <activity android:name=".MainHomeScreen.EmpInfoActivity" />
+        <activity android:name=".MainHomeScreen.UI.EmpInfoActivity" />
         <activity
-            android:name=".MainHomeScreen.HomeScreen"
+            android:name=".MainHomeScreen.View.HomeScreen"
             android:theme="@style/SplashTheme.NoActionBarNavBar" />
         <activity android:name=".WalkThrough.WalkThroughActivity" />
-        <activity android:name=".BlankActivity" />
+        <activity android:name=".BasicUI.BlankActivity" />
         <activity android:name=".LoginActivity.LoginPage" />
         <activity android:name=".LoginActivity.OtpVerification" />
         <activity android:name=".LoginActivity.PhoneVerification" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".BasicUI.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
