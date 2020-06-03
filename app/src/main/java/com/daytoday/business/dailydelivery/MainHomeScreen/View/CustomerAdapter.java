@@ -35,7 +35,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public CustomerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.customer_card,parent,false);
-        Log.i("msg","done3");
         return new CustomerViewHolder(view);
     }
 

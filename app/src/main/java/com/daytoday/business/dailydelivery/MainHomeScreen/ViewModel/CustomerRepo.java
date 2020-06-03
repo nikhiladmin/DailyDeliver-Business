@@ -28,16 +28,7 @@ public class CustomerRepo {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         /*-------------------------------          Initialise the list here   -----------------------------------------------------------*/
 
-
-
-        //result.add(new Customers("shuam Kumar","flat 507 Prabhatam heights","Milk","google.com","+919359270125"));
-        //result.add(new Customers("Divyanshu Verma","flat 507 Prabhatam heights","Egg","google.com","+919359270125"));
-        //result.add(new Customers("Aditya Mishra","flat 507 Prabhatam heights","NewsPaper","google.com","+919359270125"));
-        //result.add(new Customers("Anshansh Suman","flat 507 Prabhatam heights","Water","google.com","+919359270125"));
-        //result.add(new Customers("Nikhil Kumar","flat 507 Prabhatam heights","Food","google.com","+919359270125"));
-        //result.add(new Customers("Haria Jhaduwala","flat 507 Prabhatam heights","Essentials","google.com","+919359270125"));
-
-        reference.child("Buss-Cust-Rel").child(bussId).addValueEventListener(new ValueEventListener() {
+        reference.child("Buss_Cust_Rel").child(bussId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator iterator = dataSnapshot.getChildren().iterator();
@@ -45,8 +36,7 @@ public class CustomerRepo {
                 while (iterator.hasNext())
                 {
                     DataSnapshot currentSnapShot = (DataSnapshot)iterator.next();
-                    Log.i("msgresult",currentSnapShot.getKey());
-                    firestore.collection("Cust-User-Info").document(currentSnapShot.getKey())
+                    firestore.collection("Cust_User_Info").document(currentSnapShot.getKey())
                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                 @Override
                                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {

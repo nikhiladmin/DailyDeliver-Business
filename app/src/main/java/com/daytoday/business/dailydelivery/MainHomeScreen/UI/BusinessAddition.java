@@ -135,28 +135,26 @@ public class BusinessAddition extends AppCompatActivity {
     private void CreateInstanseInFirestore() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DocumentReference referenceofCollection = firestore.collection("Buss-Info").document();
+        DocumentReference referenceofCollection = firestore.collection("Buss_Info").document();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         HashMap<String,String> data = new HashMap<>();
         data.put("Name",buisnessName.getText().toString());
-        data.put("No-Of-Cust","0");
+        data.put("No_Of_Cust","0");
         data.put("Price",price.getText().toString());
-        data.put("Tot-Can","0");
-        data.put("Tot-Earn","0");
-        data.put("Tot-Pen","0");
-        data.put("M-Or-D",monthOrDay);
-        data.put("Pay-Mode",pay_mode);
+        data.put("Tot_Can","0");
+        data.put("Tot_Earn","0");
+        data.put("Tot_Pen","0");
+        data.put("M_Or_D",monthOrDay);
+        data.put("Pay_Mode",pay_mode);
         data.put("Address","RB II 671 / D A Road");
         data.put("PhoneNo",currentUser.getPhoneNumber());
-        Log.i("msg",data.toString());
-        Log.i("msg",referenceofCollection.getId());
         referenceofCollection.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Log.i("msg","done");
             }
         });
-        reference.child("User-Buss-Rel").child(currentUser.getUid()).child(referenceofCollection.getId()).setValue(true);
+        reference.child("User_Buss_Rel").child(currentUser.getUid()).child(referenceofCollection.getId()).setValue(true);
         finish();
     }
 }
