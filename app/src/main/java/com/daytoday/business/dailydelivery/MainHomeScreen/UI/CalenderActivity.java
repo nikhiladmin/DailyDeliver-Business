@@ -93,9 +93,9 @@ public class CalenderActivity extends AppCompatActivity {
         value.put("Mon", String.valueOf(day.getMonth()));
         value.put("Day", String.valueOf(day.getDay()));
         value.put("quantity",quantity);
-        reference.child("Buss-Cust-DayWise").child(bussID).child(custID).child("Pending")
+        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Pending")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
-        reference.child("Buss-Cust-DayWise").child(bussID).child(custID).child("Rejected")
+        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Rejected")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
     }
 
