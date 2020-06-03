@@ -15,16 +15,14 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chaos.view.PinView;
-import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -102,7 +100,7 @@ public class OtpVerification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //   Sign in success, update UI with the signed-in user's information
+                            //   Sign in success, update com.daytoday.business.dailydelivery.MainHomeScreen.UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = task.getResult().getUser();
                             if (user != null)
@@ -123,7 +121,7 @@ public class OtpVerification extends AppCompatActivity {
                                         });
                             }
                         } else {
-                            // Sign in failed, display a message and update the UI
+                            // Sign in failed, display a message and update the com.daytoday.business.dailydelivery.MainHomeScreen.UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
@@ -146,7 +144,7 @@ public class OtpVerification extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             SendUserHomePage();

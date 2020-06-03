@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -32,18 +32,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import java.util.Arrays;
 
 public class LoginPage extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
@@ -187,7 +181,7 @@ public class LoginPage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success, update com.daytoday.business.dailydelivery.MainHomeScreen.UI with the signed-in user's information
                             Log.d("GoogleLogin", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
@@ -225,7 +219,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success, update com.daytoday.business.dailydelivery.MainHomeScreen.UI with the signed-in user's information
                     Log.d("FacbookAuth", "signInWithCredential:success");
                     FirebaseUser user = mAuth.getCurrentUser();
                     name=user.getDisplayName();
@@ -271,7 +265,7 @@ public class LoginPage extends AppCompatActivity {
                 Log.d("GoogleLogin", "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
+                // Google Sign In failed, update com.daytoday.business.dailydelivery.MainHomeScreen.UI appropriately
                 googleLogin.setEnabled(true);
                 loading.setVisibility(View.INVISIBLE);
                 Log.w("GoogleLogin", "Google sign in failed", e);
@@ -282,7 +276,7 @@ public class LoginPage extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
