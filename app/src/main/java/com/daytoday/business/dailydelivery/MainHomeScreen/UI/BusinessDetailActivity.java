@@ -55,14 +55,14 @@ public class BusinessDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
-        buisness_name = findViewById(R.id.BusinessName);
-        MOrD = findViewById(R.id.BusinessMorD);
-        PayMode = findViewById(R.id.BusinessPayMode);
-        Price = findViewById(R.id.BusinessPrice);
-        buisness_name.setText(bussiness.getProductName());
-        Price.setText(bussiness.getPrice());
-        MOrD.setText(bussiness.getTarrif());
-        PayMode.setText(bussiness.getPay_mode());
+       // buisness_name = findViewById(R.id.BusinessName);
+        //MOrD = findViewById(R.id.BusinessMorD);
+        //PayMode = findViewById(R.id.BusinessPayMode);
+        //Price = findViewById(R.id.BusinessPrice);
+        //buisness_name.setText(bussiness.getProductName());
+        //Price.setText(bussiness.getPrice());
+        //MOrD.setText(bussiness.getTarrif());
+        //PayMode.setText(bussiness.getPay_mode());
 
 
 

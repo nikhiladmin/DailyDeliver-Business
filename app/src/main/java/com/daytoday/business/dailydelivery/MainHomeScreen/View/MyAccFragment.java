@@ -132,6 +132,31 @@ public class MyAccFragment extends Fragment {
         setProfileImage();
 
 
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
+                alertDialog.setMessage("This will be reflected in all the customers you are connected.");
+                alertDialog.setTitle("You are about to modify your profile details");
+                alertDialog.setCancelable(false);
+                alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateData();
+                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Changes will take sometime to reflect.",Snackbar.LENGTH_LONG).show();
+                    }
+                });
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Profile Update Cancelled",Snackbar.LENGTH_SHORT).show();
+                    }
+                }).show();
+            }
+        });
+        getAddress();
         return view;
     }
 
@@ -311,33 +336,6 @@ public class MyAccFragment extends Fragment {
         }else{
             profileImg.setImageResource(R.drawable.ic_account);
         }
-    }
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
-                alertDialog.setMessage("This will be reflected in all the customers you are connected.");
-                alertDialog.setTitle("You are about to modify your profile details");
-                alertDialog.setCancelable(false);
-                alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateData();
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Changes will take sometime to reflect.",Snackbar.LENGTH_LONG).show();
-                    }
-                });
-                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Profile Update Cancelled",Snackbar.LENGTH_SHORT).show();
-                    }
-                }).show();
-            }
-        });
-        getAddress();
-        return view;
     }
 
     public void getAddress()
