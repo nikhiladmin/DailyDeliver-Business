@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
+import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -101,7 +102,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v,"Welcome to DAILY DELIVER action Coming soon", Snackbar.LENGTH_LONG).show();
+                startActivity(new Intent(HomeScreen.this, QrCodeActivity.class));
             }
         });
     }
