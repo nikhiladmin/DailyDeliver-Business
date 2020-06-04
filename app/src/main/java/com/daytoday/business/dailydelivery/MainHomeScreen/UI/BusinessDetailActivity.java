@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
     Button button;
     Bussiness bussiness;
     String paymode, mord;
+    ImageView bussImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,27 +57,21 @@ public class BusinessDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
-       // buisness_name = findViewById(R.id.BusinessName);
-        //MOrD = findViewById(R.id.BusinessMorD);
-        //PayMode = findViewById(R.id.BusinessPayMode);
-        //Price = findViewById(R.id.BusinessPrice);
-        //buisness_name.setText(bussiness.getProductName());
-        //Price.setText(bussiness.getPrice());
-        //MOrD.setText(bussiness.getTarrif());
-        //PayMode.setText(bussiness.getPay_mode());
-
-
-
         Log.e("TAG", "onCreate: "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         rg1 = findViewById(R.id.radioGroup1);
         rg2 = findViewById(R.id.radioGroup2);
         buss_name = findViewById(R.id.buss_name);
         buss_price = findViewById(R.id.buss_price);
         buss_address = findViewById(R.id.buss_address);
+        bussImg = findViewById(R.id.BusinessImg);
         button = findViewById(R.id.submitbutton);
         setFalse();
         buss_name.setText(bussiness.getProductName());
         buss_price.setText(bussiness.getPrice());
+        Picasso.get()
+                .load(bussiness.getImage())
+                .resize(5000,5000)
+                .centerCrop().into(bussImg);
         Log.e("TAG", "onCreate: " + bussiness.getTarrif());
         buss_address.setText(bussiness.getAddress());
         if (bussiness.getTarrif().equals("Daily")) {

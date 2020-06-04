@@ -56,12 +56,13 @@ public class BussinessRepository {
                                     String cust_cou = (String) documentSnapshot.get("No_Of_Cust");
                                     String pay_mode = (String) documentSnapshot.get("Pay_Mode");
                                     String address=(String)documentSnapshot.get("Address");
+                                    String ImageUrl = documentSnapshot.get("productImg").toString();
                                     Log.e("TAG", "onEvent: "+address );
                                     String bussId = currentSnapshot.getKey();
                                     String tot_pending=documentSnapshot.get("Tot_Pen").toString();
                                     String tot_cancelled=documentSnapshot.get("Tot_Can").toString();
                                     if (name != null && earning != null && price != null && MD != null)
-                                        bussinesses.add(new Bussiness(name,MD,price,earning,"gooogle.com",cust_cou,pay_mode,bussId,address,tot_pending,tot_cancelled));
+                                        bussinesses.add(new Bussiness(name,MD,price,earning,ImageUrl,cust_cou,pay_mode,bussId,address,tot_pending,tot_cancelled));
                                     liveData.setValue(bussinesses);
                                 }
                             });
