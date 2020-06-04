@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -42,7 +43,11 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
     public void onBindViewHolder(@NonNull BussinessViewHolder holder, int position) {
 
         Bussiness bussiness = bussinessList.get(position);
-
+//        Picasso.get()
+//                .load(bussiness.getImage())
+//                .resize(5000,5000)
+//                .centerCrop()
+//                .into(holder.buss1_image);
         holder.buss_name.setText(bussiness.getProductName());
         holder.tarrif.setText(bussiness.getTarrif());
         holder.tot_earning.setText(bussiness.getEarning());
