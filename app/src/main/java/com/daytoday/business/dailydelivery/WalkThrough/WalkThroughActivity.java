@@ -90,7 +90,7 @@ public class WalkThroughActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(WalkThroughActivity.this, HomeScreen.class);
+                Intent intent = new Intent(WalkThroughActivity.this, LoginPage.class);
 
                 startActivity(intent);
                 // save the data into shared preference

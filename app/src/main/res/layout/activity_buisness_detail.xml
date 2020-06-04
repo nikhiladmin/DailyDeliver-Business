@@ -20,8 +20,8 @@
         android:shape="ring"
         android:thicknessRatio="1.9"
         app:cardCornerRadius="100dp"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4">
@@ -34,161 +34,169 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/BusinessName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:endIconDrawable="@drawable/ic_edit_black"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/ImgBussCardView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/buss_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Business Name"
+            android:text="Hello world"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:theme="@style/RadioButtonStyle"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/editText">
+
+        <RadioButton
+            android:id="@+id/radio_btn_monthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:text="Monthly"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:text="Daily"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:theme="@style/RadioButtonStyle"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup1">
+
+        <RadioButton
+            android:id="@+id/radio_btn_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:text="Cash"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:text="Online"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_both"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:padding="10dp"
+            android:text="Both"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:startIconDrawable="@drawable/ic_rupee"
+        app:endIconDrawable="@drawable/ic_edit_black"
+        app:endIconMode="custom"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/buss_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:hint="Price"
+            android:text="30"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:endIconDrawable="@drawable/ic_edit_black"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/buss_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:hint="Business Office Address"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:lines="3"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:text="Full Address\nIn this From" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submitbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="Milk"
-        android:textColor="@color/colorBlack"
-        android:fontFamily="@font/roboto_medium"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImgBussCardView" />
+        android:text="Submit"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
-    <TextView
-        android:id="@+id/BusinessId"
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BusinessName"
-        android:textSize="20sp"
-        android:text="ID : 1234567890"
-        android:fontFamily="@font/roboto_regular"
-        android:textColor="@color/colorLightGray"
-        android:padding="5dp"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
 
-    <LinearLayout
-        android:layout_margin="10dp"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BusinessId">
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
-            android:paddingBottom="10dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/BusinessMonthly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monthly/Daily"
-                android:textColor="@color/colorBlack"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="20sp"
-                android:layout_alignParentLeft="true"/>
-
-            <TextView
-                android:id="@+id/BusinessMorD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_toEndOf="@+id/BusinessMonthly"
-                android:layout_toRightOf="@+id/BusinessMonthly"
-                android:text="Monthly"
-                android:layout_marginLeft="5dp"
-                android:textAlignment="viewEnd"
-                android:textSize="20sp"
-                android:layout_marginRight="10dp"
-                android:gravity="end" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
-            android:paddingBottom="10dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/payment_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Payment Mode"
-                android:textColor="@color/colorBlack"
-                android:fontFamily="@font/roboto_regular"
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/BusinessPayMode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_toEndOf="@+id/payment_mode"
-                android:layout_toRightOf="@+id/payment_mode"
-                android:gravity="end"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Both"
-                android:textAlignment="viewEnd"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
-            android:paddingBottom="10dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/Price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textColor="@color/colorBlack"
-                android:fontFamily="@font/roboto_regular"
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/BusinessPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:layout_marginRight="10dp"
-                android:layout_toEndOf="@+id/Price"
-                android:layout_toRightOf="@+id/Price"
-                android:textAlignment="viewEnd"
-                android:text="27/L"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray"
-            android:paddingBottom="10dp" />
-    </LinearLayout>
+        app:layout_constraintGuide_percent="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
