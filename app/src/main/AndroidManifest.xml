@@ -16,7 +16,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail"></activity>
+        <activity android:name=".MainHomeScreen.UI.QrCodeActivity"></activity>
+        <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail" />
         <activity android:name=".MainHomeScreen.UI.CalenderActivity" />
         <activity android:name=".MainHomeScreen.View.CustomerActivity" />
         <activity
