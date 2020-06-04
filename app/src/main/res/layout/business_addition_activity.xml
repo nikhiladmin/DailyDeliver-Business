@@ -19,6 +19,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/productImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.card.MaterialCardView>

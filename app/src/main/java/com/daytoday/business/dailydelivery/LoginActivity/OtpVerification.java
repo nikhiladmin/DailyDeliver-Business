@@ -107,6 +107,7 @@ public class OtpVerification extends AppCompatActivity {
                             {
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(name)
+                                        .setPhotoUri(null)
                                         .build();
                                 user.updateProfile(profileUpdates)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {

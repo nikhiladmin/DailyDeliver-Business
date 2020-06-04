@@ -17,8 +17,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.R;
+import com.squareup.picasso.Picasso;
+import java.net.URL;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -30,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class BusinessDetailActivity extends AppCompatActivity {
     RadioGroup rg1, rg2;
@@ -46,6 +54,18 @@ public class BusinessDetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(bussiness.getProductName()+" - Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        buisness_name = findViewById(R.id.BusinessName);
+        MOrD = findViewById(R.id.BusinessMorD);
+        PayMode = findViewById(R.id.BusinessPayMode);
+        Price = findViewById(R.id.BusinessPrice);
+        buisness_name.setText(bussiness.getProductName());
+        Price.setText(bussiness.getPrice());
+        MOrD.setText(bussiness.getTarrif());
+        PayMode.setText(bussiness.getPay_mode());
+
+
+
         Log.e("TAG", "onCreate: "+FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         rg1 = findViewById(R.id.radioGroup1);
         rg2 = findViewById(R.id.radioGroup2);
@@ -96,6 +116,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
                 }).show();
             }
         });
+
     }
 
     @Override
