@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,17 +38,17 @@ public class CustomerRepo {
                 while (iterator.hasNext())
                 {
                     DataSnapshot currentSnapShot = (DataSnapshot)iterator.next();
-                    firestore.collection("Cust_User_Info").document(currentSnapShot.getKey())
-                            .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                                    String name = documentSnapshot.get("Name").toString();
-                                    String address = documentSnapshot.get("Address").toString();
-                                    String PhoneNo = documentSnapshot.get("PhoneNo").toString();
-                                    result.add(new Customers(name,address,currentSnapShot.getKey(),"ImageUrl",PhoneNo));
-                                    liveData.setValue(result);
-                                }
-                            });
+                    firestore.collection("Cust_User_Info").document(currentSnapShot.getKey()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            String name = documentSnapshot.get("Name").toString();
+                            String address = documentSnapshot.get("Address").toString();
+                            String PhoneNo = documentSnapshot.get("PhoneNo").toString();
+                            result.add(new Customers(name,address,currentSnapShot.getKey(),"ImageUrl",PhoneNo));
+                            liveData.setValue(result);
+                        }
+                    });
                 }
             }
 
