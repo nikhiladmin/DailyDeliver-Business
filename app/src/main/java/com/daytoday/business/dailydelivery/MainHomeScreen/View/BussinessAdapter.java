@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
-import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.MainHomeScreen.UI.SingleBusinessDetail;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
         holder.prdct_detail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BusinessDetailActivity.class);
+                Intent intent = new Intent(v.getContext(), SingleBusinessDetail.class);
                 intent.putExtra("buisness-object", bussiness);
                 v.getContext().startActivity(intent);
             }
