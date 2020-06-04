@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,12 +23,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,6 +46,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -50,7 +61,8 @@ public class BusinessAddition extends AppCompatActivity {
     TextInputLayout textInputLayout;
     TextInputEditText buisnessName,price;
     String monthOrDay,pay_mode;
-
+    private ImageView productImg;
+    private final String URL="https://api.icons8.com/api/iconsets/search?term=milk&amount=1";
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +84,15 @@ public class BusinessAddition extends AppCompatActivity {
         rg1.clearCheck();
         rg2 = findViewById(R.id.radioGroup2);
         rg2.clearCheck();
+
+        productImg=findViewById(R.id.productImg);
+        //-----------------------Example of Render Image through URL-------------------
+        Picasso.get()
+                .load("https://img.icons8.com/color/10x/milk.png")
+                .resize(5000,5000)
+                .centerCrop()
+                .into(productImg);
+
         //---------------------listener on radio group-----------------------------------------------//
         rg1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -133,11 +154,13 @@ public class BusinessAddition extends AppCompatActivity {
     }
 
     private void CreateInstanseInFirestore() {
+
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DocumentReference referenceofCollection = firestore.collection("Buss_Info").document();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         HashMap<String,String> data = new HashMap<>();
+        data.put("productImg","https://img.icons8.com/color/10x/"+buisnessName.getText().toString().trim().toLowerCase()+".png");
         data.put("Name",buisnessName.getText().toString());
         data.put("No_Of_Cust","0");
         data.put("Price",price.getText().toString());
@@ -157,4 +180,5 @@ public class BusinessAddition extends AppCompatActivity {
         reference.child("User_Buss_Rel").child(currentUser.getUid()).child(referenceofCollection.getId()).setValue(true);
         finish();
     }
+
 }
