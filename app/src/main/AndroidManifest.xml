@@ -16,14 +16,15 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-
-        <activity android:name=".MainHomeScreen.UI.CalenderActivity"></activity>
+        <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail"></activity>
+        <activity android:name=".MainHomeScreen.UI.CalenderActivity" />
         <activity android:name=".MainHomeScreen.View.CustomerActivity" />
-        <activity android:name=".MainHomeScreen.UI.BusinessDetailActivity" />
-
-        <activity android:name=".MainHomeScreen.UI.BusinessAddition"
-            ></activity>
-
+        <activity
+            android:name=".MainHomeScreen.UI.BusinessDetailActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MainHomeScreen.UI.BusinessAddition"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MainHomeScreen.UI.EmpInfoActivity" />
         <activity
             android:name=".MainHomeScreen.View.HomeScreen"
@@ -40,8 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>

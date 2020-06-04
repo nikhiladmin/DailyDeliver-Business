@@ -101,8 +101,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:endIconDrawable="@drawable/ic_edit_black"
-        app:endIconMode="custom"
+        android:clickable="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
@@ -131,7 +130,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/myacc_address"
+            android:id="@+id/buss_acc_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
@@ -145,6 +144,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/myacc_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

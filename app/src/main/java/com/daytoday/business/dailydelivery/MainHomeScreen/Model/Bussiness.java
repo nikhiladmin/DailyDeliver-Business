@@ -12,8 +12,17 @@ public class Bussiness implements Parcelable {
     private String cust_cout;
     private String pay_mode;
     private String id;
+    private String address,pending,cancelled;
 
-    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode, String id) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode, String id, String address,String pending,String cancelled) {
         this.productName = productName;
         this.tarrif = tarrif;
         this.price = price;
@@ -22,6 +31,9 @@ public class Bussiness implements Parcelable {
         this.cust_cout = cust_cout;
         this.pay_mode = pay_mode;
         this.id = id;
+        this.address = address;
+        this.pending=pending;
+        this.cancelled=cancelled;
     }
 
     public String getId() {
@@ -40,6 +52,10 @@ public class Bussiness implements Parcelable {
         image = in.readString();
         cust_cout = in.readString();
         pay_mode = in.readString();
+        address=in.readString();
+        id=in.readString();
+        pending=in.readString();
+        cancelled=in.readString();
     }
 
     public static final Creator<Bussiness> CREATOR = new Creator<Bussiness>() {
@@ -124,5 +140,25 @@ public class Bussiness implements Parcelable {
         dest.writeString(image);
         dest.writeString(cust_cout);
         dest.writeString(pay_mode);
+        dest.writeString(address);
+        dest.writeString(id);
+        dest.writeString(pending);
+        dest.writeString(cancelled);
+    }
+
+    public String getPending() {
+        return pending;
+    }
+
+    public void setPending(String pending) {
+        this.pending = pending;
+    }
+
+    public String getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(String cancelled) {
+        this.cancelled = cancelled;
     }
 }
