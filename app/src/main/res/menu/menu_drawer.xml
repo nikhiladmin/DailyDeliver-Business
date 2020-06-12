@@ -26,17 +26,17 @@
     <item android:title="Payments">
         <menu>
             <item
-                android:id="@+id/nav_paytm"
+                android:id="@+id/nav_recentpayment"
                 android:icon="@drawable/ic_payment"
-                android:title="@string/paypaytm" />
+                android:title="@string/recentpayment" />
             <item
-                android:id="@+id/nav_phonepe"
+                android:id="@+id/nav_paymentadjust"
                 android:icon="@drawable/ic_payment"
-                android:title="@string/payphonep" />
+                android:title="@string/paymentadjust" />
             <item
-                android:id="@+id/nav_googlepay"
+                android:id="@+id/nav_empsalary"
                 android:icon="@drawable/ic_payment"
-                android:title="@string/paygoogle" />
+                android:title="@string/empsalary" />
         </menu>
     </item>
 
