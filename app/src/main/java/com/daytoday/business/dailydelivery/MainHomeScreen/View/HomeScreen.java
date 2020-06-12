@@ -145,14 +145,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, new SettingFragment()).commit();
                 break;
-            case R.id.nav_paytm:
-                Toast.makeText(this, "PAYING WIH PAYTM SOON", Toast.LENGTH_SHORT).show();
+            case R.id.nav_recentpayment:
+                Toast.makeText(this, "Recent Payment fragment", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_googlepay:
-                Toast.makeText(this, "PAYING WITH GOOGLE PAY SOON", Toast.LENGTH_SHORT).show();
+            case R.id.nav_paymentadjust:
+                Toast.makeText(this, "Payment adjust fragment", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_phonepe:
-                Toast.makeText(this,"PAY WITH PHONEPE SOON",Toast.LENGTH_LONG).show();
+            case R.id.nav_empsalary:
+                Toast.makeText(this,"Empsalary Fragment",Toast.LENGTH_LONG).show();
                 break;
         }
         return true;

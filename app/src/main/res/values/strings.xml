@@ -8,9 +8,9 @@
     <!--menu items strings start-->
     <string name="earning">Earning</string>
     <string name="myacc">My Account</string>
-    <string name="paypaytm">Pay with PayTM</string>
-    <string name="payphonep">Pay with PhonePe</string>
-    <string name="paygoogle">Pay with GooglePay</string>
+    <string name="recentpayment">Recent Payment</string>
+    <string name="paymentadjust">Payment Adjusted</string>
+    <string name="empsalary">Employee Salary</string>
     <string name="settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
