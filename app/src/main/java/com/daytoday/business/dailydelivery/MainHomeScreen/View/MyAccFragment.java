@@ -1,7 +1,10 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.View;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -32,6 +36,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyAccFragment extends Fragment {
     FloatingActionButton floatingActionButton;
@@ -39,6 +45,8 @@ public class MyAccFragment extends Fragment {
     TextInputEditText phoneNo,usernameEditText,buss_address;
     FirebaseAuth firebaseAuth;
     MaterialButton button;
+    boolean flag=false;
+    TextInputLayout textInputLayout1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +59,7 @@ public class MyAccFragment extends Fragment {
         phoneNo = view.findViewById(R.id.myacc_phone);
         buss_address=view.findViewById(R.id.buss_acc_address);
         button=view.findViewById(R.id.myacc_button);
+        textInputLayout1=view.findViewById(R.id.textInputLayout1);
         phoneNo.setEnabled(false);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
