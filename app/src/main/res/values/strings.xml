@@ -11,6 +11,9 @@
     <string name="paypaytm">My wallet status</string>
     <string name="payphonep">Customer Refund</string>
     <string name="paygoogle">Employee Salary</string>
+    <string name="recentpayment">Recent Payment</string>
+    <string name="paymentadjust">Payment Adjusted</string>
+    <string name="empsalary">Employee Salary</string>
     <string name="settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->

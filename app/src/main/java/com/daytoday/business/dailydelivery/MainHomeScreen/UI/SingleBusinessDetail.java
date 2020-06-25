@@ -9,16 +9,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
 
 public class SingleBusinessDetail extends AppCompatActivity {
     MaterialTextView earning,pending,cancelled,price,customers,payment,name;
     Bussiness bussiness;
+    ImageView bussImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,7 @@ public class SingleBusinessDetail extends AppCompatActivity {
         price=findViewById(R.id.buss_detail_price);
         customers=findViewById(R.id.buss_detail_customer);
         payment=findViewById(R.id.buss_detail_payment);
+        bussImg = findViewById(R.id.single_buss_img);
         bussiness = getIntent().getParcelableExtra("buisness-object");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(bussiness.getProductName()+" - Details");
@@ -41,6 +45,11 @@ public class SingleBusinessDetail extends AppCompatActivity {
         pending.setText(bussiness.getPending());
         cancelled.setText(bussiness.getCancelled());
         name.setText(bussiness.getProductName());
+        Picasso.get()
+                .load(bussiness.getImage())
+                .resize(5000,5000)
+                .centerCrop()
+                .into(bussImg);
     }
 
     @Override
