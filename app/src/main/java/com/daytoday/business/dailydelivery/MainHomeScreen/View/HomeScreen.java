@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
+import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
@@ -29,6 +31,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -36,8 +41,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     NavigationView navigationView;
     ImageView imageView;
     MaterialTextView userName;
-    String name;
     private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    CircleImageView profileImg;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -75,7 +81,19 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         Log.i("msg", navigationView.getHeaderCount() + " ");
         View view = navigationView.getHeaderView(0);
         userName= view.findViewById(R.id.userName);
+        profileImg =view.findViewById(R.id.profile_image);
+        Log.i("CURRENTUSER", "onCreate: "+mAuth.getCurrentUser().getDisplayName());
         userName.setText(mAuth.getCurrentUser().getDisplayName());
+        Uri imageUri=mAuth.getCurrentUser().getPhotoUrl();
+        if(imageUri!=null){
+            Picasso.get()
+                    .load(imageUri.toString())
+                    .resize(500, 500)
+                    .centerCrop()
+                    .into(profileImg);
+        }else{
+            profileImg.setImageResource(R.drawable.ic_account);
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, new HomeFragment()).commit();
@@ -86,7 +104,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v,"Welcome to DAILY DELIVER action Coming soon", Snackbar.LENGTH_LONG).show();
+                startActivity(new Intent(HomeScreen.this, QrCodeActivity.class));
             }
         });
     }
@@ -95,8 +113,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        Log.i("msg",currentUser.getDisplayName());
+        currentUser = mAuth.getCurrentUser();
         if(currentUser==null){
          Intent loginIntent=new Intent(HomeScreen.this, LoginPage.class);
          loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -157,6 +174,14 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
             case R.id.nav_phonepe:
                 Toast.makeText(this,"Soon",Toast.LENGTH_LONG).show();
+            case R.id.nav_recentpayment:
+                Toast.makeText(this, "Recent Payment fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_paymentadjust:
+                Toast.makeText(this, "Payment adjust fragment", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_empsalary:
+                Toast.makeText(this,"Empsalary Fragment",Toast.LENGTH_LONG).show();
                 break;
         }
         return true;

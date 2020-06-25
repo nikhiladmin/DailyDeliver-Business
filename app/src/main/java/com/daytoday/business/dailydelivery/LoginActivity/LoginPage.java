@@ -50,9 +50,7 @@ public class LoginPage extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     private FirebaseAuth.AuthStateListener authStateListener;
     private AccessTokenTracker accessTokenTracker;
-    private String photoUrl;
-    private String email;
-    private String name;
+
 
     //for Google Login
     private GoogleSignInClient mGoogleSignInClient;
@@ -187,8 +185,6 @@ public class LoginPage extends AppCompatActivity {
                             if (user != null) {
                                 GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
                                 Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
-                                loginIntent.putExtra("name",account.getDisplayName());
-                                loginIntent.putExtra("photoUrl",account.getPhotoUrl().toString());
 
                                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -222,13 +218,7 @@ public class LoginPage extends AppCompatActivity {
                     // Sign in success, update com.daytoday.business.dailydelivery.MainHomeScreen.UI with the signed-in user's information
                     Log.d("FacbookAuth", "signInWithCredential:success");
                     FirebaseUser user = mAuth.getCurrentUser();
-                    name=user.getDisplayName();
-                    photoUrl =user.getPhotoUrl().toString();
-                    email =user.getEmail();
-                    //String phone=user.getPhoneNumber();
-                   // Log.i("dataUser", "onComplete: "+name+" "+photoUrl+" "+email+" "+phone);
                     Intent homeIntent = new Intent(LoginPage.this, HomeScreen.class);
-                    homeIntent.putExtra("photoUrl",photoUrl);
                     startActivity(homeIntent);
                 } else {
                     // If sign in fails, display a message to the user.
