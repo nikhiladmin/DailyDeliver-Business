@@ -8,9 +8,9 @@
     <!--menu items strings start-->
     <string name="earning">Earning</string>
     <string name="myacc">My Account</string>
-    <string name="paypaytm">Pay with PayTM</string>
-    <string name="payphonep">Pay with PhonePe</string>
-    <string name="paygoogle">Pay with GooglePay</string>
+    <string name="paypaytm">My wallet status</string>
+    <string name="payphonep">Customer Refund</string>
+    <string name="paygoogle">Employee Salary</string>
     <string name="settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -25,6 +25,7 @@
 
     <string name="facebook_app_id">535536857326543</string>
     <string name="fb_login_protocol_scheme">fb535536857326543</string>
+    <string name="signout">Sign out</string>
 
 
 </resources>
