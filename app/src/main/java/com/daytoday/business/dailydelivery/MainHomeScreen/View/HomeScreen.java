@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
@@ -145,6 +147,33 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, new SettingFragment()).commit();
                 break;
+            case R.id.nav_signout:
+                MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(this);
+                alertDialog.setMessage("Do you want to logout?");
+                alertDialog.setTitle("Confirm");
+                alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        startActivity(new Intent(HomeScreen.this,LoginPage.class));
+                    }
+                });
+                alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+                break;
+            case R.id.nav_paytm:
+                Toast.makeText(this, "Soon", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_googlepay:
+                Toast.makeText(this, "Soon", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_phonepe:
+                Toast.makeText(this,"Soon",Toast.LENGTH_LONG).show();
             case R.id.nav_recentpayment:
                 Toast.makeText(this, "Recent Payment fragment", Toast.LENGTH_SHORT).show();
                 break;
