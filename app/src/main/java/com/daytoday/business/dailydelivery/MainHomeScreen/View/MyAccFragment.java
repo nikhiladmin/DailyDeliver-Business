@@ -12,10 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -45,7 +42,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -82,8 +78,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class MyAccFragment extends Fragment {
@@ -98,6 +92,7 @@ public class MyAccFragment extends Fragment {
     private StorageReference storageRef;
 
     MaterialButton button;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,7 +113,6 @@ public class MyAccFragment extends Fragment {
 
         buss_address=view.findViewById(R.id.buss_acc_address);
         button=view.findViewById(R.id.myacc_button);
-        textInputLayout1=view.findViewById(R.id.textInputLayout1);
         phoneNo.setEnabled(false);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessAddition;
@@ -29,7 +28,7 @@ public class BussinessHomeFragment extends Fragment {
     BussinessAdapter bussinessAdapter;
 
     FloatingActionButton fab;
-    ProgressBar progressBar;
+
     List<Bussiness> bussinessList;
 
 
@@ -52,15 +51,14 @@ public class BussinessHomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.buss_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        progressBar=view.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
+
         BussinessViewModel bussinessViewModel = new BussinessViewModel();
         bussinessViewModel.getBussiness().observe(getActivity(), new Observer<List<Bussiness>>() {
             @Override
             public void onChanged(List<Bussiness> bussinesses) {
                 bussinessAdapter = new BussinessAdapter(view.getContext(), bussinesses);
                 recyclerView.setAdapter(bussinessAdapter);
-                progressBar.setVisibility(View.GONE);
+
             }
         });
         fab=view.findViewById(R.id.fab);
