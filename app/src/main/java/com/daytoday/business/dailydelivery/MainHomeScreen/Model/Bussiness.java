@@ -13,7 +13,7 @@ public class Bussiness implements Parcelable {
     private Integer bussid;
     @SerializedName("bussuserid")
     @Expose
-    private Integer bussuserid;
+    private String bussuserid;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -54,11 +54,7 @@ public class Bussiness implements Parcelable {
         } else {
             bussid = in.readInt();
         }
-        if (in.readByte() == 0) {
-            bussuserid = null;
-        } else {
-            bussuserid = in.readInt();
-        }
+        bussuserid = in.readString();
         name = in.readString();
         phoneno = in.readString();
         address = in.readString();
@@ -112,11 +108,11 @@ public class Bussiness implements Parcelable {
         this.bussid = bussid;
     }
 
-    public Integer getBussuserid() {
+    public String getBussuserid() {
         return bussuserid;
     }
 
-    public void setBussuserid(Integer bussuserid) {
+    public void setBussuserid(String bussuserid) {
         this.bussuserid = bussuserid;
     }
 
