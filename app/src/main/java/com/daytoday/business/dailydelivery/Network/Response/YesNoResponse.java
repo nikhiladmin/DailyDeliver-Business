@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery.NetWork.Response;
+package com.daytoday.business.dailydelivery.Network.Response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

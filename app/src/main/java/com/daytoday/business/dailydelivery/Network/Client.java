@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery.NetWork;
+package com.daytoday.business.dailydelivery.Network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
