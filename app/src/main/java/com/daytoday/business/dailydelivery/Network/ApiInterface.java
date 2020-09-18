@@ -1,8 +1,8 @@
-package com.daytoday.business.dailydelivery.NetWork;
+package com.daytoday.business.dailydelivery.Network;
 
-import com.daytoday.business.dailydelivery.NetWork.Response.BussDetailsResponse;
-import com.daytoday.business.dailydelivery.NetWork.Response.DayWiseResponse;
-import com.daytoday.business.dailydelivery.NetWork.Response.YesNoResponse;
+import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
+import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

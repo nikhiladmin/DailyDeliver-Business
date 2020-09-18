@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.chaos.view.PinView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,10 +36,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OtpVerification extends AppCompatActivity {
     private PinView pinView;
@@ -44,6 +49,7 @@ public class OtpVerification extends AppCompatActivity {
     private String phone;
     private FirebaseAuth mAuth;
     private TextView textTimer;
+    private ApiInterface apiInterface;
     private int time=60;  //Time OUT resend OTP
     private String code;
     private String name;
@@ -68,6 +74,7 @@ public class OtpVerification extends AppCompatActivity {
         phone=getIntent().getStringExtra("phoneNo");
         name=getIntent().getStringExtra("Name");
         resend.setEnabled(false);
+        apiInterface = Client.getClient().create(ApiInterface.class);
         phoneAuthProvider();
 
         pinView.addTextChangedListener(new TextWatcher() {
@@ -133,13 +140,20 @@ public class OtpVerification extends AppCompatActivity {
     }
 
     private void createUserProfile(String name) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        HashMap<String,String> data = new HashMap<>();
-        data.put("Name",name);
-        data.put("PhoneNo",currentUser.getPhoneNumber());
-        data.put("Address","RB II 671 / D A Road");
-        firestore.collection("Buss_User_Info").document(currentUser.getUid()).set(data);
+        Call<YesNoResponse> createusercall = apiInterface.addBussUserDetails(currentUser.getUid(),name,currentUser.getPhoneNumber(),"RB II 671 / D A Road");
+        createusercall.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.i("message","Response Successful " + response.body().getMessage());
+            }
+
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                Toast.makeText(OtpVerification.this, "Couldn't Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                //TODO logout user from here
+            }
+        });
     }
 
     @Override
