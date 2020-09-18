@@ -33,7 +33,7 @@ public class CircleDecorator implements DayViewDecorator {
         while (iterator.hasNext())
         {
             Dates norDay = (Dates)iterator.next();
-            if (day.equals( norDay.getDay()))
+            if (day.equals( norDay.getDate()))
             {
                 return true;
             }

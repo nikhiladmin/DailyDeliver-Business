@@ -1,29 +1,31 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 public class Dates {
-    CalendarDay day;
-    String Quantity;
 
-    public Dates(CalendarDay day, String quantity) {
-        this.day = day;
-        Quantity = quantity;
+    @SerializedName("Date")
+    @Expose
+    private String date;
+    @SerializedName("Quantity")
+    @Expose
+    private Integer quantity;
+
+    public String getDate() {
+        return date;
     }
 
-    public CalendarDay getDay() {
-        return day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setDay(CalendarDay day) {
-        this.day = day;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public String getQuantity() {
-        return Quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

@@ -18,6 +18,8 @@ import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+
 public class SingleBusinessDetail extends AppCompatActivity {
     MaterialTextView earning,pending,cancelled,price,customers,payment,name;
     Bussiness bussiness;
@@ -36,17 +38,17 @@ public class SingleBusinessDetail extends AppCompatActivity {
         bussImg = findViewById(R.id.single_buss_img);
         bussiness = getIntent().getParcelableExtra("buisness-object");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(bussiness.getProductName()+" - Details");
+        getSupportActionBar().setTitle(bussiness.getName()+" - Details");
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        earning.setText(bussiness.getEarning());
+        earning.setText(bussiness.getTotEarn());
         price.setText(bussiness.getPrice());
-        customers.setText(bussiness.getCust_cout());
-        payment.setText(bussiness.getTarrif());
-        pending.setText(bussiness.getPending());
-        cancelled.setText(bussiness.getCancelled());
-        name.setText(bussiness.getProductName());
+        customers.setText(bussiness.getNoOfCust());
+        payment.setText(bussiness.getDOrM());
+        pending.setText(bussiness.getTotPen());
+        cancelled.setText(bussiness.getTotCan());
+        name.setText(bussiness.getName());
         Picasso.get()
-                .load(bussiness.getImage())
+                .load(bussiness.getImgurl())
                 .resize(5000,5000)
                 .centerCrop()
                 .into(bussImg);

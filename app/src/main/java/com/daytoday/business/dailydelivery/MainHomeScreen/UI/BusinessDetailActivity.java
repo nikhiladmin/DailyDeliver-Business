@@ -1,9 +1,5 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +11,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.R;
-import com.squareup.picasso.Picasso;
-import java.net.URL;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -35,6 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +45,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
         bussiness = getIntent().getParcelableExtra("buisness-object");
-        getSupportActionBar().setTitle(bussiness.getProductName()+" - Details");
+        getSupportActionBar().setTitle(bussiness.getName()+" - Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -66,15 +58,15 @@ public class BusinessDetailActivity extends AppCompatActivity {
         bussImg = findViewById(R.id.BusinessImg);
         button = findViewById(R.id.submitbutton);
         setFalse();
-        buss_name.setText(bussiness.getProductName());
+        buss_name.setText(bussiness.getName());
         buss_price.setText(bussiness.getPrice());
         Picasso.get()
-                .load(bussiness.getImage())
+                .load(bussiness.getImgurl())
                 .resize(5000,5000)
                 .centerCrop().into(bussImg);
-        Log.e("TAG", "onCreate: " + bussiness.getTarrif());
+        Log.e("TAG", "onCreate: " + bussiness.getDOrM());
         buss_address.setText(bussiness.getAddress());
-        if (bussiness.getTarrif().equals("Daily")) {
+        if (bussiness.getDOrM().equals("Daily")) {
             rg1.check(R.id.radio_btn_daily);
             mord="Daily";
         } else {
@@ -82,10 +74,10 @@ public class BusinessDetailActivity extends AppCompatActivity {
             mord="Monthly";
         }
 
-        if (bussiness.getPay_mode().equals("Cash")) {
+        if (bussiness.getPayment().equals("Cash")) {
             rg2.check(R.id.radio_btn_cash);
             paymode="Cash";
-        } else if (bussiness.getPay_mode().equals("Online")) {
+        } else if (bussiness.getPayment().equals("Online")) {
             rg2.check(R.id.radio_btn_online);
             paymode="Online";
         } else {
@@ -167,7 +159,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         updates.put("Pay_Mode", paymode);
         updates.put("Price", buss_price.getText().toString().trim());
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firestore.collection("Buss_Info").document(bussiness.getId());
+        DocumentReference documentReference = firestore.collection("Buss_Info").document("" + bussiness.getBussid());
         Log.e("TAG", "updateData: " + paymode + mord);
         documentReference.update(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
