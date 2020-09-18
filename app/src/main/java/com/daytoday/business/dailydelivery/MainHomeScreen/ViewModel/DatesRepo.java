@@ -36,7 +36,7 @@ public class DatesRepo {
                             String quantity = currentSnapshot.child("quantity").getValue().toString();
                             if (quantity != null)
                             {
-                                list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
+                                //list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
                             }
                         }
                         liveData.setValue(list);
@@ -68,7 +68,7 @@ public class DatesRepo {
                             String quantity = currentSnapshot.child("quantity").getValue().toString();
                             if (quantity != null)
                             {
-                                list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
+                                //list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
                             }
                         }
                         liveData.setValue(list);
@@ -100,7 +100,7 @@ public class DatesRepo {
                             String quantity = currentSnapshot.child("quantity").getValue().toString();
                             if (quantity != null)
                             {
-                                list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
+                                //list.add(new Dates(CalendarDay.from(Integer.parseInt(year),Integer.parseInt(mon),Integer.parseInt(day)),quantity));
                             }
                         }
                         liveData.setValue(list);

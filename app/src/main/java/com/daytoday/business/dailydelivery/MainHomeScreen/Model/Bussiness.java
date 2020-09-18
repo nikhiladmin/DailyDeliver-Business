@@ -3,59 +3,93 @@ package com.daytoday.business.dailydelivery.MainHomeScreen.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Bussiness implements Parcelable {
 
-    private String productName, tarrif;
-    private String price;
-    private String earning;
-    private String image;
-    private String cust_cout;
-    private String pay_mode;
-    private String id;
-    private String address,pending,cancelled;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode, String id, String address,String pending,String cancelled) {
-        this.productName = productName;
-        this.tarrif = tarrif;
-        this.price = price;
-        this.earning = earning;
-        this.image = image;
-        this.cust_cout = cust_cout;
-        this.pay_mode = pay_mode;
-        this.id = id;
-        this.address = address;
-        this.pending=pending;
-        this.cancelled=cancelled;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    @SerializedName("bussid")
+    @Expose
+    private Integer bussid;
+    @SerializedName("bussuserid")
+    @Expose
+    private Integer bussuserid;
+    @SerializedName("Name")
+    @Expose
+    private String name;
+    @SerializedName("Phoneno")
+    @Expose
+    private String phoneno;
+    @SerializedName("Address")
+    @Expose
+    private String address;
+    @SerializedName("Price")
+    @Expose
+    private Integer price;
+    @SerializedName("DOrM")
+    @Expose
+    private String dOrM;
+    @SerializedName("Payment")
+    @Expose
+    private String payment;
+    @SerializedName("Imgurl")
+    @Expose
+    private String imgurl;
+    @SerializedName("NoOfCust")
+    @Expose
+    private Integer noOfCust;
+    @SerializedName("TotCan")
+    @Expose
+    private Integer totCan;
+    @SerializedName("TotEarn")
+    @Expose
+    private Integer totEarn;
+    @SerializedName("TotPen")
+    @Expose
+    private Integer totPen;
 
     protected Bussiness(Parcel in) {
-        productName = in.readString();
-        tarrif = in.readString();
-        price = in.readString();
-        earning = in.readString();
-        image = in.readString();
-        cust_cout = in.readString();
-        pay_mode = in.readString();
-        address=in.readString();
-        id=in.readString();
-        pending=in.readString();
-        cancelled=in.readString();
+        if (in.readByte() == 0) {
+            bussid = null;
+        } else {
+            bussid = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            bussuserid = null;
+        } else {
+            bussuserid = in.readInt();
+        }
+        name = in.readString();
+        phoneno = in.readString();
+        address = in.readString();
+        if (in.readByte() == 0) {
+            price = null;
+        } else {
+            price = in.readInt();
+        }
+        dOrM = in.readString();
+        payment = in.readString();
+        imgurl = in.readString();
+        if (in.readByte() == 0) {
+            noOfCust = null;
+        } else {
+            noOfCust = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            totCan = null;
+        } else {
+            totCan = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            totEarn = null;
+        } else {
+            totEarn = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            totPen = null;
+        } else {
+            totPen = in.readInt();
+        }
     }
 
     public static final Creator<Bussiness> CREATOR = new Creator<Bussiness>() {
@@ -70,60 +104,108 @@ public class Bussiness implements Parcelable {
         }
     };
 
-    public String getProductName() {
-        return productName;
+    public Integer getBussid() {
+        return bussid;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setBussid(Integer bussid) {
+        this.bussid = bussid;
     }
 
-    public String getTarrif() {
-        return tarrif;
+    public Integer getBussuserid() {
+        return bussuserid;
     }
 
-    public void setTarrif(String tarrif) {
-        this.tarrif = tarrif;
+    public void setBussuserid(Integer bussuserid) {
+        this.bussuserid = bussuserid;
     }
 
-    public String getPrice() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public String getEarning() {
-        return earning;
+    public String getDOrM() {
+        return dOrM;
     }
 
-    public void setEarning(String earning) {
-        this.earning = earning;
+    public void setDOrM(String dOrM) {
+        this.dOrM = dOrM;
     }
 
-    public String getImage() {
-        return image;
+    public String getPayment() {
+        return payment;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
-    public String getCust_cout() {
-        return cust_cout;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setCust_cout(String cust_cout) {
-        this.cust_cout = cust_cout;
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
-    public String getPay_mode() {
-        return pay_mode;
+    public Integer getNoOfCust() {
+        return noOfCust;
     }
 
-    public void setPay_mode(String pay_mode) {
-        this.pay_mode = pay_mode;
+    public void setNoOfCust(Integer noOfCust) {
+        this.noOfCust = noOfCust;
+    }
+
+    public Integer getTotCan() {
+        return totCan;
+    }
+
+    public void setTotCan(Integer totCan) {
+        this.totCan = totCan;
+    }
+
+    public Integer getTotEarn() {
+        return totEarn;
+    }
+
+    public void setTotEarn(Integer totEarn) {
+        this.totEarn = totEarn;
+    }
+
+    public Integer getTotPen() {
+        return totPen;
+    }
+
+    public void setTotPen(Integer totPen) {
+        this.totPen = totPen;
     }
 
     @Override
@@ -133,32 +215,16 @@ public class Bussiness implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(productName);
-        dest.writeString(tarrif);
-        dest.writeString(price);
-        dest.writeString(earning);
-        dest.writeString(image);
-        dest.writeString(cust_cout);
-        dest.writeString(pay_mode);
+        dest.writeString(name);
+        dest.writeString(dOrM);
+        dest.writeInt(price);
+        dest.writeInt(totEarn);
+        dest.writeString(imgurl);
+        dest.writeInt(noOfCust);
+        dest.writeString(payment);
         dest.writeString(address);
-        dest.writeString(id);
-        dest.writeString(pending);
-        dest.writeString(cancelled);
-    }
-
-    public String getPending() {
-        return pending;
-    }
-
-    public void setPending(String pending) {
-        this.pending = pending;
-    }
-
-    public String getCancelled() {
-        return cancelled;
-    }
-
-    public void setCancelled(String cancelled) {
-        this.cancelled = cancelled;
+        dest.writeInt(bussid);
+        dest.writeInt(totPen);
+        dest.writeInt(totCan);
     }
 }
