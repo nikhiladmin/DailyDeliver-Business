@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +38,7 @@ public class BussinessRepository {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Iterator iterator = dataSnapshot.getChildren().iterator();
-                        List<Bussiness> bussinesses = new ArrayList<>();
+
                         while (iterator.hasNext())
                         {
                             DataSnapshot currentSnapshot = (DataSnapshot) iterator.next();
@@ -70,16 +71,17 @@ public class BussinessRepository {
 
                     }
                 });*/
-
-        Call<BussDetailsResponse> bussDetailsResponseCall = apiInterface.getBussList(""  + currentUser);
+        Call<BussDetailsResponse> bussDetailsResponseCall = apiInterface.getBussList(""  + currentUser.getUid());
         bussDetailsResponseCall.enqueue(new Callback<BussDetailsResponse>() {
             @Override
             public void onResponse(Call<BussDetailsResponse> call, Response<BussDetailsResponse> response) {
-
+                Log.i("message","Response Done " + response.message());
+                liveData.setValue(response.body().getBuss());
             }
 
             @Override
             public void onFailure(Call<BussDetailsResponse> call, Throwable t) {
+                Log.i("message",t.getMessage());
                 Log.i(AppConstants.ERROR_LOG,"Some error Occurred in BussinessRepository");
             }
         });

@@ -46,15 +46,17 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
     public void onBindViewHolder(@NonNull BussinessViewHolder holder, int position) {
 
         Bussiness bussiness = bussinessList.get(position);
-        Picasso.get()
-                .load(bussiness.getImgurl())
-                .resize(5000,5000)
-                .centerCrop()
-                .into(holder.buss1_image);
+        if (bussiness.getImgurl()!=null) {
+            Picasso.get()
+                    .load(bussiness.getImgurl())
+                    .resize(5000, 5000)
+                    .centerCrop()
+                    .into(holder.buss1_image);
+        }
         holder.buss_name.setText(bussiness.getName());
         holder.tarrif.setText(bussiness.getDOrM());
-        holder.tot_earning.setText(bussiness.getTotEarn());
-        holder.prdct_amt.setText(bussiness.getPrice());
+        holder.tot_earning.setText("" + bussiness.getTotEarn());
+        holder.prdct_amt.setText("" + bussiness.getPrice());
         holder.cust_count.setText("( " +bussiness.getNoOfCust() + " Customers )");
         holder.tarrif.setText(bussiness.getPayment());
 
