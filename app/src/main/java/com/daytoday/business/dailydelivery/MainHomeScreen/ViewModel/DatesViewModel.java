@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
+import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
 
 import java.util.List;
 
@@ -12,10 +13,12 @@ public class DatesViewModel extends ViewModel {
     private MutableLiveData<List<Dates>> pendinglivedata = new MutableLiveData<>();
     private MutableLiveData<List<Dates>> acceptedlivedata = new MutableLiveData<>();
     private MutableLiveData<List<Dates>> canceledlivedata = new MutableLiveData<>();
-    String bussId,custId;
+    private MutableLiveData<DayWiseResponse> alllistLiveData = new MutableLiveData<>();
+    String bussId,custId,bussCustId;
 
-    public DatesViewModel(String bussId, String custId) {
+    public DatesViewModel(String busscustId,String bussId, String custId) {
         datesRepo = new DatesRepo();
+        this.bussCustId = busscustId;
         this.bussId = bussId;
         this.custId = custId;
     }
@@ -36,5 +39,11 @@ public class DatesViewModel extends ViewModel {
     {
         canceledlivedata = datesRepo.requestCancelledList(bussId,custId);
         return canceledlivedata;
+    }
+
+    public MutableLiveData<DayWiseResponse> getListFromApi()
+    {
+        alllistLiveData = datesRepo.requestDateFromApi(bussCustId);
+        return alllistLiveData;
     }
 }

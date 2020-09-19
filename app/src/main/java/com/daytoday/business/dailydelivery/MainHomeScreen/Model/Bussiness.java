@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Bussiness implements Parcelable {
+import java.io.Serializable;
+
+public class Bussiness implements Serializable {
 
     @SerializedName("bussid")
     @Expose
@@ -25,7 +27,7 @@ public class Bussiness implements Parcelable {
     private String address;
     @SerializedName("Price")
     @Expose
-    private Integer price;
+    private int price;
     @SerializedName("DOrM")
     @Expose
     private String dOrM;
@@ -37,68 +39,16 @@ public class Bussiness implements Parcelable {
     private String imgurl;
     @SerializedName("NoOfCust")
     @Expose
-    private Integer noOfCust;
+    private int noOfCust;
     @SerializedName("TotCan")
     @Expose
-    private Integer totCan;
+    private int totCan;
     @SerializedName("TotEarn")
     @Expose
-    private Integer totEarn;
+    private int totEarn;
     @SerializedName("TotPen")
     @Expose
-    private Integer totPen;
-
-    protected Bussiness(Parcel in) {
-        if (in.readByte() == 0) {
-            bussid = null;
-        } else {
-            bussid = in.readInt();
-        }
-        bussuserid = in.readString();
-        name = in.readString();
-        phoneno = in.readString();
-        address = in.readString();
-        if (in.readByte() == 0) {
-            price = null;
-        } else {
-            price = in.readInt();
-        }
-        dOrM = in.readString();
-        payment = in.readString();
-        imgurl = in.readString();
-        if (in.readByte() == 0) {
-            noOfCust = null;
-        } else {
-            noOfCust = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            totCan = null;
-        } else {
-            totCan = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            totEarn = null;
-        } else {
-            totEarn = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            totPen = null;
-        } else {
-            totPen = in.readInt();
-        }
-    }
-
-    public static final Creator<Bussiness> CREATOR = new Creator<Bussiness>() {
-        @Override
-        public Bussiness createFromParcel(Parcel in) {
-            return new Bussiness(in);
-        }
-
-        @Override
-        public Bussiness[] newArray(int size) {
-            return new Bussiness[size];
-        }
-    };
+    private int totPen;
 
     public Integer getBussid() {
         return bussid;
@@ -140,19 +90,19 @@ public class Bussiness implements Parcelable {
         this.address = address;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getDOrM() {
+    public String getdOrM() {
         return dOrM;
     }
 
-    public void setDOrM(String dOrM) {
+    public void setdOrM(String dOrM) {
         this.dOrM = dOrM;
     }
 
@@ -172,55 +122,35 @@ public class Bussiness implements Parcelable {
         this.imgurl = imgurl;
     }
 
-    public Integer getNoOfCust() {
+    public int getNoOfCust() {
         return noOfCust;
     }
 
-    public void setNoOfCust(Integer noOfCust) {
+    public void setNoOfCust(int noOfCust) {
         this.noOfCust = noOfCust;
     }
 
-    public Integer getTotCan() {
+    public int getTotCan() {
         return totCan;
     }
 
-    public void setTotCan(Integer totCan) {
+    public void setTotCan(int totCan) {
         this.totCan = totCan;
     }
 
-    public Integer getTotEarn() {
+    public int getTotEarn() {
         return totEarn;
     }
 
-    public void setTotEarn(Integer totEarn) {
+    public void setTotEarn(int totEarn) {
         this.totEarn = totEarn;
     }
 
-    public Integer getTotPen() {
+    public int getTotPen() {
         return totPen;
     }
 
-    public void setTotPen(Integer totPen) {
+    public void setTotPen(int totPen) {
         this.totPen = totPen;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(dOrM);
-        dest.writeInt(price);
-        dest.writeInt(totEarn);
-        dest.writeString(imgurl);
-        dest.writeInt(noOfCust);
-        dest.writeString(payment);
-        dest.writeString(address);
-        dest.writeInt(bussid);
-        dest.writeInt(totPen);
-        dest.writeInt(totCan);
     }
 }

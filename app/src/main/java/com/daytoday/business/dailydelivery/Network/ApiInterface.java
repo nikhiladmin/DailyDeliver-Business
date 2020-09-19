@@ -1,6 +1,7 @@
 package com.daytoday.business.dailydelivery.Network;
 
 import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
+import com.daytoday.business.dailydelivery.Network.Response.BussRelCustResponse;
 import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 
@@ -30,11 +31,8 @@ public interface ApiInterface {
     @GET("fetch-buss-list")
     Call<BussDetailsResponse> getBussList(@Query("bussid") String bussId);
 
-    /** Doubt a gya bhai
-     * @return
-     */
-//    @GET("fetch-rel-cust")
-//    Call<> getRelCust(@Query("custid") String custId);
+    @GET("fetch-rel-cust")
+    Call<BussRelCustResponse> getRelCust(@Query("bussid") String bussId);
 
     @GET("update-buss-details")
     Call<YesNoResponse> updateBussDetails(@Query("name") String name,@Query("phone") String phone
