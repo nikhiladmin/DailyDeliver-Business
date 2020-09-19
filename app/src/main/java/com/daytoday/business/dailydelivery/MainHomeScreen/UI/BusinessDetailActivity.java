@@ -64,9 +64,9 @@ public class BusinessDetailActivity extends AppCompatActivity {
                 .load(bussiness.getImgurl())
                 .resize(5000,5000)
                 .centerCrop().into(bussImg);
-        Log.e("TAG", "onCreate: " + bussiness.getDOrM());
+        Log.e("TAG", "onCreate: " + bussiness.getdOrM());
         buss_address.setText(bussiness.getAddress());
-        if (bussiness.getDOrM().equals("Daily")) {
+        if (bussiness.getdOrM().equals("Daily")) {
             rg1.check(R.id.radio_btn_daily);
             mord="Daily";
         } else {

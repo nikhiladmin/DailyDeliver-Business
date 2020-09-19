@@ -36,22 +36,24 @@ public class SingleBusinessDetail extends AppCompatActivity {
         customers=findViewById(R.id.buss_detail_customer);
         payment=findViewById(R.id.buss_detail_payment);
         bussImg = findViewById(R.id.single_buss_img);
-        bussiness = getIntent().getParcelableExtra("buisness-object");
+        bussiness = (Bussiness) getIntent().getSerializableExtra("buisness-object");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(bussiness.getName()+" - Details");
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        earning.setText(bussiness.getTotEarn());
-        price.setText(bussiness.getPrice());
-        customers.setText(bussiness.getNoOfCust());
-        payment.setText(bussiness.getDOrM());
-        pending.setText(bussiness.getTotPen());
-        cancelled.setText(bussiness.getTotCan());
-        name.setText(bussiness.getName());
-        Picasso.get()
-                .load(bussiness.getImgurl())
-                .resize(5000,5000)
-                .centerCrop()
-                .into(bussImg);
+        earning.setText("" +bussiness.getTotEarn());
+        price.setText("" + bussiness.getPrice());
+        customers.setText("" + bussiness.getNoOfCust());
+        payment.setText("" + bussiness.getdOrM());
+        pending.setText("" + bussiness.getTotPen());
+        cancelled.setText("" + bussiness.getTotCan());
+        name.setText("" + bussiness.getName());
+        if (bussiness.getImgurl()!=null) {
+            Picasso.get()
+                    .load(bussiness.getImgurl())
+                    .resize(5000, 5000)
+                    .centerCrop()
+                    .into(bussImg);
+        }
     }
 
     @Override

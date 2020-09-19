@@ -23,18 +23,19 @@ import java.util.List;
 
 public class CalenderActivity extends AppCompatActivity {
     MaterialCalendarView calendarView;
-    String bussID,custID;
+    String bussID,custID,bussCustId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
         bussID  = getIntent().getStringExtra("buisness-Id");
+        bussCustId  = getIntent().getStringExtra("Unique-Id");
         custID = getIntent().getStringExtra("Customer-Id");
         getSupportActionBar().setTitle("Calender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         calendarView = findViewById(R.id.calendar);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        DatesViewModel datesViewModel = new DatesViewModel(bussID,custID);
+        DatesViewModel datesViewModel = new DatesViewModel(bussCustId,bussID,custID);
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -87,7 +88,7 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void createPendingRequest(CalendarDay day ,String quantity) {
-        HashMap<String,String> value = new HashMap<>();
+        /*HashMap<String,String> value = new HashMap<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         value.put("Year", String.valueOf(day.getYear()));
         value.put("Mon", String.valueOf(day.getMonth()));
@@ -96,7 +97,7 @@ public class CalenderActivity extends AppCompatActivity {
         reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Pending")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
         reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Rejected")
-                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
+                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();*/
     }
 
     @Override

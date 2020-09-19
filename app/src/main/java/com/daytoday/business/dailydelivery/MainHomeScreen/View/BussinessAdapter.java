@@ -54,7 +54,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
                     .into(holder.buss1_image);
         }
         holder.buss_name.setText(bussiness.getName());
-        holder.tarrif.setText(bussiness.getDOrM());
+        holder.tarrif.setText(bussiness.getdOrM());
         holder.tot_earning.setText("" + bussiness.getTotEarn());
         holder.prdct_amt.setText("" + bussiness.getPrice());
         holder.cust_count.setText("( " +bussiness.getNoOfCust() + " Customers )");

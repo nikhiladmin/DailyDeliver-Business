@@ -42,13 +42,14 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
         holder.customer_name.setText(customersList.get(position).getName());
         holder.product_name.setText(bussName);
-        holder.customer_address.setText(customersList.get(position).getAdress());
+        holder.customer_address.setText(customersList.get(position).getAddress());
         holder.customer_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CalenderActivity.class);
+                intent.putExtra("Unique-Id",customersList.get(position).getUniqueId());
                 intent.putExtra("buisness-Id",bussId);
-                intent.putExtra("Customer-Id",customersList.get(position).getId());
+                intent.putExtra("Customer-Id",customersList.get(position).getCustId());
                 v.getContext().startActivity(intent);
             }
         });
