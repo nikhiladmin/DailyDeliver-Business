@@ -24,6 +24,7 @@ import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -141,7 +142,9 @@ public class OtpVerification extends AppCompatActivity {
 
     private void createUserProfile(String name) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Call<YesNoResponse> createusercall = apiInterface.addBussUserDetails(currentUser.getUid(),name,currentUser.getPhoneNumber(),"RB II 671 / D A Road");
+        String adress = "RB II 671 / D A Road";
+        Call<YesNoResponse> createusercall = apiInterface.addBussUserDetails(currentUser.getUid(),name,currentUser.getPhoneNumber(),adress);
+        saveOffline(currentUser,name,adress);
         createusercall.enqueue(new Callback<YesNoResponse>() {
             @Override
             public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
@@ -154,6 +157,13 @@ public class OtpVerification extends AppCompatActivity {
                 //TODO logout user from here
             }
         });
+    }
+
+    private void saveOffline(FirebaseUser currentUser, String name, String adress) {
+        SaveOfflineManager.setUserName(this,name);
+        SaveOfflineManager.setUserId(this,currentUser.getUid());
+        SaveOfflineManager.setUserAdress(this,adress);
+        SaveOfflineManager.setUserPhoneNumber(this,currentUser.getPhoneNumber());
     }
 
     @Override
