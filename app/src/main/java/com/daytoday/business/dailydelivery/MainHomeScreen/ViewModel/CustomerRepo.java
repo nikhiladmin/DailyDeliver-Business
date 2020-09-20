@@ -33,6 +33,7 @@ import retrofit2.Response;
 
 public class CustomerRepo {
     public MutableLiveData<List<Customers>> requestCustomers(String bussId) {
+        Log.i("message ","bussid is " + bussId);
         final MutableLiveData<List<Customers>> liveData = new MutableLiveData<>();
         ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -71,7 +72,7 @@ public class CustomerRepo {
         custResponseCall.enqueue(new Callback<BussRelCustResponse>() {
             @Override
             public void onResponse(Call<BussRelCustResponse> call, Response<BussRelCustResponse> response) {
-                if (response.body().getError()){
+                if (!response.body().getError()){
                     liveData.setValue(response.body().getCustumers());
                 }
             }

@@ -12,7 +12,7 @@ public class Bussiness implements Serializable {
 
     @SerializedName("bussid")
     @Expose
-    private Integer bussid;
+    private String bussid;
     @SerializedName("bussuserid")
     @Expose
     private String bussuserid;
@@ -50,11 +50,11 @@ public class Bussiness implements Serializable {
     @Expose
     private int totPen;
 
-    public Integer getBussid() {
+    public String getBussid() {
         return bussid;
     }
 
-    public void setBussid(Integer bussid) {
+    public void setBussid(String bussid) {
         this.bussid = bussid;
     }
 

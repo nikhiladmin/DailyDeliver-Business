@@ -75,7 +75,7 @@ public class BussinessRepository {
         bussDetailsResponseCall.enqueue(new Callback<BussDetailsResponse>() {
             @Override
             public void onResponse(Call<BussDetailsResponse> call, Response<BussDetailsResponse> response) {
-                Log.i("message","Response Done " + response.message());
+                Log.i("message","Response Done " + response.body().getBuss().get(0).getBussid());
                 liveData.setValue(response.body().getBuss());
             }
 

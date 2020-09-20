@@ -8,24 +8,29 @@ public class Dates {
 
     @SerializedName("Date")
     @Expose
-    private String date;
+    private CalendarDay date;
     @SerializedName("Quantity")
     @Expose
-    private Integer quantity;
+    private String quantity;
 
-    public String getDate() {
+    public Dates(CalendarDay date, String quantity) {
+        this.date = date;
+        this.quantity = quantity;
+    }
+
+    public CalendarDay getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(CalendarDay date) {
         this.date = date;
     }
 
-    public Integer getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 }

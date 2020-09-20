@@ -35,7 +35,7 @@ public class CalenderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         calendarView = findViewById(R.id.calendar);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        DatesViewModel datesViewModel = new DatesViewModel(bussCustId,bussID,custID);
+        DatesViewModel datesViewModel = new DatesViewModel(bussCustId);
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -88,16 +88,16 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void createPendingRequest(CalendarDay day ,String quantity) {
-        /*HashMap<String,String> value = new HashMap<>();
+        HashMap<String,String> value = new HashMap<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         value.put("Year", String.valueOf(day.getYear()));
         value.put("Mon", String.valueOf(day.getMonth()));
         value.put("Day", String.valueOf(day.getDay()));
         value.put("quantity",quantity);
-        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Pending")
+        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Pending")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
-        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Rejected")
-                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();*/
+        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Rejected")
+                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
     }
 
     @Override
