@@ -23,18 +23,19 @@ import java.util.List;
 
 public class CalenderActivity extends AppCompatActivity {
     MaterialCalendarView calendarView;
-    String bussID,custID;
+    String bussID,custID,bussCustId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
         bussID  = getIntent().getStringExtra("buisness-Id");
+        bussCustId  = getIntent().getStringExtra("Unique-Id");
         custID = getIntent().getStringExtra("Customer-Id");
         getSupportActionBar().setTitle("Calender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         calendarView = findViewById(R.id.calendar);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        DatesViewModel datesViewModel = new DatesViewModel(bussID,custID);
+        DatesViewModel datesViewModel = new DatesViewModel(bussCustId);
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -93,9 +94,9 @@ public class CalenderActivity extends AppCompatActivity {
         value.put("Mon", String.valueOf(day.getMonth()));
         value.put("Day", String.valueOf(day.getDay()));
         value.put("quantity",quantity);
-        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Pending")
+        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Pending")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
-        reference.child("Buss_Cust_DayWise").child(bussID).child(custID).child("Rejected")
+        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Rejected")
                 .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
     }
 

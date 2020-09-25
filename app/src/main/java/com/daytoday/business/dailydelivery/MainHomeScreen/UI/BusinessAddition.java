@@ -31,10 +31,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,12 +56,17 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BusinessAddition extends AppCompatActivity {
 
     Toolbar toolbar;
     RadioGroup rg1, rg2;
     TextInputLayout textInputLayout;
     TextInputEditText buisnessName,price;
+    ApiInterface apiInterface;
     String monthOrDay,pay_mode;
     private ImageView productImg;
     private final String URL="https://api.icons8.com/api/iconsets/search?term=milk&amount=1";
@@ -72,6 +79,7 @@ public class BusinessAddition extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         textInputLayout = findViewById(R.id.textInputLayout);
+        apiInterface = Client.getClient().create(ApiInterface.class);
         //------------------changing colour of status bar through java startsss----------------------- //
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -103,10 +111,10 @@ public class BusinessAddition extends AppCompatActivity {
                     temp = radioButton.getText().toString().trim();
                     if (temp.equals("Monthly")) {
                         textInputLayout.setSuffixText("/Month");
-                        monthOrDay = "Monthly";
+                        monthOrDay = "M";
                     } else {
                         textInputLayout.setSuffixText("/Day");
-                        monthOrDay = "Daily";
+                        monthOrDay = "D";
                     }
                 }
             }
@@ -154,31 +162,22 @@ public class BusinessAddition extends AppCompatActivity {
     }
 
     private void CreateInstanseInFirestore() {
-
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DocumentReference referenceofCollection = firestore.collection("Buss_Info").document();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        HashMap<String,String> data = new HashMap<>();
-        data.put("productImg","https://img.icons8.com/color/10x/"+buisnessName.getText().toString().trim().toLowerCase()+".png");
-        data.put("Name",buisnessName.getText().toString());
-        data.put("No_Of_Cust","0");
-        data.put("Price",price.getText().toString());
-        data.put("Tot_Can","0");
-        data.put("Tot_Earn","0");
-        data.put("Tot_Pen","0");
-        data.put("M_Or_D",monthOrDay);
-        data.put("Pay_Mode",pay_mode);
-        data.put("Address","RB II 671 / D A Road");
-        data.put("PhoneNo",currentUser.getPhoneNumber());
-        referenceofCollection.set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String bussname = buisnessName.getText().toString();
+        String priceofbuss = price.getText().toString();
+        Call<YesNoResponse> addbusscall = apiInterface.addBussDetails(bussname,monthOrDay,pay_mode,priceofbuss,currentUser.getUid());
+        addbusscall.enqueue(new Callback<YesNoResponse>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Log.i("msg","done");
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.i("message","Response successful " + response.body().getMessage());
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                Toast.makeText(BusinessAddition.this, "Some Error Occurred", Toast.LENGTH_SHORT).show();
             }
         });
-        reference.child("User_Buss_Rel").child(currentUser.getUid()).child(referenceofCollection.getId()).setValue(true);
-        finish();
     }
 
 }

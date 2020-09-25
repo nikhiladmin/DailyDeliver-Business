@@ -2,28 +2,25 @@ package com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
+import com.daytoday.business.dailydelivery.Utilities.AppConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BussinessRepository {
 
@@ -34,14 +31,14 @@ public class BussinessRepository {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
 
-
-        reference.child("User_Buss_Rel").child(currentUser.getUid())
+        /*reference.child("User_Buss_Rel").child(currentUser.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Iterator iterator = dataSnapshot.getChildren().iterator();
-                        List<Bussiness> bussinesses = new ArrayList<>();
+
                         while (iterator.hasNext())
                         {
                             DataSnapshot currentSnapshot = (DataSnapshot) iterator.next();
@@ -62,7 +59,7 @@ public class BussinessRepository {
                                     String tot_pending=documentSnapshot.get("Tot_Pen").toString();
                                     String tot_cancelled=documentSnapshot.get("Tot_Can").toString();
                                     if (name != null && earning != null && price != null && MD != null)
-                                        bussinesses.add(new Bussiness(name,MD,price,earning,ImageUrl,cust_cou,pay_mode,bussId,address,tot_pending,tot_cancelled));
+                                        //bussinesses.add(new Bussiness(name,MD,price,earning,ImageUrl,cust_cou,pay_mode,bussId,address,tot_pending,tot_cancelled));
                                     liveData.setValue(bussinesses);
                                 }
                             });
@@ -73,7 +70,21 @@ public class BussinessRepository {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
+        Call<BussDetailsResponse> bussDetailsResponseCall = apiInterface.getBussList(""  + currentUser.getUid());
+        bussDetailsResponseCall.enqueue(new Callback<BussDetailsResponse>() {
+            @Override
+            public void onResponse(Call<BussDetailsResponse> call, Response<BussDetailsResponse> response) {
+                Log.i("message","Response Done " + response.body().getBuss().get(0).getBussid());
+                liveData.setValue(response.body().getBuss());
+            }
+
+            @Override
+            public void onFailure(Call<BussDetailsResponse> call, Throwable t) {
+                Log.i("message",t.getMessage());
+                Log.i(AppConstants.ERROR_LOG,"Some error Occurred in BussinessRepository");
+            }
+        });
         return liveData;
 
     }

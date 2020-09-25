@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class BussinessHomeFragment extends Fragment {
 
     RecyclerView recyclerView;
     BussinessAdapter bussinessAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     FloatingActionButton fab;
 
@@ -47,6 +49,7 @@ public class BussinessHomeFragment extends Fragment {
         final View view=inflater.inflate(R.layout.fragment_bussiness_home, container, false);
 
         bussinessList = new ArrayList<>();
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
 
         recyclerView = view.findViewById(R.id.buss_list);
         recyclerView.setHasFixedSize(true);
@@ -69,7 +72,12 @@ public class BussinessHomeFragment extends Fragment {
             }
         });
 
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //TODO OnRefresh again call the api
+            }
+        });
 
         return view;
     }

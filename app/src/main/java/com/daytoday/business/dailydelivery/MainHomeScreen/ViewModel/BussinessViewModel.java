@@ -18,6 +18,9 @@ public class BussinessViewModel extends ViewModel {
 
     }
 
+    /**
+     * On First Time Observe this Function
+     */
     public LiveData<List<Bussiness>> getBussiness()
     {
         liveData = bussinessRepository.requestBussiness();

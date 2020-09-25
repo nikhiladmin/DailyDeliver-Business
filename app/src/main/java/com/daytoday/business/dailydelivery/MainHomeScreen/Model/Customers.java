@@ -4,19 +4,51 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Customers {
-    String name;
-    String adress;
-    String Id;
-    String photoUrl;
-    String phoneNo;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Customers(String name, String adress, String id, String photoUrl, String phoneNo) {
-        this.name = name;
-        this.adress = adress;
-        Id = id;
-        this.photoUrl = photoUrl;
-        this.phoneNo = phoneNo;
+public class Customers {
+    @SerializedName("UniqueId")
+    @Expose
+    private String uniqueId;
+    @SerializedName("BussId")
+    @Expose
+    private String bussId;
+    @SerializedName("CustId")
+    @Expose
+    private String custId;
+    @SerializedName("Name")
+    @Expose
+    private String name;
+    @SerializedName("Phone")
+    @Expose
+    private String phone;
+    @SerializedName("Address")
+    @Expose
+    private String address;
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
+    public String getBussId() {
+        return bussId;
+    }
+
+    public void setBussId(String bussId) {
+        this.bussId = bussId;
+    }
+
+    public String getCustId() {
+        return custId;
+    }
+
+    public void setCustId(String custId) {
+        this.custId = custId;
     }
 
     public String getName() {
@@ -27,35 +59,19 @@ public class Customers {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getId() {
-        return Id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
