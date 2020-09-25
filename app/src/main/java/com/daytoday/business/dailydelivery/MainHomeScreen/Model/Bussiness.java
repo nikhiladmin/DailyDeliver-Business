@@ -3,16 +3,84 @@ package com.daytoday.business.dailydelivery.MainHomeScreen.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Bussiness implements Parcelable {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    private String productName, tarrif;
-    private String price;
-    private String earning;
-    private String image;
-    private String cust_cout;
-    private String pay_mode;
-    private String id;
-    private String address,pending,cancelled;
+import java.io.Serializable;
+
+public class Bussiness implements Serializable {
+
+    @SerializedName("bussid")
+    @Expose
+    private String bussid;
+    @SerializedName("bussuserid")
+    @Expose
+    private String bussuserid;
+    @SerializedName("Name")
+    @Expose
+    private String name;
+    @SerializedName("Phoneno")
+    @Expose
+    private String phoneno;
+    @SerializedName("Address")
+    @Expose
+    private String address;
+    @SerializedName("Price")
+    @Expose
+    private int price;
+    @SerializedName("DOrM")
+    @Expose
+    private String dOrM;
+    @SerializedName("Payment")
+    @Expose
+    private String payment;
+    @SerializedName("Imgurl")
+    @Expose
+    private String imgurl;
+    @SerializedName("NoOfCust")
+    @Expose
+    private int noOfCust;
+    @SerializedName("TotCan")
+    @Expose
+    private int totCan;
+    @SerializedName("TotEarn")
+    @Expose
+    private int totEarn;
+    @SerializedName("TotPen")
+    @Expose
+    private int totPen;
+
+    public String getBussid() {
+        return bussid;
+    }
+
+    public void setBussid(String bussid) {
+        this.bussid = bussid;
+    }
+
+    public String getBussuserid() {
+        return bussuserid;
+    }
+
+    public void setBussuserid(String bussuserid) {
+        this.bussuserid = bussuserid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno;
+    }
 
     public String getAddress() {
         return address;
@@ -22,143 +90,67 @@ public class Bussiness implements Parcelable {
         this.address = address;
     }
 
-    public Bussiness(String productName, String tarrif, String price, String earning, String image, String cust_cout, String pay_mode, String id, String address,String pending,String cancelled) {
-        this.productName = productName;
-        this.tarrif = tarrif;
-        this.price = price;
-        this.earning = earning;
-        this.image = image;
-        this.cust_cout = cust_cout;
-        this.pay_mode = pay_mode;
-        this.id = id;
-        this.address = address;
-        this.pending=pending;
-        this.cancelled=cancelled;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    protected Bussiness(Parcel in) {
-        productName = in.readString();
-        tarrif = in.readString();
-        price = in.readString();
-        earning = in.readString();
-        image = in.readString();
-        cust_cout = in.readString();
-        pay_mode = in.readString();
-        address=in.readString();
-        id=in.readString();
-        pending=in.readString();
-        cancelled=in.readString();
-    }
-
-    public static final Creator<Bussiness> CREATOR = new Creator<Bussiness>() {
-        @Override
-        public Bussiness createFromParcel(Parcel in) {
-            return new Bussiness(in);
-        }
-
-        @Override
-        public Bussiness[] newArray(int size) {
-            return new Bussiness[size];
-        }
-    };
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getTarrif() {
-        return tarrif;
-    }
-
-    public void setTarrif(String tarrif) {
-        this.tarrif = tarrif;
-    }
-
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getEarning() {
-        return earning;
+    public String getdOrM() {
+        return dOrM;
     }
 
-    public void setEarning(String earning) {
-        this.earning = earning;
+    public void setdOrM(String dOrM) {
+        this.dOrM = dOrM;
     }
 
-    public String getImage() {
-        return image;
+    public String getPayment() {
+        return payment;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
-    public String getCust_cout() {
-        return cust_cout;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setCust_cout(String cust_cout) {
-        this.cust_cout = cust_cout;
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
-    public String getPay_mode() {
-        return pay_mode;
+    public int getNoOfCust() {
+        return noOfCust;
     }
 
-    public void setPay_mode(String pay_mode) {
-        this.pay_mode = pay_mode;
+    public void setNoOfCust(int noOfCust) {
+        this.noOfCust = noOfCust;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getTotCan() {
+        return totCan;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(productName);
-        dest.writeString(tarrif);
-        dest.writeString(price);
-        dest.writeString(earning);
-        dest.writeString(image);
-        dest.writeString(cust_cout);
-        dest.writeString(pay_mode);
-        dest.writeString(address);
-        dest.writeString(id);
-        dest.writeString(pending);
-        dest.writeString(cancelled);
+    public void setTotCan(int totCan) {
+        this.totCan = totCan;
     }
 
-    public String getPending() {
-        return pending;
+    public int getTotEarn() {
+        return totEarn;
     }
 
-    public void setPending(String pending) {
-        this.pending = pending;
+    public void setTotEarn(int totEarn) {
+        this.totEarn = totEarn;
     }
 
-    public String getCancelled() {
-        return cancelled;
+    public int getTotPen() {
+        return totPen;
     }
 
-    public void setCancelled(String cancelled) {
-        this.cancelled = cancelled;
+    public void setTotPen(int totPen) {
+        this.totPen = totPen;
     }
 }

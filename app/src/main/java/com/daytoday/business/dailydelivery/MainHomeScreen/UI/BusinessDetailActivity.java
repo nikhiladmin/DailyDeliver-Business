@@ -1,9 +1,5 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +11,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
-import com.squareup.picasso.Picasso;
-import java.net.URL;
+import com.daytoday.business.dailydelivery.Utilities.AppConstants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -35,9 +30,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class BusinessDetailActivity extends AppCompatActivity {
@@ -52,8 +52,8 @@ public class BusinessDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
-        bussiness = getIntent().getParcelableExtra("buisness-object");
-        getSupportActionBar().setTitle(bussiness.getProductName()+" - Details");
+        bussiness = (Bussiness) getIntent().getSerializableExtra("buisness-object");
+        getSupportActionBar().setTitle(bussiness.getName()+" - Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -66,15 +66,15 @@ public class BusinessDetailActivity extends AppCompatActivity {
         bussImg = findViewById(R.id.BusinessImg);
         button = findViewById(R.id.submitbutton);
         setFalse();
-        buss_name.setText(bussiness.getProductName());
-        buss_price.setText(bussiness.getPrice());
+        buss_name.setText(bussiness.getName());
+        buss_price.setText("" + bussiness.getPrice());
         Picasso.get()
-                .load(bussiness.getImage())
+                .load(bussiness.getImgurl())
                 .resize(5000,5000)
                 .centerCrop().into(bussImg);
-        Log.e("TAG", "onCreate: " + bussiness.getTarrif());
+        Log.e("TAG", "onCreate: " + bussiness.getdOrM());
         buss_address.setText(bussiness.getAddress());
-        if (bussiness.getTarrif().equals("Daily")) {
+        if (bussiness.getdOrM().equals("D")) {
             rg1.check(R.id.radio_btn_daily);
             mord="Daily";
         } else {
@@ -82,10 +82,10 @@ public class BusinessDetailActivity extends AppCompatActivity {
             mord="Monthly";
         }
 
-        if (bussiness.getPay_mode().equals("Cash")) {
+        if (bussiness.getPayment().equals("Cash")) {
             rg2.check(R.id.radio_btn_cash);
             paymode="Cash";
-        } else if (bussiness.getPay_mode().equals("Online")) {
+        } else if (bussiness.getPayment().equals("Online")) {
             rg2.check(R.id.radio_btn_online);
             paymode="Online";
         } else {
@@ -148,9 +148,8 @@ public class BusinessDetailActivity extends AppCompatActivity {
 
 
     public void updateData() {
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("Name", buss_name.getText().toString().trim());
-        updates.put("Address", buss_address.getText().toString().trim());
+        String name = buss_name.getText().toString().trim();
+        String adress  = buss_address.getText().toString().trim();
         rg1.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
             if (null != radioButton) {
@@ -163,11 +162,10 @@ public class BusinessDetailActivity extends AppCompatActivity {
                 paymode = radioButton.getText().toString().trim();
             }
         });
-        updates.put("M_Or_D", mord);
-        updates.put("Pay_Mode", paymode);
-        updates.put("Price", buss_price.getText().toString().trim());
+        String price = buss_price.getText().toString().trim();
+        /*
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firestore.collection("Buss_Info").document(bussiness.getId());
+        DocumentReference documentReference = firestore.collection("Buss_Info").document("" + bussiness.getBussid());
         Log.e("TAG", "updateData: " + paymode + mord);
         documentReference.update(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -184,6 +182,22 @@ public class BusinessDetailActivity extends AppCompatActivity {
                         Snackbar.make(findViewById(android.R.id.content),"Data update failed. Try Again",Snackbar.LENGTH_LONG).show();
                     }
                 });
+        */
+        ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
+        Call<YesNoResponse> updateBussDetailsCall = apiInterface.updateBussDetails(name,"",adress,price,paymode);
+        updateBussDetailsCall.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                if (!response.body().getError()){
+                    Toast.makeText(BusinessDetailActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                Log.i(AppConstants.ERROR_LOG,"Some Error Occurred in BusinessDetailActivity Error is : { " + t.getMessage() + " }");
+            }
+        });
         setFalse();
     }
 

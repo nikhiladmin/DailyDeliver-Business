@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 
 import com.daytoday.business.dailydelivery.R;
 
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCanceledListener;
 
 
@@ -120,14 +121,17 @@ public class MyAccFragment extends Fragment {
                 showPictureDialog();
             }
         });
-        userName.setText(firebaseAuth.getCurrentUser().getDisplayName());
-        usernameEditText.setText(firebaseAuth.getCurrentUser().getDisplayName().toUpperCase());
-        currentID.setText("ID - " + firebaseAuth.getCurrentUser().getUid());
-        phoneNo.setText(firebaseAuth.getCurrentUser().getPhoneNumber());
+        userName.setText(SaveOfflineManager.getUserName(getContext()));
+        usernameEditText.setText(SaveOfflineManager.getUserName(getContext()));
+        currentID.setText("ID - " + SaveOfflineManager.getUserId(getContext()));
+        phoneNo.setText(SaveOfflineManager.getUserPhoneNumber(getContext()));
 
 
-
-        setProfileImage();
+        /**
+         * Profile Image is in hold because we haven't stored any url of image in our data base
+         * we have to make changes in api
+         */
+        // TODO setProfileImage();
 
 
 
@@ -154,7 +158,6 @@ public class MyAccFragment extends Fragment {
                 }).show();
             }
         });
-        getAddress();
         return view;
     }
 

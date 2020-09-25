@@ -23,7 +23,6 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer);
         String bussID  = getIntent().getStringExtra("buisness-Id");
         String bussName = getIntent().getStringExtra("buisness-Name");
-        Log.i("msg",bussID);
         customerlist = findViewById(R.id.customer_list);
         customerlist.setHasFixedSize(true);
         customerlist.setLayoutManager(new LinearLayoutManager(this));
@@ -34,7 +33,7 @@ public class CustomerActivity extends AppCompatActivity {
         viewModel.getCustomers().observe(this, new Observer<List<Customers>>() {
             @Override
             public void onChanged(List<Customers> customers) {
-                CustomerAdapter adapter = new CustomerAdapter(CustomerActivity.this,customers,bussName,bussID);
+                CustomerAdapter adapter = new CustomerAdapter(CustomerActivity.this, customers, bussName, bussID );
                 customerlist.setAdapter(adapter);
                 Log.i("msg","done");
             }

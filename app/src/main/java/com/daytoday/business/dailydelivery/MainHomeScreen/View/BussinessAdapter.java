@@ -46,24 +46,26 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
     public void onBindViewHolder(@NonNull BussinessViewHolder holder, int position) {
 
         Bussiness bussiness = bussinessList.get(position);
-        Picasso.get()
-                .load(bussiness.getImage())
-                .resize(5000,5000)
-                .centerCrop()
-                .into(holder.buss1_image);
-        holder.buss_name.setText(bussiness.getProductName());
-        holder.tarrif.setText(bussiness.getTarrif());
-        holder.tot_earning.setText(bussiness.getEarning());
-        holder.prdct_amt.setText(bussiness.getPrice());
-        holder.cust_count.setText("( " +bussiness.getCust_cout() + " Customers )");
-        holder.tarrif.setText(bussiness.getPay_mode());
+        if (bussiness.getImgurl()!=null) {
+            Picasso.get()
+                    .load(bussiness.getImgurl())
+                    .resize(5000, 5000)
+                    .centerCrop()
+                    .into(holder.buss1_image);
+        }
+        holder.buss_name.setText(bussiness.getName());
+        holder.tarrif.setText(bussiness.getdOrM());
+        holder.tot_earning.setText("" + bussiness.getTotEarn());
+        holder.prdct_amt.setText("" + bussiness.getPrice());
+        holder.cust_count.setText("( " +bussiness.getNoOfCust() + " Customers )");
+        holder.tarrif.setText(bussiness.getPayment());
 
         holder.customers_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CustomerActivity.class);
-                intent.putExtra("buisness-Id", bussiness.getId());
-                intent.putExtra("buisness-Name",bussiness.getProductName());
+                intent.putExtra("buisness-Id", bussiness.getBussid());
+                intent.putExtra("buisness-Name",bussiness.getName());
                 v.getContext().startActivity(intent);
             }
         });
