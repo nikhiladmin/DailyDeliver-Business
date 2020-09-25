@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class BussinessHomeFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
 
     FloatingActionButton fab;
+    View view;
 
     List<Bussiness> bussinessList;
 
@@ -46,7 +48,7 @@ public class BussinessHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view=inflater.inflate(R.layout.fragment_bussiness_home, container, false);
+        view=inflater.inflate(R.layout.fragment_bussiness_home, container, false);
 
         bussinessList = new ArrayList<>();
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
@@ -55,15 +57,7 @@ public class BussinessHomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        BussinessViewModel bussinessViewModel = new BussinessViewModel();
-        bussinessViewModel.getBussiness().observe(getActivity(), new Observer<List<Bussiness>>() {
-            @Override
-            public void onChanged(List<Bussiness> bussinesses) {
-                bussinessAdapter = new BussinessAdapter(view.getContext(), bussinesses);
-                recyclerView.setAdapter(bussinessAdapter);
-
-            }
-        });
+        apiCall();
         fab=view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,10 +69,34 @@ public class BussinessHomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //TODO OnRefresh again call the api
+                //apiCall();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },2000);
             }
         });
 
         return view;
+    }
+    public void apiCall()
+    {
+        BussinessViewModel bussinessViewModel = new BussinessViewModel();
+        bussinessViewModel.getBussiness().observe(getActivity(), new Observer<List<Bussiness>>() {
+            @Override
+            public void onChanged(List<Bussiness> bussinesses) {
+                bussinessAdapter = new BussinessAdapter(view.getContext(), bussinesses);
+                recyclerView.setAdapter(bussinessAdapter);
+
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        apiCall();
     }
 }
