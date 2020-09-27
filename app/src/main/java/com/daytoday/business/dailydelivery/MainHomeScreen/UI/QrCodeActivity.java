@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.zxing.BarcodeFormat;
@@ -25,11 +26,11 @@ public class QrCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qr_code);
         getSupportActionBar().setTitle("Qr code");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         barCode = findViewById(R.id.bar_code);
         personName = findViewById(R.id.person_name);
-        personName.setText(user.getDisplayName());
-        String text = user.getUid();
+        personName.setText(SaveOfflineManager.getUserName(this));
+        String text = SaveOfflineManager.getUserId(this);
+        String encryptedText = encrypt(text);
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE,400,400);
@@ -39,6 +40,11 @@ public class QrCodeActivity extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    private String encrypt(String text) {
+        //TODO Encryption Code Here
+        return text;
     }
 
     @Override
