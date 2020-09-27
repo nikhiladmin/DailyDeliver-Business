@@ -10,10 +10,10 @@ import java.io.Serializable;
 
 public class Bussiness implements Serializable {
 
-    @SerializedName("bussid")
+    @SerializedName("bussId")
     @Expose
     private String bussid;
-    @SerializedName("bussuserid")
+    @SerializedName("bussuserId")
     @Expose
     private String bussuserid;
     @SerializedName("Name")
