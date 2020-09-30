@@ -28,6 +28,9 @@ public interface ApiInterface {
     @GET("insert-buss-cust-details")
     Call<YesNoResponse> addBussCustDetails(@Query("bussid") String bussId,@Query("custid") String custId);
 
+    @GET("insert-pending")
+    Call<YesNoResponse> addPendingRequest(@Query("bussUserId") String bussUserId,@Query("quantity") String quantity);
+
     @GET("fetch-buss-list")
     Call<BussDetailsResponse> getBussList(@Query("bussid") String bussId);
 
