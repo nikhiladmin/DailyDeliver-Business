@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 
 android {
     compileSdkVersion 29
@@ -61,4 +63,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.2"
     implementation "com.squareup.okhttp3:okhttp:3.14.4"
     implementation "com.squareup.okhttp3:logging-interceptor:3.14.4"
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 }
