@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 import android.content.DialogInterface;
-
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -79,7 +78,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class MyAccFragment extends Fragment {
     FloatingActionButton floatingActionButton;
