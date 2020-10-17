@@ -38,15 +38,15 @@ public interface ApiInterface {
     Call<BussRelCustResponse> getRelCust(@Query("bussid") String bussId);
 
     @GET("update-buss-details")
-    Call<YesNoResponse> updateBussDetails(@Query("name") String name,@Query("phone") String phone
+    Call<YesNoResponse> updateBussDetails(@Query("bussid") String bussid,@Query("name") String name,@Query("phone") String phone
             ,@Query("address") String address,@Query("price") String price,@Query("paymode") String payMode);
 
     @GET("update-buss-user-details")
-    Call<YesNoResponse> updateBussUserDetails(@Query("username") String userName
+    Call<YesNoResponse> updateBussUserDetails(@Query("bussuserid") String bussuserid,@Query("username") String userName
             ,@Query("userphone") String userPhone,@Query("useraddress") String userAdd);
 
     @GET("update-cust-user-details")
-    Call<YesNoResponse> updateCutUserDetails(@Query("name") String name
+    Call<YesNoResponse> updateCutUserDetails(@Query("custid") String custid,@Query("name") String name
             ,@Query("phone") String phone,@Query("address") String address);
 
    /* @GET("fetch-emp")
