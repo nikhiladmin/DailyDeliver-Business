@@ -3,6 +3,7 @@ package com.daytoday.business.dailydelivery.Network;
 import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,7 +44,7 @@ public class Client {
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                //TODO Log all the messages to crashlytics
+                FirebaseCrashlytics.getInstance().log(message);
                 Log.i("message",message);
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY);
