@@ -184,7 +184,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
                 });
         */
         ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
-        Call<YesNoResponse> updateBussDetailsCall = apiInterface.updateBussDetails(name,"",adress,price,paymode);
+        Call<YesNoResponse> updateBussDetailsCall = apiInterface.updateBussDetails(bussiness.getBussid(),name,"",adress,price,paymode);
         updateBussDetailsCall.enqueue(new Callback<YesNoResponse>() {
             @Override
             public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
