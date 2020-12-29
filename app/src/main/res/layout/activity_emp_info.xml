@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/roboto_regular"
-        android:textColor="@color/colorLightGray"
+        android:textColor="@color/colorLightGrey"
         app:layout_constraintTop_toBottomOf="@+id/emp_name"
         android:textSize="20sp"
         android:text="ID : 1234567890"
@@ -75,7 +75,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorLightGrey"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
@@ -114,7 +114,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorLightGrey"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
@@ -154,7 +154,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorLightGrey"
             android:paddingBottom="10dp" />
 
         <RelativeLayout
@@ -193,7 +193,7 @@
             android:id="@+id/addressOfEmp2"
             android:layout_width="fill_parent"
             android:layout_height="0.1dp"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorLightGrey"
             android:paddingBottom="10dp" />
 
     </LinearLayout>

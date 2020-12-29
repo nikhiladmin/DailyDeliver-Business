@@ -186,7 +186,7 @@ public class MyAccFragment extends Fragment {
 
 
 
-    private void  requestMultiplePermissions(){
+    public void  requestMultiplePermissions(){
         Dexter.withContext(getApplicationContext())
                 .withPermissions(
                         Manifest.permission.CAMERA,

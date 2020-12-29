@@ -45,7 +45,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="Its Take few seconds"
             android:textAlignment="center"
-            android:textColor="@color/colorLightGray"
+            android:textColor="@color/colorLightGrey"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="@+id/heading"
             app:layout_constraintHorizontal_bias="0.507"
