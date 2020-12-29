@@ -341,58 +341,13 @@ public class MyAccFragment extends Fragment {
 
     public void getAddress()
     {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseAuth firebaseAuth;
-        firebaseAuth=FirebaseAuth.getInstance();
-        Log.e("TAG", "getAddress: "+firebaseAuth.getUid() );
-        firestore.collection("Buss_User_Info").document(firebaseAuth.getUid())
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        String name = documentSnapshot.get("Name").toString();
-                        String address = documentSnapshot.get("Address").toString();
-                        String PhoneNo = documentSnapshot.get("PhoneNo").toString();
-                        Log.e("TAG", "onEvent: "+ address);
-                        buss_address.setText(address);
-                    }
-                });
+
     }
 
     public void updateData()
     {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = firestore.collection("Buss_User_Info").document(FirebaseAuth.getInstance().getUid());
-        Map<String,Object> updateMap=new HashMap<>();
-        updateMap.put("Name",usernameEditText.getText().toString().trim());
-        updateMap.put("Address",buss_address.getText().toString().trim());
-        documentReference.update(updateMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("TAG", "DocumentSnapshot successfully updated!");
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Profile Updated Successfully",Snackbar.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Error updating document", e);
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Profile update failed. Try Again",Snackbar.LENGTH_LONG).show();
-                    }
-                });
-        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(usernameEditText.getText().toString().trim())
-                .build();
-        firebaseAuth.getCurrentUser().updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "User profile updated.");
-                        }
-                    }
-                });
+
+
     }
 
 }
