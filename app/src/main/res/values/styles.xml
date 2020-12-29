@@ -5,12 +5,12 @@
         <!-- Customize your theme here. -->
 
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorButtonNormal">@color/colorGoogleLogin</item>
     </style>
 
     <style name="nameOfStyle">
-        <item name="colorControlNormal">@color/colorLightGray</item>
+        <item name="colorControlNormal">@color/colorLightGrey</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
