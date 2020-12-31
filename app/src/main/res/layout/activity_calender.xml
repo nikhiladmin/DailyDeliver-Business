@@ -243,7 +243,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="0.1dp"
-                    android:background="@color/colorLightGray"
+                    android:background="@color/colorLightGrey"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"/>
                 <RelativeLayout
