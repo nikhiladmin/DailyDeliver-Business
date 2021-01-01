@@ -12,6 +12,8 @@ import android.widget.NumberPicker;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModel;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.FirebaseUtils;
+import com.daytoday.business.dailydelivery.Utilities.Request;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -88,16 +90,15 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void createPendingRequest(CalendarDay day ,String quantity) {
-        HashMap<String,String> value = new HashMap<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        value.put("Year", String.valueOf(day.getYear()));
-        value.put("Mon", String.valueOf(day.getMonth()));
-        value.put("Day", String.valueOf(day.getDay()));
-        value.put("quantity",quantity);
-        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Pending")
-                .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
-        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Rejected")
-                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(bussCustId);
+        HashMap<String,String> value = FirebaseUtils.getValueMapOfRequest(day, quantity,Request.PENDING);
+//        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Pending")
+//                .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
+//        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Rejected")
+//                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
+        reference.child(FirebaseUtils.getDatePath(day))
+                .setValue(value);
+        FirebaseUtils.incrementAccToReq(day, reference, Request.PENDING);
     }
 
     @Override
