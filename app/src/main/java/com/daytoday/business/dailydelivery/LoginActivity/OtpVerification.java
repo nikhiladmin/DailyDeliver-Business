@@ -111,7 +111,7 @@ public class OtpVerification extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //   Sign in success, update com.daytoday.business.dailydelivery.MainHomeScreen.UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+
                             FirebaseUser user = task.getResult().getUser();
                             if (user != null)
                             {

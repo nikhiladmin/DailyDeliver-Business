@@ -50,7 +50,7 @@
             android:id="@+id/buss_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/productsans_bold"
             android:hint="Business Name"
             android:text="Hello world"
             android:inputType="textPersonName" />
@@ -71,7 +71,7 @@
             android:id="@+id/radio_btn_monthly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Monthly"
             android:textSize="20sp" />
@@ -80,7 +80,7 @@
             android:id="@+id/radio_btn_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Daily"
             android:textSize="20sp" />
@@ -100,7 +100,7 @@
             android:id="@+id/radio_btn_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Cash"
             android:textSize="20sp" />
@@ -109,7 +109,7 @@
             android:id="@+id/radio_btn_online"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Online"
             android:textSize="20sp" />
@@ -118,7 +118,7 @@
             android:id="@+id/radio_btn_both"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Both"
             android:textSize="20sp" />
@@ -142,7 +142,7 @@
             android:id="@+id/buss_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/productsans_bold"
             android:hint="Price"
             android:text="30"
             android:inputType="number" />
@@ -164,7 +164,7 @@
             android:id="@+id/buss_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans"
+            android:fontFamily="@font/productsans_regular"
             android:hint="Business Office Address"
             android:inputType="textMultiLine"
             android:maxLines="3"
