@@ -90,6 +90,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     .load(imageUri.toString())
                     .resize(500, 500)
                     .centerCrop()
+                    .error(R.drawable.profile001)
                     .into(profileImg);
         }else{
             profileImg.setImageResource(R.drawable.ic_account);
