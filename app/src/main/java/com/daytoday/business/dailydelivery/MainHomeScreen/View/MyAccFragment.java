@@ -25,6 +25,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.daytoday.business.dailydelivery.LargeImageView;
+import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessAddition;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
@@ -61,28 +66,34 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.facebook.FacebookSdk.getCacheDir;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.yalantis.ucrop.UCrop;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MyAccFragment extends Fragment {
     FloatingActionButton floatingActionButton;
-    MaterialTextView userName,currentID;
-    TextInputEditText phoneNo,usernameEditText,buss_address;
+    MaterialTextView userName, currentID;
+    TextInputEditText phoneNo, usernameEditText, buss_address;
     FirebaseAuth firebaseAuth;
 
     CircleImageView profileImg;
@@ -95,23 +106,22 @@ public class MyAccFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_myaccount,container,false);
-        floatingActionButton=view.findViewById(R.id.myacc_fab);
+        View view = inflater.inflate(R.layout.fragment_myaccount, container, false);
+        floatingActionButton = view.findViewById(R.id.myacc_fab);
         firebaseAuth = FirebaseAuth.getInstance();
         userName = view.findViewById(R.id.UsersName);
-        usernameEditText=view.findViewById(R.id.myacc_name);
+        usernameEditText = view.findViewById(R.id.myacc_name);
         currentID = view.findViewById(R.id.currId);
         phoneNo = view.findViewById(R.id.myacc_phone);
 
-        profileImg =view.findViewById(R.id.profile_image);
+        profileImg = view.findViewById(R.id.profile_image);
 
-        storage=FirebaseStorage.getInstance();
+        storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
 
 
-
-        buss_address=view.findViewById(R.id.buss_acc_address);
-        button=view.findViewById(R.id.myacc_button);
+        buss_address = view.findViewById(R.id.buss_acc_address);
+        button = view.findViewById(R.id.myacc_button);
         phoneNo.setEnabled(false);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -125,48 +135,51 @@ public class MyAccFragment extends Fragment {
         usernameEditText.setText(SaveOfflineManager.getUserName(getContext()));
         currentID.setText("ID - " + SaveOfflineManager.getUserId(getContext()));
         phoneNo.setText(SaveOfflineManager.getUserPhoneNumber(getContext()));
-
-
-        /**
-         * Profile Image is in hold because we haven't stored any url of image in our data base
-         * we have to make changes in api
-         */
-        // TODO setProfileImage();
-
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
-                alertDialog.setMessage("This will be reflected in all the customers you are connected.");
-                alertDialog.setTitle("You are about to modify your profile details");
-                alertDialog.setCancelable(false);
-                alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        updateData();
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Changes will take sometime to reflect.",Snackbar.LENGTH_LONG).show();
-                    }
-                });
-                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Snackbar.make(getActivity().findViewById(android.R.id.content),"Profile Update Cancelled",Snackbar.LENGTH_SHORT).show();
-                    }
-                }).show();
-            }
+        buss_address.setText(SaveOfflineManager.getUserAdress(getContext()));
+        Uri imageUri=firebaseAuth.getCurrentUser().getPhotoUrl();
+        if(imageUri!=null){
+            Picasso.get()
+                    .load(imageUri.toString())
+                    .resize(500, 500)
+                    .centerCrop()
+                    .error(R.drawable.profile001)
+                    .into(profileImg);
+        }
+        profileImg.setOnClickListener(v->{
+            if(imageUri!=null)
+                new LargeImageView(getApplicationContext(),v,imageUri.toString(),null);
+            else
+                new LargeImageView(getApplicationContext(),v,null,null);
+        });
+        button.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
+            alertDialog.setMessage("This will be reflected in all the customers you are connected.");
+            alertDialog.setTitle("You are about to modify your profile details");
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FirebaseUpload();
+                    updateData();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Changes will take sometime to reflect.", Snackbar.LENGTH_LONG).show();
+                }
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Profile Update Cancelled", Snackbar.LENGTH_SHORT).show();
+                }
+            }).show();
         });
         return view;
     }
 
-    private void showPictureDialog(){
+    private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
                 "Select photo from gallery",
-                "Capture photo from camera" };
+                "Capture photo from camera"};
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -185,8 +198,7 @@ public class MyAccFragment extends Fragment {
     }
 
 
-
-    public void  requestMultiplePermissions(){
+    public void requestMultiplePermissions() {
         Dexter.withContext(getApplicationContext())
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -234,36 +246,38 @@ public class MyAccFragment extends Fragment {
         startActivityForResult(intent, CAMERA);
     }
 
+    Uri picture, imageUri;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Log.e("TAG","test");
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_CANCELED) {
-            Log.i("UPLOADIMAGE", "onActivityResult: "+resultCode);
+            Log.i("UPLOADIMAGE", "onActivityResult: " + resultCode);
             return;
         }
-        if (requestCode == GALLERY&& data!=null&&data.getData()!=null&& resultCode==RESULT_OK) {
-            if (data != null) {
-                Uri contentURI = data.getData();
-                FirebaseUpload(contentURI);
-            }
-
+        if (requestCode == GALLERY && resultCode == RESULT_OK) {
+            imageUri = data.getData();
+            startCrop(imageUri);
         } else if (requestCode == CAMERA) {
-               Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                profileImg.setImageBitmap(thumbnail);
-             FirebaseUpload(getImageUri(getApplicationContext(),thumbnail));
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            imageUri = getImageUri(getApplicationContext(),thumbnail);
+            startCrop(imageUri);
+        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+            Uri uri = UCrop.getOutput(data);
+            profileImg.setImageURI(uri);
         }
     }
 
-    private void FirebaseUpload(Uri ImageUri){
-        if(ImageUri!=null){
-            ProgressDialog progressDialog =new ProgressDialog(getActivity());
+    private void FirebaseUpload() {
+        if (picture != null) {
+            ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setCancelable(false);
             progressDialog.setTitle("Please Wait...");
             progressDialog.show();
             try {
                 StorageReference reference = storageRef.child("BusinessUser/" + firebaseAuth.getCurrentUser().getUid().toString());
-                reference.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                reference.putFile(picture).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
@@ -292,7 +306,7 @@ public class MyAccFragment extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Snackbar.make(getView(), "Uploading Failed", Snackbar.LENGTH_LONG).show();
                         progressDialog.dismiss();
-                        Log.i("UPLOADIMAGE", "onFailure: "+e.getMessage());
+                        Log.i("UPLOADIMAGE", "onFailure: " + e.getMessage());
                     }
                 }).addOnCanceledListener(new OnCanceledListener() {
                     @Override
@@ -313,7 +327,7 @@ public class MyAccFragment extends Fragment {
 
                     }
                 });
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -326,28 +340,61 @@ public class MyAccFragment extends Fragment {
         return Uri.parse(path);
     }
 
-    private void  setProfileImage(){
-        Uri imageUri=firebaseAuth.getCurrentUser().getPhotoUrl();
-        if(imageUri!=null){
+    private void setProfileImage() {
+        Uri imageUri = firebaseAuth.getCurrentUser().getPhotoUrl();
+        if (imageUri != null) {
             Picasso.get()
                     .load(imageUri.toString())
                     .resize(500, 500)
                     .centerCrop()
                     .into(profileImg);
-        }else{
+        } else {
             profileImg.setImageResource(R.drawable.ic_account);
         }
     }
 
-    public void getAddress()
-    {
+    private void startCrop(@NonNull Uri uri) {
+        String des = "pic" + System.currentTimeMillis() + ".jpg";
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), des)));
+        uCrop.withAspectRatio(1, 1);
+        uCrop.withMaxResultSize(450, 450);
+        uCrop.withOptions(getCropOptions());
+        uCrop.start(getActivity(),this);
+        picture = Uri.fromFile(new File(getCacheDir(), des));
+    }
+
+    private UCrop.Options getCropOptions() {
+        UCrop.Options options = new UCrop.Options();
+        options.setHideBottomControls(false);
+        options.setFreeStyleCropEnabled(true);
+        options.setCompressionQuality(50);
+        options.setToolbarTitle("Crop Your Image");
+        options.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        return options;
+    }
+
+    public void getAddress() {
 
     }
 
-    public void updateData()
-    {
+    public void updateData() {
+        String name = usernameEditText.getText().toString();
+        String address = buss_address.getText().toString();
+        ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
+        Call<YesNoResponse> call = apiInterface.updateBussUserDetails(firebaseAuth.getUid(),name,null,address);
+        call.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.e("TAG","updated");
+                SaveOfflineManager.setUserAdress(getApplicationContext(),address);
+                SaveOfflineManager.setUserName(getApplicationContext(),name);
+            }
 
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
 
+            }
+        });
     }
 
 }
