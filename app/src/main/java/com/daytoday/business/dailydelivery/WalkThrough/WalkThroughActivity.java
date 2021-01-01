@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -36,7 +37,8 @@ public class WalkThroughActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk_through);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.WHITE);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
 
 
@@ -53,8 +55,8 @@ public class WalkThroughActivity extends AppCompatActivity {
 
         //fill the list screen
         final List<ScreenItem> list_of_items = new ArrayList<>();
-        list_of_items.add(new ScreenItem(R.drawable.smartphone,"Manage Your daily product in efficient way and  digitalize your all records"));
-        list_of_items.add(new ScreenItem(R.drawable.intro_twoxxxhdpi,"Easy to distinguish your different types of request in your daily buisness"));
+        list_of_items.add(new ScreenItem(R.drawable.ic_splash_one,"Manage Your daily delivery product and customer in efficient way and  digitalize your all records","Management"));
+        list_of_items.add(new ScreenItem(R.drawable.ic_splash_two,"Easy to distinguish your different types of request in your daily business","Daily Status"));
 
 
         walk_through_Pager = findViewById(R.id.Walk_through_pager);

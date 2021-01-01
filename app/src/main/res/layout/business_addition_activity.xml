@@ -67,7 +67,7 @@
             android:id="@+id/radio_btn_monthly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Monthly"
             android:textSize="20sp" />
@@ -76,7 +76,7 @@
             android:id="@+id/radio_btn_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Daily"
             android:textSize="20sp" />
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/productsans_regular"
         android:text="Payment"
         android:textColor="@color/colorGray"
         android:textSize="22sp"
@@ -109,7 +109,7 @@
             android:id="@+id/radio_btn_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Cash"
             android:textSize="20sp" />
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Online"
             android:textSize="20sp" />
@@ -128,7 +128,7 @@
             android:id="@+id/radio_btn_both"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/productsans_regular"
             android:padding="10dp"
             android:text="Both"
             android:textSize="20sp" />
@@ -140,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/productsans_regular"
         android:text="Pricing"
         android:textColor="@color/colorGray"
         android:textSize="22sp"
