@@ -153,11 +153,29 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:endIconDrawable="@drawable/ic_edit_black"
+                app:endIconMode="custom">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/buss_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="top|left"
+                    android:hint="Business Phone Number"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 app:endIconDrawable="@drawable/ic_edit_black"
                 app:endIconMode="custom">
 
@@ -171,8 +189,7 @@
                     android:inputType="textMultiLine"
                     android:lines="3"
                     android:maxLines="3"
-                    android:scrollbars="vertical"
-                    android:text="Full Address\nIn this From" />
+                    android:scrollbars="vertical" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -180,6 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
                 android:text="Submit"
                 android:textAllCaps="false" />
         </LinearLayout>

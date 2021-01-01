@@ -53,7 +53,7 @@ import retrofit2.Response;
 
 public class BusinessDetailActivity extends AppCompatActivity {
     RadioGroup rg1, rg2;
-    TextInputEditText buss_name, buss_price, buss_address;
+    TextInputEditText buss_name, buss_price, buss_address,buss_phone;
     Button button;
     Bussiness bussiness;
     String paymode, mord;
@@ -79,6 +79,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         businessImage = findViewById(R.id.business_profile_pic);
         imageEditButton = findViewById(R.id.profilepiceditbtn);
         buss_name.setText(bussiness.getName());
+        buss_phone=findViewById(R.id.buss_phone);
         buss_price.setText("" + bussiness.getPrice());
         if (bussiness.getImgurl() != null) {
             Picasso.get()
@@ -88,6 +89,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         }
         Log.e("TAG", "onCreate: " + bussiness.getdOrM());
         buss_address.setText(bussiness.getAddress());
+        buss_phone.setText(bussiness.getPhoneno());
         if (bussiness.getdOrM().equals("D")) {
             rg1.check(R.id.radio_btn_daily);
             mord = "Daily";
@@ -170,6 +172,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
                 buss_name.setEnabled(true);
                 buss_price.setEnabled(true);
                 buss_address.setEnabled(true);
+                buss_phone.setEnabled(true);
                 imageEditButton.setClickable(true);
                 for (int i = 0; i < rg1.getChildCount(); i++)
                     rg1.getChildAt(i).setEnabled(true);
@@ -184,6 +187,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
     public void updateData(String imageurl) {
         String name = buss_name.getText().toString().trim();
         String adress = buss_address.getText().toString().trim();
+        String phone = buss_phone.getText().toString();
         rg1.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
             if (null != radioButton) {
@@ -198,7 +202,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         });
         String price = buss_price.getText().toString().trim();
         ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
-        Call<YesNoResponse> updateBussDetailsCall = apiInterface.updateBussDetails(bussiness.getBussid(), name, "", adress, price, paymode, imageurl);
+        Call<YesNoResponse> updateBussDetailsCall = apiInterface.updateBussDetails(bussiness.getBussid(), name, phone, adress, price, paymode, imageurl);
         updateBussDetailsCall.enqueue(new Callback<YesNoResponse>() {
             @Override
             public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
@@ -220,6 +224,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         buss_name.setEnabled(false);
         buss_price.setEnabled(false);
         buss_address.setEnabled(false);
+        buss_phone.setEnabled(false);
         imageEditButton.setClickable(false);
         for (int i = 0; i < rg1.getChildCount(); i++)
             rg1.getChildAt(i).setEnabled(false);

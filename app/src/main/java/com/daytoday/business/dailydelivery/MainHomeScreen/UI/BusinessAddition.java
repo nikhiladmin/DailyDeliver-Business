@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -42,6 +43,7 @@ import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,12 +79,14 @@ public class BusinessAddition extends AppCompatActivity {
 
     Toolbar toolbar;
     RadioGroup rg1, rg2;
-    TextInputLayout textInputLayout;
-    TextInputEditText buisnessName, price;
+    TextInputLayout textInputLayout,namelayout,pricelayout,phonelayout,addresslayout;
+    TextInputEditText buisnessName, price,bussphonenumber,bussaddress;
     ApiInterface apiInterface;
     String monthOrDay, pay_mode;
     CircleImageView profilepic;
     FloatingActionButton profilePicUploadbtn;
+    CheckBox samephone,sameaddress;
+    RadioButton radioType1,radioType2,paymentType1,paymentType2,paymentType3;
     private final String URL = "https://api.icons8.com/api/iconsets/search?term=milk&amount=1";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -113,6 +117,19 @@ public class BusinessAddition extends AppCompatActivity {
         profilePicUploadbtn = findViewById(R.id.profilepiceditbtn);
         profilepic = findViewById(R.id.business_profile_pic);
         rg2.clearCheck();
+        samephone = findViewById(R.id.samephonecheckbox);
+        sameaddress = findViewById(R.id.sameaddresscheckbox);
+        bussaddress = findViewById(R.id.buss_address);
+        bussphonenumber = findViewById(R.id.buss_phone);
+        namelayout = findViewById(R.id.name_layout);
+        pricelayout = findViewById(R.id.price_layout);
+        phonelayout = findViewById(R.id.phone_layout);
+        addresslayout = findViewById(R.id.address_layout);
+        radioType1 = findViewById(R.id.radio_btn_monthly);
+        radioType2 = findViewById(R.id.radio_btn_daily);
+        paymentType1 = findViewById(R.id.radio_btn_cash);
+        paymentType2 = findViewById(R.id.radio_btn_online);
+        paymentType3 = findViewById(R.id.radio_btn_both);
 
         //---------------------listener on radio group-----------------------------------------------//
         rg1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -123,10 +140,10 @@ public class BusinessAddition extends AppCompatActivity {
                 if (null != radioButton) {
                     temp = radioButton.getText().toString().trim();
                     if (temp.equals("Monthly")) {
-                        textInputLayout.setSuffixText("/Month");
+                        pricelayout.setSuffixText("/Month");
                         monthOrDay = "M";
                     } else {
-                        textInputLayout.setSuffixText("/Day");
+                        pricelayout.setSuffixText("/Day");
                         monthOrDay = "D";
                     }
                 }
@@ -158,6 +175,24 @@ public class BusinessAddition extends AppCompatActivity {
                 new LargeImageView(getApplicationContext(),v,null,picture);
             }
         });
+        samephone.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked)
+            {
+                bussphonenumber.setText(SaveOfflineManager.getUserPhoneNumber(getBaseContext()));
+            }else
+            {
+                bussphonenumber.setText("");
+            }
+        });
+        sameaddress.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked)
+            {
+                bussaddress.setText(SaveOfflineManager.getUserAdress(getBaseContext()));
+            }else
+            {
+                bussaddress.setText("");
+            }
+        });
     }
 
     //----------------------------------when the back button of toolbar is pressed--------------------------
@@ -181,7 +216,7 @@ public class BusinessAddition extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_business:
                 //Toast.makeText(this, "To be Added soon", Toast.LENGTH_SHORT).show();
-                CreateInstanseInDatabase();
+                allFieldsValid();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -238,7 +273,9 @@ public class BusinessAddition extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String bussname = buisnessName.getText().toString();
         String priceofbuss = price.getText().toString();
-        Call<YesNoResponse> addbusscall = apiInterface.addBussDetails(bussname, monthOrDay, pay_mode, priceofbuss, currentUser.getUid(), imageUrl);
+        String phone = bussphonenumber.getText().toString();
+        String address =bussaddress.getText().toString();
+        Call<YesNoResponse> addbusscall = apiInterface.addBussDetails(bussname, monthOrDay, pay_mode, priceofbuss, currentUser.getUid(), imageUrl,phone,address);
         addbusscall.enqueue(new Callback<YesNoResponse>() {
             @Override
             public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
@@ -285,6 +322,55 @@ public class BusinessAddition extends AppCompatActivity {
         options.setToolbarTitle("Crop Your Image");
         options.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         return options;
+    }
+    private void allFieldsValid()
+    {
+        boolean error = false;
+        namelayout.setError(null);
+        pricelayout.setError(null);
+        addresslayout.setError(null);
+        phonelayout.setError(null);
+        radioType1.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorBlack));
+        radioType2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorBlack));
+        paymentType1.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorBlack));
+        paymentType2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorBlack));
+        paymentType3.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorBlack));
+        String name = buisnessName.getText().toString();
+        String cost = price.getText().toString();
+        String phone = bussphonenumber.getText().toString();
+        String address = bussaddress.getText().toString();
+        if(name.isEmpty()) {
+            namelayout.setError("Enter a name");
+            error=true;
+        }
+        if(cost.isEmpty()) {
+            pricelayout.setError("Enter Price");
+            error=true;
+        }
+        if(phone.isEmpty()) {
+            phonelayout.setError("Enter phone number");
+            error=true;
+        }
+        if(address.isEmpty()) {
+            addresslayout.setError("Enter Address");
+            error=true;
+        }
+        if(monthOrDay==null) {
+            radioType1.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorDelete));
+            radioType2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorDelete));
+            error=true;
+        }
+        if(pay_mode==null)
+        {
+            paymentType1.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorDelete));
+            paymentType2.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorDelete));
+            paymentType3.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.colorDelete));
+            error=true;
+        }
+        if(!error)
+        {
+            CreateInstanseInDatabase();
+        }
     }
 
 }
