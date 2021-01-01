@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessAddition;
 import com.daytoday.business.dailydelivery.R;
 
@@ -137,29 +138,31 @@ public class MyAccFragment extends Fragment {
                     .error(R.drawable.profile001)
                     .into(profileImg);
         }
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
-                alertDialog.setMessage("This will be reflected in all the customers you are connected.");
-                alertDialog.setTitle("You are about to modify your profile details");
-                alertDialog.setCancelable(false);
-                alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        FirebaseUpload();
-                        updateData();
-                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Changes will take sometime to reflect.", Snackbar.LENGTH_LONG).show();
-                    }
-                });
-                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Snackbar.make(getActivity().findViewById(android.R.id.content), "Profile Update Cancelled", Snackbar.LENGTH_SHORT).show();
-                    }
-                }).show();
-            }
+        profileImg.setOnClickListener(v->{
+            if(imageUri!=null)
+                new LargeImageView(getApplicationContext(),v,imageUri.toString(),null);
+            else
+                new LargeImageView(getApplicationContext(),v,null,null);
+        });
+        button.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
+            alertDialog.setMessage("This will be reflected in all the customers you are connected.");
+            alertDialog.setTitle("You are about to modify your profile details");
+            alertDialog.setCancelable(false);
+            alertDialog.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FirebaseUpload();
+                    updateData();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Changes will take sometime to reflect.", Snackbar.LENGTH_LONG).show();
+                }
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Profile Update Cancelled", Snackbar.LENGTH_SHORT).show();
+                }
+            }).show();
         });
         return view;
     }

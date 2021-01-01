@@ -37,6 +37,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
@@ -147,6 +148,15 @@ public class BusinessAddition extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_GET_CONTENT).setType("image/*");
             startActivityForResult(intent, 1);
+        });
+        profilepic.setOnClickListener(v->{
+            if(picture==null)
+            {
+                new LargeImageView(getApplicationContext(),v,"http://dailydeliver.000webhostapp.com/img/business_default.png",null);
+            }else
+            {
+                new LargeImageView(getApplicationContext(),v,null,picture);
+            }
         });
     }
 
