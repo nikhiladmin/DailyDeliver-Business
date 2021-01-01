@@ -70,5 +70,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     implementation 'com.github.yalantis:ucrop:2.2.6'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
 
 }

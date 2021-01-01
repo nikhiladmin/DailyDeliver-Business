@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
@@ -131,6 +132,18 @@ public class BusinessDetailActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_GET_CONTENT).setType("image/*");
             startActivityForResult(intent, 1);
+        });
+        businessImage.setOnClickListener(v->{
+            if(picture!=null)
+            {
+                new LargeImageView(getApplication(),v,null,picture);
+            }else if(bussiness.getImgurl()==null)
+            {
+                new LargeImageView(getApplication(),v,null,null);
+            }else if(bussiness.getImgurl()!=null)
+            {
+                new LargeImageView(getApplication(),v,bussiness.getImgurl(),null);
+            }
         });
         setFalse();
     }

@@ -93,7 +93,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     .error(R.drawable.profile001)
                     .into(profileImg);
         }else{
-            profileImg.setImageResource(R.drawable.ic_account);
+            profileImg.setImageResource(R.drawable.profile001);
         }
 
         if (savedInstanceState == null) {
