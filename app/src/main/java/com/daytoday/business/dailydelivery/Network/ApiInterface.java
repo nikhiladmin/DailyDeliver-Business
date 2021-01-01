@@ -23,7 +23,8 @@ public interface ApiInterface {
 
     @GET("insert-buss-details")
     Call<YesNoResponse> addBussDetails(@Query("bussname") String bussName,@Query("monordaily") String monOrDaily
-            ,@Query("paymode") String payMode,@Query("price") String price,@Query("userId") String userId,@Query("imageurl") String imageurl);
+            ,@Query("paymode") String payMode,@Query("price") String price,@Query("userId") String userId,@Query("imageurl") String imageurl,
+                                       @Query("phone")String phone,@Query("address") String address);
 
     @GET("insert-buss-cust-details")
     Call<YesNoResponse> addBussCustDetails(@Query("bussid") String bussId,@Query("custid") String custId);
