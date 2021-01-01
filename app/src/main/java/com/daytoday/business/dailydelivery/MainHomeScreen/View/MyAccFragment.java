@@ -27,6 +27,9 @@ import androidx.fragment.app.Fragment;
 
 import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessAddition;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
@@ -68,6 +71,9 @@ import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -129,6 +135,7 @@ public class MyAccFragment extends Fragment {
         usernameEditText.setText(SaveOfflineManager.getUserName(getContext()));
         currentID.setText("ID - " + SaveOfflineManager.getUserId(getContext()));
         phoneNo.setText(SaveOfflineManager.getUserPhoneNumber(getContext()));
+        buss_address.setText(SaveOfflineManager.getUserAdress(getContext()));
         Uri imageUri=firebaseAuth.getCurrentUser().getPhotoUrl();
         if(imageUri!=null){
             Picasso.get()
@@ -371,8 +378,23 @@ public class MyAccFragment extends Fragment {
     }
 
     public void updateData() {
+        String name = usernameEditText.getText().toString();
+        String address = buss_address.getText().toString();
+        ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
+        Call<YesNoResponse> call = apiInterface.updateBussUserDetails(firebaseAuth.getUid(),name,null,address);
+        call.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.e("TAG","updated");
+                SaveOfflineManager.setUserAdress(getApplicationContext(),address);
+                SaveOfflineManager.setUserName(getApplicationContext(),name);
+            }
 
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
 
+            }
+        });
     }
 
 }
