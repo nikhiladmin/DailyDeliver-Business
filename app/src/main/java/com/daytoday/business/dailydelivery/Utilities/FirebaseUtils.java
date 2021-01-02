@@ -83,4 +83,8 @@ public class FirebaseUtils {
     public static String getMonthlyPathOnRequest(CalendarDay day, String request) {
         return day.getYear() + "/" + day.getMonth() + "/Monthly-Total/" + request;
     }
+
+    public static String getAllMonthPath(String year, String month) {
+        return year + "/" + month ;
+    }
 }

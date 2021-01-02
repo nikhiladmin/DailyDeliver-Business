@@ -7,11 +7,14 @@ import androidx.lifecycle.Observer;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.NumberPicker;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModel;
+import com.daytoday.business.dailydelivery.Network.Response.Transaction;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.AppUtils;
 import com.daytoday.business.dailydelivery.Utilities.FirebaseUtils;
 import com.daytoday.business.dailydelivery.Utilities.Request;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,27 +68,22 @@ public class CalenderActivity extends AppCompatActivity {
             }
         });
 
-        datesViewModel.getAcceptedList().observe(this, new Observer<List<Dates>>() {
+        datesViewModel.getTotalList(calendarView.getCurrentDate()).observe(this, new Observer<List<Transaction>>() {
             @Override
-            public void onChanged(List<Dates> dates) {
-                CircleDecorator decorator = new CircleDecorator(CalenderActivity.this,R.drawable.accepted_color,dates);
-                calendarView.addDecorators(decorator);
+            public void onChanged(List<Transaction> transactions) {
+                calendarView.removeDecorators();
+                for (Transaction transaction : transactions) {
+                    int drawableResourceId = AppUtils.getResourceIdDates(transaction.getStatus());
+                    CircleDecorator decorator = new CircleDecorator(CalenderActivity.this,drawableResourceId,transaction);
+                    calendarView.addDecorator(decorator);
+                }
             }
         });
 
-        datesViewModel.getCancelledList().observe(this, new Observer<List<Dates>>() {
+        calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
-            public void onChanged(List<Dates> dates) {
-                CircleDecorator decorator = new CircleDecorator(CalenderActivity.this,R.drawable.canceled_color,dates);
-                calendarView.addDecorators(decorator);
-            }
-        });
-
-        datesViewModel.getPendingList().observe(this, new Observer<List<Dates>>() {
-            @Override
-            public void onChanged(List<Dates> dates) {
-                CircleDecorator decorator = new CircleDecorator(CalenderActivity.this,R.drawable.pending_color,dates);
-                calendarView.addDecorators(decorator);
+            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+                datesViewModel.getTotalList(date);
             }
         });
     }
@@ -92,10 +91,6 @@ public class CalenderActivity extends AppCompatActivity {
     private void createPendingRequest(CalendarDay day ,String quantity) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(bussCustId);
         HashMap<String,String> value = FirebaseUtils.getValueMapOfRequest(day, quantity,Request.PENDING);
-//        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Pending")
-//                .child("" + day.getYear() + day.getMonth() + day.getDay()).setValue(value);
-//        reference.child("Buss_Cust_DayWise").child(bussCustId).child("Rejected")
-//                .child("" + day.getYear() + day.getMonth() + day.getDay()).removeValue();
         reference.child(FirebaseUtils.getDatePath(day))
                 .setValue(value);
         FirebaseUtils.incrementAccToReq(day, reference, Request.PENDING);
