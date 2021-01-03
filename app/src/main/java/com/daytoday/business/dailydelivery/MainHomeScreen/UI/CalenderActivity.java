@@ -8,7 +8,9 @@ import androidx.lifecycle.Observer;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModel;
@@ -30,6 +32,7 @@ import java.util.List;
 public class CalenderActivity extends AppCompatActivity {
     MaterialCalendarView calendarView;
     String bussID,custID,bussCustId;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class CalenderActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Calender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         calendarView = findViewById(R.id.calendar);
+        progressBar = findViewById(R.id.progress_bar);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         DatesViewModel datesViewModel = new DatesViewModel(bussCustId);
 
@@ -84,6 +88,13 @@ public class CalenderActivity extends AppCompatActivity {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 datesViewModel.getTotalList(date);
+            }
+        });
+
+        datesViewModel.isLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
             }
         });
     }

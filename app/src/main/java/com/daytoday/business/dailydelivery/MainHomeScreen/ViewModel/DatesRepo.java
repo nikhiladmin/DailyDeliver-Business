@@ -20,17 +20,12 @@ import java.util.List;
 
 public class DatesRepo {
 
-    public void requestTotalList(MutableLiveData<List<Transaction>> liveData,String bussCustId, String year , String month) {
-        //MutableLiveData<List<Transaction>> liveData = new MutableLiveData<>();
-        Log.i("message","request Total list called");
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(bussCustId);
-
-        reference.child(FirebaseUtils.getAllMonthPath(year,month))
-                .addValueEventListener(new ValueEventListener() {
+    public void requestTotalList(DatesViewModel datesViewModel, DatabaseReference reference) {
+        reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         List<Transaction> transactionsList = new ArrayList<>();
-
+                        datesViewModel.isLoading.setValue(false);
                         Iterator iterator = dataSnapshot.getChildren().iterator();
                         while (iterator.hasNext()) {
                             DataSnapshot snapshot = ((DataSnapshot)iterator.next());
@@ -38,7 +33,7 @@ public class DatesRepo {
                                 Transaction transaction = snapshot.getValue(Transaction.class);
                                 transactionsList.add(transaction);
                             }
-                            liveData.postValue(transactionsList);
+                            datesViewModel.getTotalLiveData().postValue(transactionsList);
                         }
                     }
 
