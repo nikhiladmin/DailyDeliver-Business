@@ -1,31 +1,36 @@
-package com.daytoday.business.dailydelivery.LoginActivity;
+package com.daytoday.business.dailydelivery;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
+import com.daytoday.business.dailydelivery.LoginActivity.OtpVerification;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
-import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.hbb20.CountryCodePicker;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -40,67 +45,118 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+public class AdditionalInfo extends AppCompatActivity {
 
-public class PhoneVerification extends AppCompatActivity {
-
-    CountryCodePicker ccp;
-    Button send_otp;
-
-    private TextInputEditText phoneNo;
-    private TextView displayName;
+    String ft;
+    String lt;
+    String userAddress;
+    private TextInputEditText firstName;
+    private TextInputEditText lastName;
     private TextInputEditText address;
-    private TextInputLayout addresslayout;
-    private boolean isPhoneAuth;
-    private TextView phone_auth_title;
-   private ImageButton gps_address;
+    private Button goHome;
+    private ImageButton getLocation;
+    private FirebaseAuth mAuth;
+    private ApiInterface apiInterface;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        isPhoneAuth = getIntent().getBooleanExtra("isPhoneAuth", false);
+        setContentView(R.layout.activity_additional_info);
+
+        //Action bar hide and color change ------------------------------------------
         getWindow().setStatusBarColor(Color.WHITE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
-        addresslayout = findViewById(R.id.editText_addresslayout);
-        ccp = findViewById(R.id.ccp);
-        phone_auth_title = findViewById(R.id.phone_verify_title);
-        send_otp = findViewById(R.id.send_otp);
-        phoneNo = findViewById(R.id.editText_carrierNumber);
-        displayName = findViewById(R.id.display_name);
-        address = findViewById(R.id.address_text);
-      gps_address = findViewById(R.id.gps_address);
-        if (isPhoneAuth == false) {
-            phone_auth_title.setText("Verify Phone Number");
-            phone_auth_title.setTextSize(35);
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null && user.getDisplayName() != null) {
-                displayName.setText(user.getDisplayName());
-                displayName.setVisibility(View.VISIBLE);
-            }
-            gps_address.setVisibility(View.VISIBLE);
-            addresslayout.setVisibility(View.VISIBLE);
-        }
 
-        send_otp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String completePhoneNo = ccp.getFullNumberWithPlus() + phoneNo.getText().toString();
-                Intent intent = new Intent(PhoneVerification.this, OtpVerification.class);
-                intent.putExtra("isPhoneAuth", isPhoneAuth);
-                intent.putExtra("phoneNo", completePhoneNo);
-                if (isPhoneAuth==false)
-                    intent.putExtra("address", address.getText().toString());
+        //Initialize views and Firebase-------------------------
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
+        address = findViewById(R.id.user_address);
+        goHome = findViewById(R.id.go_home);
+        getLocation = findViewById(R.id.getLocation);
+        mAuth = FirebaseAuth.getInstance();
+        apiInterface = Client.getClient().create(ApiInterface.class);
+        goHome.setOnClickListener(view -> {
+            ft = firstName.getText().toString().trim();
+            lt = lastName.getText().toString().trim();
+            String userAddress = address.getText().toString().trim();
+            if (ft.isEmpty() || lt.isEmpty() || userAddress.isEmpty()) {
+                firstName.setError("Please enter first name");
+                lastName.setError("Please enter last name");
+                address.setError("please enter your address");
 
+            } else if (!(ft.matches("^[A-Za-z]+$") && lt.matches("^[a-zA-Z]+$"))) {
+                firstName.setError("Invalid first name ");
+                lastName.setError("Invalid last name");
 
-                startActivity(intent);
+            } else {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(ft + " " + lt)
+                            .setPhotoUri(null)
+                            .build();
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("ADDITIONAL_INFO", "User profile updated.");
+
+                                        createUserProfile(ft + " " + lt, user, userAddress);
+
+                                    }
+                                }
+                            });
+                }
             }
         });
-            gps_address.setOnClickListener(view -> {
-                getLocationPermission();
-            });
+
+        getLocation.setOnClickListener(view -> {
+            getLocationPermission();
+        });
     }
+
+    public void createUserProfile(String name, FirebaseUser user, String address) {
+        FirebaseUser currentUser = user;
+        Log.d("message", "createUserProfile: " + currentUser.getUid() + name + currentUser.getPhoneNumber() + address);
+        Call<YesNoResponse> createusercall = apiInterface.addBussUserDetails(currentUser.getUid(), name, currentUser.getPhoneNumber(), address);
+
+        createusercall.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.i("message", "Response Successful " + response.body().getMessage());
+                saveOffline(currentUser, name, address);
+                SendUserHomePage();
+            }
+
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                Log.e("MESSAGE_API", "onFailure: " + t.getMessage());
+                Toast.makeText(getApplicationContext(), "Couldn't Login. Please Try Again", Toast.LENGTH_SHORT).show();
+                //TODO logout user from here
+            }
+        });
+    }
+
+    public void saveOffline(FirebaseUser currentUser, String name, String adress) {
+        SaveOfflineManager.setUserName(this, name);
+        SaveOfflineManager.setUserId(this, currentUser.getUid());
+        SaveOfflineManager.setUserAdress(this, adress);
+        SaveOfflineManager.setUserPhoneNumber(this, currentUser.getPhoneNumber());
+    }
+
+    public void SendUserHomePage() {
+        Intent loginIntent = new Intent(AdditionalInfo.this, HomeScreen.class);
+        loginIntent.putExtra("Name", ft + " " + lt);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+        finish();
+    }
+
     private void getLocationPermission() {
 
         Dexter
@@ -136,6 +192,7 @@ public class PhoneVerification extends AppCompatActivity {
                 .check();
     }
 
+
     private void getCurrentLocation() {
         Log.i("LOCATION_TRACK","GETL");
         LocationManager locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
@@ -152,14 +209,14 @@ public class PhoneVerification extends AppCompatActivity {
                 getAddress(location.getLatitude(),location.getLongitude());
                 return;
             } else {
-                Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG);
             }
         }
 
     }
 
     private  void getAddress(double lat ,double lon){
-        ApiInterface geocodingApiInterface = Client.getGeocodingClient().create(ApiInterface.class);
+        ApiInterface  geocodingApiInterface = Client.getGeocodingClient().create(ApiInterface.class);
         Call<GeocodingResponse> geocodingResponseCall = geocodingApiInterface.getReverseGeocoding(lat,lon,18,0,"jsonv2");
 
         geocodingResponseCall.enqueue(new Callback<GeocodingResponse>() {
