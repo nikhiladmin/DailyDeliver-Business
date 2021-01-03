@@ -63,13 +63,13 @@
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="100dp"
         android:orientation="vertical"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
@@ -77,8 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-
-            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/colorPrimary"
             android:drawableLeft="@drawable/ic_call_white_24dp"
             android:fontFamily="@font/productsans_bold"
@@ -87,19 +85,12 @@
             android:text="Sign in with Phone Number"
             android:textAllCaps="false" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            />
 
         <Button
             android:id="@+id/btn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorGoogleLogin"
             android:drawableLeft="@drawable/ic_google"
             android:fontFamily="@font/productsans_bold"
@@ -108,53 +99,40 @@
             android:text="Sign in with Google"
             android:textAllCaps="false" />
 
+<FrameLayout
+            android:id="@+id/FrameLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="5dp"
+
             android:backgroundTint="@color/colorFacebookLogin"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:text="Sign in with Facebook"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:textColor="@color/colorWhite" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/fb"
+        android:elevation="10dp"
 
-    <LinearLayout
-        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:fontFamily="@font/productsans_bold"
-            android:text="Don't have an account?"
-            android:textColor="@color/colorBlack" />
-
-        <Button
-            android:id="@+id/signup"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="0"
-            android:text="Sign up now!"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary" />
-
+        android:background="@color/colorFacebookLogin"
+        android:onClick="onClick"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_facebook"
+        android:textAllCaps="false"
+        android:text="Sign in with Facebook"
+        android:textColor="@color/colorWhite"
+        />
+</FrameLayout>
     </LinearLayout>
 
 

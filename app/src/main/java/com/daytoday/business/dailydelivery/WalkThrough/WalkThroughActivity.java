@@ -116,7 +116,9 @@ public class WalkThroughActivity extends AppCompatActivity {
 
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myprefs",MODE_PRIVATE);
+
         Boolean isIntroOpened = pref.getBoolean("isIntroOpened",false);
+        Log.v("AUTHEN", "restorePrefData: "+isIntroOpened);
         return isIntroOpened;
     }
 

@@ -1,8 +1,10 @@
 package com.daytoday.business.dailydelivery.Network;
 
+import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
 import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
 import com.daytoday.business.dailydelivery.Network.Response.BussRelCustResponse;
 import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
+import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 
 import retrofit2.Call;
@@ -20,6 +22,9 @@ public interface ApiInterface {
     @GET("insert-cust-user-details")
     Call<YesNoResponse> addCustUserDetails(@Query("userid") String userId,@Query("username") String userName
             ,@Query("userphone") String userPhone,@Query("useradd") String userAdd);
+
+    @GET("login-buss")
+    Call<AuthUserResponse> loginUser(@Query("bussid") String bussid);
 
     @GET("insert-buss-details")
     Call<YesNoResponse> addBussDetails(@Query("bussname") String bussName,@Query("monordaily") String monOrDaily
@@ -54,4 +59,8 @@ public interface ApiInterface {
 
     @GET("fetch-daywise")
     Call<DayWiseResponse> getDayWise(@Query("busscustid") String bussCustId);
+
+
+    @GET("reverse")
+    Call<GeocodingResponse> getReverseGeocoding(@Query("lat") double lat,@Query("lon") double lon,@Query("zoom") int zoom,@Query("addressdetails") int addressdetails,@Query("format") String format);
 }

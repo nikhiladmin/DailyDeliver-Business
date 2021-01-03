@@ -2,6 +2,8 @@ package com.daytoday.business.dailydelivery.Network;
 
 import android.util.Log;
 
+import androidx.annotation.RestrictTo;
+
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
@@ -16,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
     private static Retrofit retrofit = null;
+    private static Retrofit geoCodingRetrofit=null;
 
     private static Gson gson = new GsonBuilder()
             .setLenient()
@@ -31,6 +34,18 @@ public class Client {
                     .build();
         }
         return retrofit;
+    }
+
+    public static Retrofit getGeocodingClient(){
+        if(geoCodingRetrofit==null){
+            geoCodingRetrofit = new Retrofit.Builder()
+                    .baseUrl("https://nominatim.openstreetmap.org/")
+                    .client(getHeader())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        }
+        return geoCodingRetrofit;
     }
 
     private static OkHttpClient getHeader() {
