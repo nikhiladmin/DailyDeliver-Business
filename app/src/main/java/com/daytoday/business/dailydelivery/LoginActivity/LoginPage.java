@@ -46,6 +46,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -290,25 +291,21 @@ public class LoginPage extends AppCompatActivity {
         // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-
-            if(currentUser.getPhoneNumber()!=null&&currentUser.getDisplayName()==null&&currentUser.isEmailVerified()==false) {
-                Log.v("AUTHEN", "walkT: to =login to addi");
-                Intent loginIntent = new Intent(LoginPage.this, AdditionalInfo.class);
+            if(currentUser.getPhoneNumber().length()!=0&&currentUser.getDisplayName().length()!=0){
+                Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
                 finish();
-            }else if(currentUser.getPhoneNumber()==null&&currentUser.isEmailVerified()==true&&currentUser.getDisplayName()!=null){
+            }else if(currentUser.getPhoneNumber().length()==0&&currentUser.getDisplayName().length()!=0){
                 Intent loginIntent = new Intent(LoginPage.this, PhoneVerification.class);
                 loginIntent.putExtra("isPhoneAuth",false);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
                 finish();
-            }
-            else{
-                Log.v("AUTHEN", "walkT: to =login to Home");
-                Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
+            }else if(currentUser.getPhoneNumber().length()!=0&&currentUser.getDisplayName().length()==0){
+                Intent loginIntent = new Intent(LoginPage.this, AdditionalInfo.class);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);

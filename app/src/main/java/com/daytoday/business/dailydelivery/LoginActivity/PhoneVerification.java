@@ -93,6 +93,10 @@ public class PhoneVerification extends AppCompatActivity {
                 if (isPhoneAuth==false)
                     intent.putExtra("address", address.getText().toString());
 
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
+
 
                 startActivity(intent);
             }

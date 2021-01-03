@@ -117,26 +117,30 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         super.onStart();
         // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         currentUser = mAuth.getCurrentUser();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
+        if(currentUser!=null) {
 
-            if (currentUser.getDisplayName() == null && currentUser.isEmailVerified() == false && currentUser.getPhoneNumber() != null) {
-                Log.v("AUTHEN", " Home to add");
-                Intent loginIntent = new Intent(HomeScreen.this, AdditionalInfo.class);
+             if (currentUser.getPhoneNumber().length() == 0 && currentUser.getDisplayName().length() != 0) {
+                Intent loginIntent = new Intent(HomeScreen.this, PhoneVerification.class);
+                loginIntent.putExtra("isPhoneAuth", false);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
                 finish();
-            }else if(currentUser.getPhoneNumber()==null&&currentUser.isEmailVerified()==true&&currentUser.getDisplayName()!=null){
-                Intent loginIntent = new Intent(HomeScreen.this, PhoneVerification.class);
-                loginIntent.putExtra("isPhoneAuth",false);
+            } else if (currentUser.getPhoneNumber().length() != 0 && currentUser.getDisplayName().length() == 0) {
+                Intent loginIntent = new Intent(HomeScreen.this, AdditionalInfo.class);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
                 finish();
             }else{
 
-            }
+             }
+        }else{
+            Intent loginIntent = new Intent(HomeScreen.this, LoginPage.class);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(loginIntent);
+            finish();
         }
     }
     @Override
