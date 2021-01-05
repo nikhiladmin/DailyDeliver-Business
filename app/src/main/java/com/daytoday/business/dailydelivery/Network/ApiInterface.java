@@ -31,7 +31,8 @@ public interface ApiInterface {
 
     @GET("insert-buss-details")
     Call<YesNoResponse> addBussDetails(@Query("bussname") String bussName,@Query("monordaily") String monOrDaily
-            ,@Query("paymode") String payMode,@Query("price") String price,@Query("userId") String userId);
+            ,@Query("paymode") String payMode,@Query("price") String price,@Query("userId") String userId,@Query("imageurl") String imageurl,
+                                       @Query("phone")String phone,@Query("address") String address);
 
     @GET("insert-buss-cust-details")
     Call<YesNoResponse> addBussCustDetails(@Query("bussid") String bussId,@Query("custid") String custId);
@@ -47,7 +48,7 @@ public interface ApiInterface {
 
     @GET("update-buss-details")
     Call<YesNoResponse> updateBussDetails(@Query("bussid") String bussid,@Query("name") String name,@Query("phone") String phone
-            ,@Query("address") String address,@Query("price") String price,@Query("paymode") String payMode);
+            ,@Query("address") String address,@Query("price") String price,@Query("paymode") String payMode,@Query("imageurl")String imageurl);
 
     @GET("update-buss-user-details")
     Call<YesNoResponse> updateBussUserDetails(@Query("bussuserid") String bussuserid,@Query("username") String userName

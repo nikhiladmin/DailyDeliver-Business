@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity;
 import com.daytoday.business.dailydelivery.R;
@@ -53,6 +55,12 @@ public class SingleBusinessDetail extends AppCompatActivity {
                     .resize(5000, 5000)
                     .centerCrop()
                     .into(bussImg);
+            bussImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new LargeImageView(getApplicationContext(),v,bussiness.getImgurl(),null);
+                }
+            });
         }
     }
 

@@ -49,7 +49,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
         if (bussiness.getImgurl()!=null) {
             Picasso.get()
                     .load(bussiness.getImgurl())
-                    .resize(5000, 5000)
+                    .resize(500, 500)
                     .centerCrop()
                     .into(holder.buss1_image);
         }

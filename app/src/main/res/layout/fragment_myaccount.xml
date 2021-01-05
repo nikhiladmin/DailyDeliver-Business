@@ -20,7 +20,7 @@
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/menu_user"
+            android:src="@drawable/profile001"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
