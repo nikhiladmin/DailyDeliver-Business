@@ -22,16 +22,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.AdditionalInfo;
+import com.daytoday.business.dailydelivery.LoginActivity.AdditionalInfo;
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
-import com.daytoday.business.dailydelivery.LoginActivity.PhoneVerification;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.facebook.login.LoginManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

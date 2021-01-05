@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EmailSignup">
+    tools:context=".LoginActivity.EmailSignup">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textView"
@@ -86,6 +86,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_email"
                 android:layout_width="match_parent"
+                android:maxLines="1"
                 android:layout_height="60dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            app:passwordToggleEnabled="true"
             app:boxStrokeColor="@color/colorPrimary"
 
             app:startIconDrawable="@drawable/ic_baseline_key_24">
@@ -104,6 +106,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signup_password"
                 android:layout_width="match_parent"
+                android:maxLines="1"
                 android:layout_height="60dp"
                 android:inputType="textPassword" />
 
@@ -116,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm Password"
-
+            app:passwordToggleEnabled="true"
             android:paddingTop="5dp"
             app:boxStrokeColor="@color/colorPrimary"
 
@@ -126,6 +129,7 @@
                 android:id="@+id/signup_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:maxLines="1"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.LoginActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
-import com.daytoday.business.dailydelivery.LoginActivity.OtpVerification;
 import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckResponse;
+import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,11 +68,13 @@ public class EmailSignup extends AppCompatActivity {
         });
 
         signupBtn.setOnClickListener(view -> {
-
-            if(isEmailValid(emailEditText.getText().toString())){
-                isUserExist(emailEditText.getText().toString());
-            }
-
+if(privacyPolicyCheck.isChecked()) {
+    if (isEmailValid(emailEditText.getText().toString())) {
+        isUserExist(emailEditText.getText().toString());
+    }
+}else{
+    Snackbar.make(view,"Please read and accept the privacy and policy.",Snackbar.LENGTH_LONG).show();
+}
         });
     }
 

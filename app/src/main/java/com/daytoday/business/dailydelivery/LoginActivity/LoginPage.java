@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.daytoday.business.dailydelivery.AdditionalInfo;
-import com.daytoday.business.dailydelivery.EmailSignup;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.AuthUser;
 import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
@@ -27,10 +25,7 @@ import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckRespons
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
-import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,11 +36,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
