@@ -1,7 +1,6 @@
 package com.daytoday.business.dailydelivery.LoginActivity;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,8 +20,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
-import com.daytoday.business.dailydelivery.AdditionalInfo;
-import com.daytoday.business.dailydelivery.EmailSignup;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.AuthUser;
 import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
@@ -30,7 +27,6 @@ import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
 import com.daytoday.business.dailydelivery.Network.Response.OTPSendResponse;
 import com.daytoday.business.dailydelivery.Network.Response.OTPVerifyResponse;
-import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -240,7 +236,7 @@ public class OtpVerification extends AppCompatActivity {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verification, code);
             signInWithPhoneAuthCredential(credential);
         }else{
-            Toast.makeText(OtpVerification.this,"Verification failed",Toast.LENGTH_LONG);
+            Toast.makeText(OtpVerification.this,"Verification failed",Toast.LENGTH_LONG).show();
         }
 
 
@@ -298,7 +294,7 @@ public class OtpVerification extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthUserResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -324,7 +320,7 @@ public class OtpVerification extends AppCompatActivity {
             @Override
             public void onResponse(Call<OTPSendResponse> call, Response<OTPSendResponse> response) {
                 if(response.body().getError()){
-                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG);
+                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -342,7 +338,7 @@ public class OtpVerification extends AppCompatActivity {
             public void onResponse(Call<OTPVerifyResponse> call, Response<OTPVerifyResponse> response) {
                 Log.i(TAG, "onResponse: "+response.body().getError()+" "+response.body().getStatus()+" "+response.body().getMessage()+ " "+code);
                 if(response.body().getError()){
-                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG);
+                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
                     pinView.setError(response.body().getMessage());
                 }else{
                     if(response.body().getStatus()==0){
@@ -355,7 +351,7 @@ public class OtpVerification extends AppCompatActivity {
                         startActivity(sign);
                         finish();
                     }else{
-                        Toast.makeText(getApplicationContext(),response.body().getMessage()+". Please try again!",Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(),response.body().getMessage()+". Please try again!",Toast.LENGTH_LONG).show();
                     }
                 }
             }

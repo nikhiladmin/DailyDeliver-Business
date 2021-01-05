@@ -1,4 +1,4 @@
-package com.daytoday.business.dailydelivery;
+package com.daytoday.business.dailydelivery.LoginActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,12 +20,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
+import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -226,7 +226,7 @@ public class AdditionalInfo extends AppCompatActivity {
                 getAddress(location.getLatitude(),location.getLongitude());
                 return;
             } else {
-                    Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG).show();
             }
         }else if(isNetworkEnable){
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -236,10 +236,10 @@ public class AdditionalInfo extends AppCompatActivity {
             getAddress(location.getLatitude(),location.getLongitude());
             return;
         } else {
-            Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG).show();
         }
         }else{
-            Toast.makeText(getApplicationContext(),"Please on your GPS or Mobile Data",Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Please on your GPS or Mobile Data",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -253,7 +253,7 @@ public class AdditionalInfo extends AppCompatActivity {
             public void onResponse(Call<GeocodingResponse> call, Response<GeocodingResponse> response) {
                 Log.i("LOCATION_TACK", "onResponse: "+response.body().getDisplayName());
                 if(response.body().getError()!=null&&response.body().getError() == true){
-                    Toast.makeText(getApplicationContext(),"Location not fonund",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"Location not fonund",Toast.LENGTH_LONG).show();
                 }else{
                     addressEditText.setText(response.body().getDisplayName());
                 }
@@ -262,7 +262,7 @@ public class AdditionalInfo extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GeocodingResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -284,7 +284,7 @@ public class AdditionalInfo extends AppCompatActivity {
                         } catch(FirebaseAuthInvalidCredentialsException e) {
 
                         } catch(FirebaseAuthUserCollisionException e) {
-                           Toast.makeText(AdditionalInfo.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG);
+                           Toast.makeText(AdditionalInfo.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG).show();
                         } catch(Exception e) {
 
                         }
@@ -310,7 +310,7 @@ public class AdditionalInfo extends AppCompatActivity {
 
                         }else{
                              alertDialog.dismiss();
-                            Toast.makeText(AdditionalInfo.this,"Something went wrong!",Toast.LENGTH_LONG);
+                            Toast.makeText(AdditionalInfo.this,"Something went wrong!",Toast.LENGTH_LONG).show();
 
                         }
                     }

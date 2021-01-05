@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdditionalInfo">
+    tools:context=".LoginActivity.AdditionalInfo">
 
     <TextView
         android:id="@+id/textView7"
@@ -73,6 +73,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/firstName"
+                android:maxLines="1"
                 android:layout_height="65dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -90,6 +91,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/lastName"
+                android:maxLines="1"
                 android:layout_height="65dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -104,6 +106,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/user_address_layout"
                 android:layout_width="match_parent"
+                android:inputType="textMultiLine"
+
                 android:layout_height="wrap_content"
                 android:hint="Address"
                 app:boxStrokeColor="@color/colorPrimary"
@@ -115,8 +119,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:id="@+id/user_address"
-
-                    android:layout_height="65dp" />
+                    android:maxLines="3"
+                    android:lines="3"
+                    android:gravity="top|left"
+                    android:scrollbars="vertical"
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
