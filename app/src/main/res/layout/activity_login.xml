@@ -103,62 +103,9 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editText_addresslayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address"
-                android:visibility="invisible"
-
-                app:boxStrokeColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <ImageButton
-                android:id="@+id/gps_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible"
-                android:layout_marginTop="5dp"
-                android:backgroundTint="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/editText_addresslayout"
-                app:layout_constraintTop_toTopOf="@+id/editText_addresslayout"
-                app:srcCompat="@drawable/ic_baseline_gps_fixed_24" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nikhil Kumar Singh"
-        android:visibility="invisible"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/productsans_bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
