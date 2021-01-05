@@ -17,10 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+
         android:theme="@style/SplashTheme">
         <activity android:name=".LoginActivity.EmailSignup"></activity>
         <activity android:name=".LoginActivity.AdditionalInfo" />
         <activity android:name=".MainHomeScreen.UI.QrCodeActivity" />
+
         <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail" />
         <activity android:name=".MainHomeScreen.UI.CalenderActivity" />
         <activity android:name=".MainHomeScreen.View.CustomerActivity" />
@@ -39,6 +41,10 @@
         <activity android:name=".LoginActivity.LoginPage" />
         <activity android:name=".LoginActivity.OtpVerification" />
         <activity android:name=".LoginActivity.PhoneVerification" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".BasicUI.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
