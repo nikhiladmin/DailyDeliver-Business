@@ -33,18 +33,20 @@ public class IntroViewPagerAdapter extends PagerAdapter {
         /* Get All the ID */
         ImageView walk_through_img = layoutScreen.findViewById(R.id.walk_through_image);
         TextView walk_through_text = layoutScreen.findViewById(R.id.walk_through_text);
+        TextView walk_through_title = layoutScreen.findViewById(R.id.walk_through_title);
 
         /* Set All The ID */
         walk_through_img.setImageResource(Data.get(position).getScreenImg());
         walk_through_text.setText(Data.get(position).getDescription());
-
+       walk_through_title.setText(Data.get(position).getTitle());
+//
         DisplayMetrics displayMetrics = container.getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         double displaydp = Math.sqrt(dpHeight*dpHeight + dpWidth * dpWidth);
         walk_through_text.setTextSize((float) (displaydp *0.025));
-        walk_through_img.getLayoutParams().height = (int)(dpHeight * 1.0);
-        walk_through_img.getLayoutParams().width = (int)(dpWidth * 1.3);
+//        walk_through_img.getLayoutParams().height = (int)(dpHeight * 0.9);
+//        walk_through_img.getLayoutParams().width = (int)dpWidth;
         container.addView(layoutScreen);
 
         return layoutScreen;

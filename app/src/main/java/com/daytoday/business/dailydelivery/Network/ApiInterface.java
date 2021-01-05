@@ -1,8 +1,13 @@
 package com.daytoday.business.dailydelivery.Network;
 
+import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckResponse;
+import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
 import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
 import com.daytoday.business.dailydelivery.Network.Response.BussRelCustResponse;
 import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
+import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
+import com.daytoday.business.dailydelivery.Network.Response.OTPSendResponse;
+import com.daytoday.business.dailydelivery.Network.Response.OTPVerifyResponse;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 
 import retrofit2.Call;
@@ -15,11 +20,14 @@ public interface ApiInterface {
 
     @GET("insert-buss-user-details")
     Call<YesNoResponse> addBussUserDetails(@Query("userid") String userId, @Query("username") String userName
-            , @Query("userphone") String userPhone, @Query("useradd") String userAdd);
+            , @Query("userphone") String userPhone, @Query("useradd") String userAdd,@Query("useremail") String email,@Query("provider") int provider);
 
     @GET("insert-cust-user-details")
     Call<YesNoResponse> addCustUserDetails(@Query("userid") String userId,@Query("username") String userName
             ,@Query("userphone") String userPhone,@Query("useradd") String userAdd);
+
+    @GET("login-buss")
+    Call<AuthUserResponse> loginUser(@Query("bussid") String bussid);
 
     @GET("insert-buss-details")
     Call<YesNoResponse> addBussDetails(@Query("bussname") String bussName,@Query("monordaily") String monOrDaily
@@ -55,4 +63,17 @@ public interface ApiInterface {
 
     @GET("fetch-daywise")
     Call<DayWiseResponse> getDayWise(@Query("busscustid") String bussCustId);
+
+
+    @GET("reverse")
+    Call<GeocodingResponse> getReverseGeocoding(@Query("lat") double lat,@Query("lon") double lon,@Query("zoom") int zoom,@Query("addressdetails") int addressdetails,@Query("format") String format);
+
+    @GET("send-login-otp")
+    Call<OTPSendResponse> getOTPSend(@Query("email") String email);
+
+    @GET("verify-otp")
+    Call<OTPVerifyResponse> getOTPVerify(@Query("otp") String otp,@Query("userid") String userid);
+
+    @GET("is-registered-buss")
+    Call<AuthUserCheckResponse> isRegisteredUser(@Query("email") String email);
 }

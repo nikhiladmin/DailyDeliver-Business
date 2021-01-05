@@ -123,7 +123,7 @@ public class MyAccFragment extends Fragment {
         buss_address = view.findViewById(R.id.buss_acc_address);
         button = view.findViewById(R.id.myacc_button);
         phoneNo.setEnabled(false);
-
+        buss_address.setText(SaveOfflineManager.getUserAddress(getContext()));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

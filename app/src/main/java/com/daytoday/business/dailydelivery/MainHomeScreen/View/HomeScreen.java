@@ -22,12 +22,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.daytoday.business.dailydelivery.LoginActivity.AdditionalInfo;
 import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
+import com.facebook.login.LoginManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -115,12 +117,21 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         super.onStart();
         // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         currentUser = mAuth.getCurrentUser();
-        if(currentUser==null){
-         Intent loginIntent=new Intent(HomeScreen.this, LoginPage.class);
-         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-         startActivity(loginIntent);
-         finish();
+        if (currentUser != null) {
+            Log.i("AUTHENT_US", "onStart: Home"+SaveOfflineManager.getUserAddress(HomeScreen.this));
+
+            if(SaveOfflineManager.getUserAddress(HomeScreen.this)==null||SaveOfflineManager.getUserAddress(HomeScreen.this).length()==0){
+                Intent loginIntent = new Intent(HomeScreen.this, AdditionalInfo.class);
+                if(currentUser.getPhoneNumber()!=null&&currentUser.getPhoneNumber().length()!=0){
+                    loginIntent.putExtra("isPhoneAuth",true);
+                }else if(currentUser.getEmail()!=null&&currentUser.getEmail().length()!=0){
+                    loginIntent.putExtra("isPhoneAuth",false);
+                }
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(loginIntent);
+                finish();
+            }
         }
     }
     @Override
@@ -155,7 +166,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        LoginManager.getInstance().logOut();
                         FirebaseAuth.getInstance().signOut();
+                        SaveOfflineManager.clearSharedPreferences(HomeScreen.this);
                         finish();
                         startActivity(new Intent(HomeScreen.this,LoginPage.class));
                     }
