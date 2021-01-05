@@ -18,7 +18,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
-        <activity android:name=".AdditionalInfo"></activity>
+        <activity android:name=".EmailSignup"></activity>
+        <activity android:name=".AdditionalInfo" />
         <activity android:name=".MainHomeScreen.UI.QrCodeActivity" />
         <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail" />
         <activity android:name=".MainHomeScreen.UI.CalenderActivity" />
