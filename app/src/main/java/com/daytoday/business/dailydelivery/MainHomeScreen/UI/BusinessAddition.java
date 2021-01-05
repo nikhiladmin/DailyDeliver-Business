@@ -187,7 +187,7 @@ public class BusinessAddition extends AppCompatActivity {
         sameaddress.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked)
             {
-                bussaddress.setText(SaveOfflineManager.getUserAdress(getBaseContext()));
+                bussaddress.setText(SaveOfflineManager.getUserAddress(getBaseContext()));
             }else
             {
                 bussaddress.setText("");

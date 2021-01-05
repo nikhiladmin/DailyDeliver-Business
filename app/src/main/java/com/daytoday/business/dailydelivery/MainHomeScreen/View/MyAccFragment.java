@@ -135,7 +135,7 @@ public class MyAccFragment extends Fragment {
         usernameEditText.setText(SaveOfflineManager.getUserName(getContext()));
         currentID.setText("ID - " + SaveOfflineManager.getUserId(getContext()));
         phoneNo.setText(SaveOfflineManager.getUserPhoneNumber(getContext()));
-        buss_address.setText(SaveOfflineManager.getUserAdress(getContext()));
+        buss_address.setText(SaveOfflineManager.getUserAddress(getContext()));
         Uri imageUri=firebaseAuth.getCurrentUser().getPhotoUrl();
         if(imageUri!=null){
             Picasso.get()
@@ -386,7 +386,7 @@ public class MyAccFragment extends Fragment {
             @Override
             public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
                 Log.e("TAG","updated");
-                SaveOfflineManager.setUserAdress(getApplicationContext(),address);
+                SaveOfflineManager.setUserAddress(getApplicationContext(),address);
                 SaveOfflineManager.setUserName(getApplicationContext(),name);
             }
 
