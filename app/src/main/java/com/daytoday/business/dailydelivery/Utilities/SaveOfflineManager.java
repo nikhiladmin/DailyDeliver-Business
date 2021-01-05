@@ -9,7 +9,12 @@ public class SaveOfflineManager {
     private static void initialise(Context context) {
         preferences = context.getSharedPreferences(AppConstants.APP_NAME, Context.MODE_PRIVATE);
     }
-
+    public static void clearSharedPreferences(Context context){
+        if (preferences == null) {
+            initialise(context);
+        }
+        preferences.edit().clear().apply();
+    }
     public static String getUserName(Context context) {
         if (preferences == null) {
             initialise(context);
@@ -42,14 +47,14 @@ public class SaveOfflineManager {
         editor.commit();
     }
 
-    public static String getUserAdress(Context context) {
+    public static String getUserAddress(Context context) {
         if (preferences == null) {
             initialise(context);
         }
         return preferences.getString(AppConstants.USER_ADRESS, "");
     }
 
-    public static void setUserAdress(Context context,String userName) {
+    public static void setUserAddress(Context context, String userName) {
         if (preferences == null) {
             initialise(context);
         }
