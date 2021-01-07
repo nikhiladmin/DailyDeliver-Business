@@ -26,6 +26,17 @@ public class Customers {
     @SerializedName("Address")
     @Expose
     private String address;
+    @SerializedName("profilepic")
+    @Expose
+    String custProfilepic;
+
+    public String getCustProfilepic() {
+        return custProfilepic;
+    }
+
+    public void setCustProfilepic(String custProfilepic) {
+        this.custProfilepic = custProfilepic;
+    }
 
     public String getUniqueId() {
         return uniqueId;

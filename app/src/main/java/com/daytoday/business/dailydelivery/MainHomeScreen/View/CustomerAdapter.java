@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.CalenderActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
     Context context;
@@ -43,6 +46,10 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         holder.customer_name.setText(customersList.get(position).getName());
         holder.product_name.setText(bussName);
         holder.customer_address.setText(customersList.get(position).getAddress());
+        if(customersList.get(position).getCustProfilepic()!=null)
+        {
+            Picasso.get().load(customersList.get(position).getCustProfilepic()).into(holder.custProfilePic);
+        }
         holder.customer_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,15 +68,16 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     }
 
     public class CustomerViewHolder extends RecyclerView.ViewHolder {
-        ImageView customerImg,call_customer_btn;
+        ImageView call_customer_btn;
         TextView customer_name,customer_address,product_name;
+        CircleImageView custProfilePic;
         Button customer_status_btn;
         public CustomerViewHolder(@NonNull View itemView) {
             super(itemView);
             customer_address = itemView.findViewById(R.id.customer_address);
             customer_name = itemView.findViewById(R.id.customer_name);
-            customerImg = itemView.findViewById(R.id.customer_img);
             call_customer_btn = itemView.findViewById(R.id.call_customer_btn);
+            custProfilePic = itemView.findViewById(R.id.custprofilepic);
             product_name = itemView.findViewById(R.id.product_name);
             customer_status_btn = itemView.findViewById(R.id.customer_status_btn);
         }

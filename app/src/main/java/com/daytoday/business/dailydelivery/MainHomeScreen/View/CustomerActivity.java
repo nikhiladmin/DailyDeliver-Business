@@ -11,12 +11,14 @@ import android.util.Log;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.CustomerViewModel;
+import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.CustomerViewModelFactory;
 import com.daytoday.business.dailydelivery.R;
 
 import java.util.List;
 
 public class CustomerActivity extends AppCompatActivity {
     RecyclerView customerlist;
+    CustomerViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class CustomerActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("My Customers");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        CustomerViewModel viewModel = new CustomerViewModel(bussID);
+        viewModel = new ViewModelProvider(this,new CustomerViewModelFactory(bussID)).get(CustomerViewModel.class);
         viewModel.getCustomers().observe(this, new Observer<List<Customers>>() {
             @Override
             public void onChanged(List<Customers> customers) {
