@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomerViewModel extends ViewModel {
     private CustomerRepo customerRepo;
-    private MutableLiveData<List<Customers>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Customers>> mutableLiveData;
     String bussId;
     public CustomerViewModel(String bussId)
     {
@@ -21,8 +21,8 @@ public class CustomerViewModel extends ViewModel {
     }
     public LiveData<List<Customers>> getCustomers()
     {
-        mutableLiveData = customerRepo.requestCustomers(bussId);
-        Log.i("msg","done2");
+        if(mutableLiveData==null)
+            mutableLiveData = customerRepo.requestCustomers(bussId);
         return mutableLiveData;
     }
 }
