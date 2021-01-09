@@ -38,7 +38,7 @@
         android:fontFamily="@font/productsans_regular"
         android:text="Signup to get Started"
         android:layout_marginTop="5dp"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorGrey"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"

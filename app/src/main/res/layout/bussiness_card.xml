@@ -8,7 +8,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        app:cardElevation="0dp"
+        android:id="@+id/buss_list_card"
+        app:rippleColor="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,15 +19,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="5dp">
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="94dp" />
+                app:layout_constraintGuide_begin="100dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline5"
@@ -39,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.97" />
+                app:layout_constraintGuide_end="10dp" />
 
 
             <com.google.android.material.card.MaterialCardView
@@ -48,7 +51,9 @@
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:shape="ring"
-                android:thicknessRatio="1."
+                app:cardElevation="0dp"
+app:cardForegroundColor="@color/colorGrey50"
+                android:thicknessRatio="1"
                 app:cardCornerRadius="100dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline4"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -56,141 +61,126 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_margin="5dp"
+
                     android:id="@+id/bussl_img"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp" />
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/buss_name"
+            <LinearLayout
+                android:id="@+id/linearLayout12"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorBlack"
-                android:fontFamily="@font/productsans_regular"
-                android:text="Milk"
-                android:textFontWeight="500"
-                android:textAlignment="center"
-                android:textSize="20sp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toTopOf="@+id/ImgBussCardView"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/cust_count"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/buss_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+
+                    android:fontFamily="@font/productsans_bold"
+                    android:gravity="center_horizontal"
+                    android:text="Milk"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack"
+
+                    android:textSize="17sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cust_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/productsans_regular"
+                    android:gravity="start"
+                    android:text="(1000 customers)"
+
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/earning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+
+                        android:fontFamily="@font/productsans_regular"
+                        android:gravity="center_horizontal"
+                        android:text="Earning : "
+                        android:textColor="@color/colorBlack"
+                        android:textFontWeight="500"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tot_earning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/productsans_regular"
+                        android:gravity="center_horizontal"
+                        android:text="Rs.3000"
+                        android:textColor="@color/colorApproved"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout14"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_horizontal"
-                android:fontFamily="@font/productsans_regular"
-                android:text="(1000 customers)"
-                android:textAlignment="center"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/buss_name"
-                app:layout_constraintVertical_bias="0.0" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/earning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/colorBlack"
-                android:gravity="center_horizontal"
-                android:fontFamily="@font/productsans_regular"
-                android:text="Earning : "
-                android:textFontWeight="500"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/cust_count"
-                app:layout_constraintVertical_bias="0.0" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tot_earning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textColor="@color/colorApproved"
-                android:fontFamily="@font/productsans_regular"
-                android:text="Rs.3000"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintStart_toEndOf="@+id/earning"
-                app:layout_constraintTop_toBottomOf="@+id/cust_count"
-                app:layout_constraintVertical_bias="0.0" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/prdct_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/productsans_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Rs.27"
+                    android:textColor="@color/colorBlack"
+                    android:textFontWeight="500" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/prdct_amt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/productsans_regular"
-                android:gravity="center_horizontal"
-                android:text="Rs.27"
-                android:textColor="@color/colorBlack"
-                android:textFontWeight="500"
-                app:layout_constraintEnd_toEndOf="@+id/prdct_detail_btn"
-                app:layout_constraintTop_toTopOf="@+id/ImgBussCardView" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tarrif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/productsans_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Monthly"
+                    android:textColor="@color/colorBlack"
+                    android:textFontWeight="500" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tarrif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/productsans_regular"
-                android:gravity="center_horizontal"
-                android:text="Monthly"
-                android:textColor="@color/colorBlack"
-                android:textFontWeight="500"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toEndOf="@+id/prdct_detail_btn"
-                app:layout_constraintTop_toBottomOf="@+id/prdct_amt"
-                app:layout_constraintVertical_bias="0.085" />
+            </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/customers_btn"
-                android:layout_width="0dp"
+                android:backgroundTint="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
                 android:fontFamily="@font/productsans_regular"
-                android:textAllCaps="false"
-                android:textStyle="bold"
                 android:text="@string/customers"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/prdct_detail_btn"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline4"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/prdct_detail_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/productsans_regular"
                 android:textAllCaps="false"
-                android:text="@string/details"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/customers_btn"
-                app:layout_constraintTop_toTopOf="@+id/guideline4"
+               android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout14"
                 app:layout_constraintVertical_bias="0.0" />
 
 

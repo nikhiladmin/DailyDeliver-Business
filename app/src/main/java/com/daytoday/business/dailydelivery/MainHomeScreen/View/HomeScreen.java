@@ -75,7 +75,7 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         //-----changing color of status bar ends here ------------------------------------------------------//
 
         //-------------------addition of name of user--------------------------------------------//

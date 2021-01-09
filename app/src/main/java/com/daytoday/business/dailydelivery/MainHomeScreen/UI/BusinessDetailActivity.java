@@ -65,7 +65,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
         bussiness = (Bussiness) getIntent().getSerializableExtra("buisness-object");
-        getSupportActionBar().setTitle(bussiness.getName() + " - Details");
+        getSupportActionBar().setTitle(bussiness.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 

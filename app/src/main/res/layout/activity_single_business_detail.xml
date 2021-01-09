@@ -8,12 +8,14 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/ImgEmpCardView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:shape="ring"
         android:thicknessRatio="1.9"
         app:cardCornerRadius="100dp"
+        app:cardElevation="0dp"
+        app:cardForegroundColor="@color/colorGrey50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,49 +31,59 @@
         android:id="@+id/buss_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/productsans_bold"
         android:text="MILK"
         android:textColor="@color/colorBlack"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImgEmpCardView" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="+918521241011"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buss_detail_name" />
+
+
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline15">
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2.5dp"
             android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorApproved"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="Total Earning"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/buss_detail_earning"
@@ -80,8 +92,17 @@
                     android:fontFamily="@font/productsans_bold"
                     android:gravity="center"
                     android:text="1000"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/productsans_regular"
+                    android:gravity="center"
+                    android:text="Earning"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -89,113 +110,19 @@
             android:id="@+id/materialCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
             android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorPending"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="Total Pending"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/buss_detail_pending"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="10"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2.5dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorGoogleLogin"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="Total Cancelled"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/buss_detail_cancelled"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="5"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginBottom="354dp"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.15">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2.5dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="Price"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/buss_detail_price"
@@ -203,35 +130,38 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/productsans_bold"
                     android:gravity="center"
-                    android:text="35"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#CF94E8"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:text="10"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
+                    android:fontFamily="@font/productsans_regular"
                     android:gravity="center"
-                    android:text="Customers"
-                    android:textColor="@color/colorWhite"
+                    android:text="Price"
+                    android:textColor="@color/colorBlack"
                     android:textSize="15sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/buss_detail_customer"
@@ -239,52 +169,115 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/productsans_bold"
                     android:gravity="center"
-                    android:text="50"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2.5dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#F57C00"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:text="5"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30sp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/productsans_bold"
-                    android:gravity="center"
-                    android:text="Category"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/buss_detail_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/productsans_regular"
                     android:gravity="center"
-                    android:text="Unknown"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp" />
+                    android:text="Customers"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline15"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".4" />
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.0">
+        <View
+            android:id="@+id/divider23"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorGrey50" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/delivery_from_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGrey"
+            android:text="Delivery From" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/delivery_from"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="text"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGrey50" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView10"
+            android:textColor="@color/colorGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery Mode" />
+
+        <com.google.android.material.textview.MaterialTextView
+
+            android:id="@+id/delivery_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Online"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            />
+
+        <View
+            android:id="@+id/divider12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGrey50" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView13"
+            android:textColor="@color/colorGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paymant Mode" />
+
+        <com.google.android.material.textview.MaterialTextView
+
+            android:id="@+id/payment_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Online"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorGrey50" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

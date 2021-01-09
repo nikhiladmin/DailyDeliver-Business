@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/productsans_regular"
             android:text="If you don't recieve you OTP? "
-            android:textColor="@color/colorGray"
+            android:textColor="@color/colorGrey"
             android:textSize="12dp" />
 
 

@@ -88,7 +88,7 @@ public class LoginPage extends AppCompatActivity {
 
         phoneLogin = findViewById(R.id.btn1);
         googleLogin = findViewById(R.id.btn2);
-            signup = findViewById(R.id.signup);
+        signup = findViewById(R.id.signup);
         signin = findViewById(R.id.signin);
         signinEmail = findViewById(R.id.signin_email);
         signinPassword = findViewById(R.id.signin_password);
@@ -99,8 +99,10 @@ public class LoginPage extends AppCompatActivity {
     //==============================Signin======================================================
 
         signin.setOnClickListener(view -> {
-            DialogBoxShow(view);
-            signInWithEmail(signinEmail.getText().toString(),signinPassword.getText().toString());
+            if(inputValidation(signinEmail.getText().toString(),signinPassword.getText().toString())) {
+                DialogBoxShow(view);
+                signInWithEmail(signinEmail.getText().toString(), signinPassword.getText().toString());
+            }
         });
 
         //==========================Signup======================================================
@@ -139,6 +141,18 @@ public class LoginPage extends AppCompatActivity {
         }
     });
 
+    }
+
+    private boolean inputValidation(String e, String p) {
+        if(e.length()==0){
+            signinEmail.setError("Please enter email .");
+            return  false;
+        }else if(p.length()==0){
+            signinPassword.setError("Please enter password");
+            return  false;
+        }else{
+            return  true;
+        }
     }
 
     private void GoogleSignIn() {
@@ -209,6 +223,7 @@ public class LoginPage extends AppCompatActivity {
         alertDialog = builder.create();
         alertDialog.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);

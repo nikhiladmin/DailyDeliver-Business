@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -55,6 +56,8 @@ public class BussinessHomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.buss_list);
         recyclerView.setHasFixedSize(true);
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         apiCall();

@@ -38,7 +38,7 @@
 
         android:fontFamily="@font/productsans_regular"
         android:text="Sign in to continue"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorGrey"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"

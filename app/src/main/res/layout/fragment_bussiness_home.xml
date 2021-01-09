@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorGrey50"
     android:layout_height="match_parent"
     tools:context=".MainHomeScreen.View.BussinessHomeFragment">
 
@@ -12,7 +13,10 @@
         android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/buss_list"
+        android:padding="5dp"
+
         android:layout_width="match_parent"
+
         android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,7 +27,7 @@
         android:layout_margin="20dp"
         app:srcCompat="@drawable/ic_add_white_24dp"
         app:tint="@color/colorWhite"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorSecondary"
         android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

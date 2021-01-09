@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.R;
 
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.SingleBusinessDetail;
@@ -56,8 +57,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
         holder.buss_name.setText(bussiness.getName());
         holder.tarrif.setText(bussiness.getdOrM());
         holder.tot_earning.setText("" + bussiness.getTotEarn());
-        holder.prdct_amt.setText("" + bussiness.getPrice());
-        holder.cust_count.setText("( " +bussiness.getNoOfCust() + " Customers )");
+        holder.prdct_amt.setText("₹" + bussiness.getPrice()+((bussiness.getdOrM().equals("M")) ?" /Day" : " /Month"));
+        holder.cust_count.setText("Customers : " +bussiness.getNoOfCust());
         holder.tarrif.setText(bussiness.getPayment());
 
         holder.customers_btn.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             }
         });
 
-        holder.prdct_detail_btn.setOnClickListener(new View.OnClickListener() {
+        holder.buss_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SingleBusinessDetail.class);
@@ -78,6 +79,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
                 v.getContext().startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -89,7 +92,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
     {
         ImageView buss1_image;
         TextView buss_name, cust_count, earning, tot_earning, prdct_amt, tarrif;
-        Button customers_btn, prdct_detail_btn;
+        Button customers_btn;
+        MaterialCardView buss_item;
 
         public BussinessViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,7 +105,8 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             prdct_amt = itemView.findViewById(R.id.prdct_amt);
             tarrif = itemView.findViewById(R.id.tarrif);
             customers_btn = itemView.findViewById(R.id.customers_btn);
-            prdct_detail_btn = itemView.findViewById(R.id.prdct_detail_btn);
+
+            buss_item = itemView.findViewById(R.id.buss_list_card);
         }
     }
 }

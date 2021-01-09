@@ -5,13 +5,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +47,7 @@ import com.android.volley.toolbox.Volley;
 import com.daytoday.business.dailydelivery.LargeImageView;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
@@ -60,6 +67,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 
@@ -69,6 +83,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -86,6 +101,7 @@ public class BusinessAddition extends AppCompatActivity {
     CircleImageView profilepic;
     FloatingActionButton profilePicUploadbtn;
     CheckBox samephone,sameaddress;
+    ImageButton getLocation;
     RadioButton radioType1,radioType2,paymentType1,paymentType2,paymentType3;
     private final String URL = "https://api.icons8.com/api/iconsets/search?term=milk&amount=1";
 
@@ -107,7 +123,7 @@ public class BusinessAddition extends AppCompatActivity {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         //-----changing color of status bar ends here ------------------------------------------------------//
         buisnessName = findViewById(R.id.buss_name_add);
         price = findViewById(R.id.buss_add_price);
@@ -130,7 +146,11 @@ public class BusinessAddition extends AppCompatActivity {
         paymentType1 = findViewById(R.id.radio_btn_cash);
         paymentType2 = findViewById(R.id.radio_btn_online);
         paymentType3 = findViewById(R.id.radio_btn_both);
-
+        getLocation = findViewById(R.id.get_address);
+        //----------------------get Location ------------------------------------------------------//
+        getLocation.setOnClickListener(view -> {
+        getLocationPermission();
+        });
         //---------------------listener on radio group-----------------------------------------------//
         rg1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -271,7 +291,7 @@ public class BusinessAddition extends AppCompatActivity {
 
     private void addNewBusiness(String imageUrl) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String bussname = buisnessName.getText().toString();
+        String bussname = buisnessName.getText().toString().substring(0,1).toUpperCase()+ buisnessName.getText().toString().substring(1);
         String priceofbuss = price.getText().toString();
         String phone = bussphonenumber.getText().toString();
         String address =bussaddress.getText().toString();
@@ -371,6 +391,100 @@ public class BusinessAddition extends AppCompatActivity {
         {
             CreateInstanseInDatabase();
         }
+    }
+
+    private void getLocationPermission() {
+
+        Dexter
+                .withContext(getApplicationContext())
+                .withPermissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        if (report.areAllPermissionsGranted()) {
+                            Log.i("LOCATION_TACK", "permisson");
+                            getCurrentLocation();
+                        }
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            Toast.makeText(getApplicationContext(), "Please allow external storage access to save QR code", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
+
+
+    private void getCurrentLocation() {
+        Log.i("LOCATION_TRACK","GETL");
+        LocationManager locationManager = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+        boolean isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.i("LOCATION_TRACK",isGPSEnable+" "+isNetworkEnable);
+        if (isGPSEnable) {
+            Log.i("LOCATION_TRACK", "getCurrentLocation: "+(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED));
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.i("LOCATION_TRACK", "getLocation: " + location.getLatitude() + " " + location.getLongitude());
+                getAddress(location.getLatitude(),location.getLongitude());
+                return;
+            } else {
+                Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG).show();
+            }
+        }else if(isNetworkEnable){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Log.i("LOCATION_TRACK", "getLocation: " + location.getLatitude() + " " + location.getLongitude());
+                getAddress(location.getLatitude(),location.getLongitude());
+                return;
+            } else {
+                Toast.makeText(getApplicationContext(),"Please allow permission to find your current location",Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(getApplicationContext(),"Please on your GPS or Mobile Data",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private  void getAddress(double lat ,double lon){
+        ApiInterface  geocodingApiInterface = Client.getGeocodingClient().create(ApiInterface.class);
+        Call<GeocodingResponse> geocodingResponseCall = geocodingApiInterface.getReverseGeocoding(lat,lon,18,0,"jsonv2");
+
+        geocodingResponseCall.enqueue(new Callback<GeocodingResponse>() {
+            @Override
+            public void onResponse(Call<GeocodingResponse> call, Response<GeocodingResponse> response) {
+                Log.i("LOCATION_TACK", "onResponse: "+response.body().getDisplayName());
+                if(response.body().getError()!=null&&response.body().getError() == true){
+                    Toast.makeText(getApplicationContext(),"Location not fonund",Toast.LENGTH_LONG).show();
+                }else{
+                    bussaddress.setText(response.body().getDisplayName());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GeocodingResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
