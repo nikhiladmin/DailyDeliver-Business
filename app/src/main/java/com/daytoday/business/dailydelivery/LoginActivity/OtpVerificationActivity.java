@@ -1,6 +1,7 @@
 package com.daytoday.business.dailydelivery.LoginActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.AuthUser;
-import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreenActivity;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
@@ -47,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OtpVerification extends AppCompatActivity {
+public class OtpVerificationActivity extends AppCompatActivity {
     static final String TAG = "verification_activity";
     private PinView pinView;
     private String phone;
@@ -141,11 +142,11 @@ public class OtpVerification extends AppCompatActivity {
         }
         changeActionBtn.setOnClickListener(view -> {
             if(isPhoneAuth){
-                Intent phoneIntent = new Intent(OtpVerification.this,PhoneVerification.class);
+                Intent phoneIntent = new Intent(OtpVerificationActivity.this,PhoneVerification.class);
                 finish();
                 startActivity(phoneIntent);
             }else{
-                Intent emailIntent = new Intent(OtpVerification.this, EmailSignup.class);
+                Intent emailIntent = new Intent(OtpVerificationActivity.this, EmailSignUpActivity.class);
                 finish();
                 startActivity(emailIntent);
             }
@@ -192,12 +193,12 @@ public class OtpVerification extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        DialogBoxShow(getCurrentFocus());
+                        DialogBoxShow(OtpVerificationActivity.this);
                         if (task.isSuccessful()) {
 
                             if (task.getResult().getAdditionalUserInfo().isNewUser() == true || task.getResult().getUser().getDisplayName() == null) {
                                 alertDialog.dismiss();
-                                Intent additionalInfoIntent = new Intent(OtpVerification.this, AdditionalInfo.class);
+                                Intent additionalInfoIntent = new Intent(OtpVerificationActivity.this, AdditionalInfoActivity.class);
                                 additionalInfoIntent.putExtra("isPhoneAuth",true);
                                 additionalInfoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 additionalInfoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -236,7 +237,7 @@ public class OtpVerification extends AppCompatActivity {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verification, code);
             signInWithPhoneAuthCredential(credential);
         }else{
-            Toast.makeText(OtpVerification.this,"Verification failed",Toast.LENGTH_LONG).show();
+            Toast.makeText(OtpVerificationActivity.this,"Verification failed",Toast.LENGTH_LONG).show();
         }
 
 
@@ -248,7 +249,7 @@ public class OtpVerification extends AppCompatActivity {
                 phone,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
-                OtpVerification.this,               // Activity (for callback binding)
+                OtpVerificationActivity.this,               // Activity (for callback binding)
                 mCallbacks);
 
         new CountDownTimer(60000, 1000) {
@@ -272,7 +273,7 @@ public class OtpVerification extends AppCompatActivity {
 
     public void SendUserHomePage() {
         alertDialog.dismiss();
-        Intent loginIntent = new Intent(OtpVerification.this, HomeScreen.class);
+        Intent loginIntent = new Intent(OtpVerificationActivity.this, HomeScreenActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
@@ -320,7 +321,7 @@ public class OtpVerification extends AppCompatActivity {
             @Override
             public void onResponse(Call<OTPSendResponse> call, Response<OTPSendResponse> response) {
                 if(response.body().getError()){
-                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(OtpVerificationActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -338,11 +339,11 @@ public class OtpVerification extends AppCompatActivity {
             public void onResponse(Call<OTPVerifyResponse> call, Response<OTPVerifyResponse> response) {
                 Log.i(TAG, "onResponse: "+response.body().getError()+" "+response.body().getStatus()+" "+response.body().getMessage()+ " "+code);
                 if(response.body().getError()){
-                    Toast.makeText(OtpVerification.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(OtpVerificationActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
                     pinView.setError(response.body().getMessage());
                 }else{
                     if(response.body().getStatus()==0){
-                        Intent sign = new Intent(OtpVerification.this, AdditionalInfo.class);
+                        Intent sign = new Intent(OtpVerificationActivity.this, AdditionalInfoActivity.class);
                         sign.putExtra("email",email);
                         sign.putExtra("password",password);
                         sign.putExtra("isPhoneAuth",false);
@@ -362,12 +363,12 @@ public class OtpVerification extends AppCompatActivity {
             }
         });
     }
-    void DialogBoxShow(View v){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(OtpVerification.this,R.style.CustomAlertDialog);
+    void DialogBoxShow(Context context){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(OtpVerificationActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_dialog, viewGroup, false);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, viewGroup, false);
         builder.setView(dialogView);
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
     }

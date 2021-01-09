@@ -19,8 +19,8 @@
         android:supportsRtl="true"
 
         android:theme="@style/SplashTheme">
-        <activity android:name=".LoginActivity.EmailSignup"></activity>
-        <activity android:name=".LoginActivity.AdditionalInfo" />
+        <activity android:name=".LoginActivity.EmailSignUpActivity"></activity>
+        <activity android:name=".LoginActivity.AdditionalInfoActivity" />
         <activity android:name=".MainHomeScreen.UI.QrCodeActivity" />
 
         <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail" />
@@ -34,12 +34,12 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MainHomeScreen.UI.EmpInfoActivity" />
         <activity
-            android:name=".MainHomeScreen.View.HomeScreen"
+            android:name=".MainHomeScreen.View.HomeScreenActivity"
             android:theme="@style/SplashTheme.NoActionBarNavBar" />
         <activity android:name=".WalkThrough.WalkThroughActivity" />
         <activity android:name=".BasicUI.BlankActivity" />
-        <activity android:name=".LoginActivity.LoginPage" />
-        <activity android:name=".LoginActivity.OtpVerification" />
+        <activity android:name=".LoginActivity.LoginPageActivity" />
+        <activity android:name=".LoginActivity.OtpVerificationActivity" />
         <activity android:name=".LoginActivity.PhoneVerification" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -56,6 +56,12 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <service android:name=".Utilities.NotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -22,9 +22,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.LoginActivity.AdditionalInfo;
-import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
+import com.daytoday.business.dailydelivery.LoginActivity.AdditionalInfoActivity;
+import com.daytoday.business.dailydelivery.LoginActivity.LoginPageActivity;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
+import com.daytoday.business.dailydelivery.Network.ApiInterface;
+import com.daytoday.business.dailydelivery.Network.Client;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.facebook.login.LoginManager;
@@ -36,8 +39,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class HomeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -107,9 +113,12 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, QrCodeActivity.class));
+                startActivity(new Intent(HomeScreenActivity.this, QrCodeActivity.class));
             }
         });
+
+        //-------------------- Updating the Token Of Firebase Here ---------------------------------------------------//
+        updateFirebaseToken();
     }
 
     @Override
@@ -118,10 +127,10 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
         // Check if user is signed in (non-null) and update com.daytoday.business.dailydelivery.MainHomeScreen.UI accordingly.
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Log.i("AUTHENT_US", "onStart: Home"+SaveOfflineManager.getUserAddress(HomeScreen.this));
+            Log.i("AUTHENT_US", "onStart: Home"+SaveOfflineManager.getUserAddress(HomeScreenActivity.this));
 
-            if(SaveOfflineManager.getUserAddress(HomeScreen.this)==null||SaveOfflineManager.getUserAddress(HomeScreen.this).length()==0){
-                Intent loginIntent = new Intent(HomeScreen.this, AdditionalInfo.class);
+            if(SaveOfflineManager.getUserAddress(HomeScreenActivity.this)==null||SaveOfflineManager.getUserAddress(HomeScreenActivity.this).length()==0){
+                Intent loginIntent = new Intent(HomeScreenActivity.this, AdditionalInfoActivity.class);
                 if(currentUser.getPhoneNumber()!=null&&currentUser.getPhoneNumber().length()!=0){
                     loginIntent.putExtra("isPhoneAuth",true);
                 }else if(currentUser.getEmail()!=null&&currentUser.getEmail().length()!=0){
@@ -168,9 +177,9 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                     public void onClick(DialogInterface dialog, int which) {
                         LoginManager.getInstance().logOut();
                         FirebaseAuth.getInstance().signOut();
-                        SaveOfflineManager.clearSharedPreferences(HomeScreen.this);
+                        SaveOfflineManager.clearSharedPreferences(HomeScreenActivity.this);
                         finish();
-                        startActivity(new Intent(HomeScreen.this,LoginPage.class));
+                        startActivity(new Intent(HomeScreenActivity.this, LoginPageActivity.class));
                     }
                 });
                 alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -191,5 +200,27 @@ public class HomeScreen extends AppCompatActivity implements NavigationView.OnNa
                 break;
         }
         return true;
+    }
+
+    public void updateFirebaseToken(){
+        ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
+        String token = SaveOfflineManager.getFireBaseToken(this);
+        Boolean FirebaseTokenChangedOrNot = SaveOfflineManager.getFireBaseTokenChangedOrNot(this);
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (token != null && FirebaseTokenChangedOrNot){
+            Call<YesNoResponse> updateFirebaseTokenCall = apiInterface.updateFirebaseToken(token,userId);
+            updateFirebaseTokenCall.enqueue(new Callback<YesNoResponse>() {
+                @Override
+                public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                    Log.i("Firebase","Response Successful " + response.body().getMessage());
+                    SaveOfflineManager.setFireBaseTokenChangedOrNot(HomeScreenActivity.this,false);
+                }
+
+                @Override
+                public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                    Log.i("Firebase","Error Occurred :-> " + t.getMessage());
+                }
+            });
+        }
     }
 }

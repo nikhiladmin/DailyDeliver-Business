@@ -7,18 +7,21 @@ import androidx.lifecycle.Observer;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
+import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModel;
+import com.daytoday.business.dailydelivery.Network.Response.RequestNotification;
+import com.daytoday.business.dailydelivery.Network.Response.SendDataModel;
 import com.daytoday.business.dailydelivery.Network.Response.Transaction;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.AppUtils;
 import com.daytoday.business.dailydelivery.Utilities.FirebaseUtils;
+import com.daytoday.business.dailydelivery.Utilities.NotificationService;
 import com.daytoday.business.dailydelivery.Utilities.Request;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -29,23 +32,31 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.daytoday.business.dailydelivery.MainHomeScreen.View.CustomerAdapter.CUSTOMER_OBJECT;
+import static com.daytoday.business.dailydelivery.MainHomeScreen.View.CustomerAdapter.PRODUCT_NAME;
+
 public class CalenderActivity extends AppCompatActivity {
-    MaterialCalendarView calendarView;
-    String bussID,custID,bussCustId;
-    ProgressBar progressBar;
+    private MaterialCalendarView calendarView;
+    private Customers currentCustomer;
+    private ProgressBar progressBar;
+    private DatesViewModel datesViewModel;
+    private String productName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calender);
-        bussID  = getIntent().getStringExtra("buisness-Id");
-        bussCustId  = getIntent().getStringExtra("Unique-Id");
-        custID = getIntent().getStringExtra("Customer-Id");
+
         getSupportActionBar().setTitle("Calender");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
+        currentCustomer = (Customers) getIntent().getSerializableExtra(CUSTOMER_OBJECT);
+        productName = getIntent().getStringExtra(PRODUCT_NAME);
+
         calendarView = findViewById(R.id.calendar);
         progressBar = findViewById(R.id.progress_bar);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        DatesViewModel datesViewModel = new DatesViewModel(bussCustId);
+
+        datesViewModel = new DatesViewModel(currentCustomer.getBussCustID());
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -100,11 +111,21 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void createPendingRequest(CalendarDay day ,String quantity) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(bussCustId);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(currentCustomer.getBussCustID());
         HashMap<String,String> value = FirebaseUtils.getValueMapOfRequest(day, quantity,Request.PENDING);
         reference.child(FirebaseUtils.getDatePath(day))
                 .setValue(value);
         FirebaseUtils.incrementAccToReq(day, reference, Request.PENDING);
+        RequestNotification requestNotification = new RequestNotification()
+                .setToken(currentCustomer.getCustToken())
+                .setSendDataModel(new SendDataModel()
+                        .setFromWhichPerson(SaveOfflineManager.getUserName(this))
+                        .setFromWhichPersonID(SaveOfflineManager.getUserId(this))
+                        .setNotificationStatus(Request.PENDING)
+                        .setProductName(productName)
+                        .setQuantity(quantity)
+                        .setToWhichPerson(currentCustomer.getName()));
+        NotificationService.sendNotification(requestNotification);
     }
 
     @Override
