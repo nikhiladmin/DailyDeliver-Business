@@ -2,7 +2,6 @@ package com.daytoday.business.dailydelivery.MainHomeScreen.View;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +19,18 @@ import com.daytoday.business.dailydelivery.R;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
+
     Context context;
     List<Customers> customersList;
-    String bussName,bussId;
+    String productName, productId;
+    public static final String CUSTOMER_OBJECT = "Customer_Object";
+    public static final String PRODUCT_NAME = "Product_Name";
 
-    public CustomerAdapter(Context context, List<Customers> customersList, String bussName, String bussId) {
+    public CustomerAdapter(Context context, List<Customers> customersList, String productName, String productId) {
         this.context = context;
         this.customersList = customersList;
-        this.bussName = bussName;
-        this.bussId = bussId;
+        this.productName = productName;
+        this.productId = productId;
     }
 
     @NonNull
@@ -41,15 +43,14 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull CustomerViewHolder holder, int position) {
         holder.customer_name.setText(customersList.get(position).getName());
-        holder.product_name.setText(bussName);
+        holder.product_name.setText(productName);
         holder.customer_address.setText(customersList.get(position).getAddress());
         holder.customer_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CalenderActivity.class);
-                intent.putExtra("Unique-Id",customersList.get(position).getUniqueId());
-                intent.putExtra("buisness-Id",bussId);
-                intent.putExtra("Customer-Id",customersList.get(position).getCustId());
+                intent.putExtra(CUSTOMER_OBJECT, customersList.get(position));
+                intent.putExtra(PRODUCT_NAME, productName);
                 v.getContext().startActivity(intent);
             }
         });

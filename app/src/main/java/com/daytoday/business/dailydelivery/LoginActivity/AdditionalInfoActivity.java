@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -20,7 +21,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreenActivity;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
@@ -51,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdditionalInfo extends AppCompatActivity {
+public class AdditionalInfoActivity extends AppCompatActivity {
 
     private static final String TAG = "ADDITIONAL_INFO";
     String ft;
@@ -112,7 +113,7 @@ public class AdditionalInfo extends AppCompatActivity {
             String userAddress = addressEditText.getText().toString();
             if(isInputValid(ft,lt,userAddress)) {
                 if (user != null) {
-                    DialogBoxShow(view);
+                    DialogBoxShow(AdditionalInfoActivity.this);
                     if(user.getEmail()!=null&&user.getEmail().length()!=0){
                         updateUserToFirebase(ft + " " + lt, user, userAddress,2);
                     }else{
@@ -121,7 +122,7 @@ public class AdditionalInfo extends AppCompatActivity {
                 } else {
                     Log.i(TAG, "onCreate: " + email + password);
                     if (email != null && password != null) {
-                        DialogBoxShow(view);
+                        DialogBoxShow(AdditionalInfoActivity.this);
                         signupWithEmail(email, password, ft + " " + lt, userAddress);
                     }
                 }
@@ -165,7 +166,7 @@ public class AdditionalInfo extends AppCompatActivity {
 
     public void SendUserHomePage() {
         alertDialog.dismiss();
-        Intent loginIntent = new Intent(AdditionalInfo.this, HomeScreen.class);
+        Intent loginIntent = new Intent(AdditionalInfoActivity.this, HomeScreenActivity.class);
         loginIntent.putExtra("Name", ft + " " + lt);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -284,7 +285,7 @@ public class AdditionalInfo extends AppCompatActivity {
                         } catch(FirebaseAuthInvalidCredentialsException e) {
 
                         } catch(FirebaseAuthUserCollisionException e) {
-                           Toast.makeText(AdditionalInfo.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG).show();
+                           Toast.makeText(AdditionalInfoActivity.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG).show();
                         } catch(Exception e) {
 
                         }
@@ -310,7 +311,7 @@ public class AdditionalInfo extends AppCompatActivity {
 
                         }else{
                              alertDialog.dismiss();
-                            Toast.makeText(AdditionalInfo.this,"Something went wrong!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdditionalInfoActivity.this,"Something went wrong!",Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -326,19 +327,19 @@ public class AdditionalInfo extends AppCompatActivity {
         } else if (!(ft.matches("^[A-Za-z]+$") && lt.matches("^[a-zA-Z]+$"))) {
             firstName.setError("Invalid first name ");
             lastName.setError("Invalid last name");
-                return  false;
+            return  false;
         } else {
             return  true;
         }
 
 
     }
-    void DialogBoxShow(View v){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(AdditionalInfo.this,R.style.CustomAlertDialog);
+    void DialogBoxShow(Context context){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(AdditionalInfoActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_dialog, viewGroup, false);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, viewGroup, false);
         builder.setView(dialogView);
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
     }

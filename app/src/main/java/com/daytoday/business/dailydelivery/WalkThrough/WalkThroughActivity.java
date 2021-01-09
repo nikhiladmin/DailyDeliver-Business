@@ -10,14 +10,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
-
-import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.LoginActivity.LoginPageActivity;
 
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.tabs.TabLayout;
@@ -43,7 +40,7 @@ public class WalkThroughActivity extends AppCompatActivity {
 
 
         if(restorePrefData()) {
-            Intent intent = new Intent(getApplicationContext(), LoginPage.class);
+            Intent intent = new Intent(getApplicationContext(), LoginPageActivity.class);
             finish();
             startActivity(intent);
         }
@@ -92,7 +89,7 @@ public class WalkThroughActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(WalkThroughActivity.this, LoginPage.class);
+                Intent intent = new Intent(WalkThroughActivity.this, LoginPageActivity.class);
 
                 startActivity(intent);
                 // save the data into shared preference
