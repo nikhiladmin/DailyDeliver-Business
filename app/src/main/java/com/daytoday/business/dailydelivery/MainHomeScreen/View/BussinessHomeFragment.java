@@ -29,6 +29,7 @@ public class BussinessHomeFragment extends Fragment {
     RecyclerView recyclerView;
     BussinessAdapter bussinessAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    View noBussView;
 
     FloatingActionButton fab;
     View view;
@@ -56,9 +57,9 @@ public class BussinessHomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.buss_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        apiCall();
+        noBussView = view.findViewById(R.id.no_bussiness);
         fab=view.findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +80,7 @@ public class BussinessHomeFragment extends Fragment {
             }
         });
 
+        apiCall();
         return view;
     }
     public void apiCall()
@@ -89,7 +91,11 @@ public class BussinessHomeFragment extends Fragment {
             public void onChanged(List<Bussiness> bussinesses) {
                 bussinessAdapter = new BussinessAdapter(view.getContext(), bussinesses);
                 recyclerView.setAdapter(bussinessAdapter);
-
+                if(bussinesses.size()<=0)
+                {
+                    recyclerView.setVisibility(View.GONE);
+                    noBussView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
