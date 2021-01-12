@@ -104,7 +104,7 @@ public class CalenderActivity extends AppCompatActivity {
         HashMap<String,String> value = FirebaseUtils.getValueMapOfRequest(day, quantity,Request.PENDING);
         reference.child(FirebaseUtils.getDatePath(day))
                 .setValue(value);
-        FirebaseUtils.incrementAccToReq(day, reference, Request.PENDING);
+        FirebaseUtils.incrementAccToReq(day, reference,quantity, Request.PENDING);
     }
 
     @Override
