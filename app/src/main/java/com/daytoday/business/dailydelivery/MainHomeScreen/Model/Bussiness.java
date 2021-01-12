@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Bussiness implements Serializable {
+public class Bussiness implements Parcelable {
 
     @SerializedName("bussId")
     @Expose
@@ -49,6 +49,56 @@ public class Bussiness implements Serializable {
     @SerializedName("TotPen")
     @Expose
     private int totPen;
+
+    protected Bussiness(Parcel in) {
+        bussid = in.readString();
+        bussuserid = in.readString();
+        name = in.readString();
+        phoneno = in.readString();
+        address = in.readString();
+        price = in.readInt();
+        dOrM = in.readString();
+        payment = in.readString();
+        imgurl = in.readString();
+        noOfCust = in.readInt();
+        totCan = in.readInt();
+        totEarn = in.readInt();
+        totPen = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(bussid);
+        dest.writeString(bussuserid);
+        dest.writeString(name);
+        dest.writeString(phoneno);
+        dest.writeString(address);
+        dest.writeInt(price);
+        dest.writeString(dOrM);
+        dest.writeString(payment);
+        dest.writeString(imgurl);
+        dest.writeInt(noOfCust);
+        dest.writeInt(totCan);
+        dest.writeInt(totEarn);
+        dest.writeInt(totPen);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Bussiness> CREATOR = new Creator<Bussiness>() {
+        @Override
+        public Bussiness createFromParcel(Parcel in) {
+            return new Bussiness(in);
+        }
+
+        @Override
+        public Bussiness[] newArray(int size) {
+            return new Bussiness[size];
+        }
+    };
 
     public String getBussid() {
         return bussid;
