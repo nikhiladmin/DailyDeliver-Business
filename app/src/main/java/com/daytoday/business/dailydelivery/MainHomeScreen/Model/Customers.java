@@ -27,6 +27,9 @@ public class Customers implements Serializable {
     @SerializedName("CustToken")
     @Expose
     private String custToken;
+    @SerializedName("profilepic")
+    @Expose
+    String custProfilepic;
 
     public String getBussCustID() {
         return bussCustID;
@@ -82,5 +85,13 @@ public class Customers implements Serializable {
 
     public void setCustToken(String custToken) {
         this.custToken = custToken;
+    }
+
+    public String getCustProfilepic() {
+        return custProfilepic;
+    }
+
+    public void setCustProfilepic(String custProfilepic) {
+        this.custProfilepic = custProfilepic;
     }
 }

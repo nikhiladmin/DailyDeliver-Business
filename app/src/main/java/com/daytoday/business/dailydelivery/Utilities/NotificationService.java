@@ -25,8 +25,6 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import java.nio.channels.Channel;
-import java.nio.channels.NetworkChannel;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
