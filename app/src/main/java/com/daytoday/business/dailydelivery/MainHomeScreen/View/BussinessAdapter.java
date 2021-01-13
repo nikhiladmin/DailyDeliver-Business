@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
+import com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity;
 import com.daytoday.business.dailydelivery.R;
 
 import com.squareup.picasso.Picasso;
@@ -64,8 +65,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),CustomerActivity.class);
-                intent.putExtra("buisness-Id", bussiness.getBussid());
-                intent.putExtra("buisness-Name",bussiness.getName());
+                intent.putExtra(CustomerActivity.BUSINESS_OBJECT,bussiness);
                 v.getContext().startActivity(intent);
             }
         });
@@ -74,7 +74,7 @@ public class BussinessAdapter extends RecyclerView.Adapter<BussinessAdapter.Buss
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SingleBusinessDetail.class);
-                intent.putExtra("buisness-object", bussiness);
+                intent.putExtra(BusinessDetailActivity.BUSINESS_OBJECT, bussiness);
                 v.getContext().startActivity(intent);
             }
         });
