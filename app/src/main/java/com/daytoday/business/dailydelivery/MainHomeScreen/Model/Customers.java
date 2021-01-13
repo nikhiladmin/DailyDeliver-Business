@@ -1,16 +1,14 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.Model;
 
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Customers {
+import java.io.Serializable;
+
+public class Customers implements Serializable {
     @SerializedName("UniqueId")
     @Expose
-    private String uniqueId;
+    private String bussCustID;
     @SerializedName("BussId")
     @Expose
     private String bussId;
@@ -26,24 +24,19 @@ public class Customers {
     @SerializedName("Address")
     @Expose
     private String address;
+    @SerializedName("CustToken")
+    @Expose
+    private String custToken;
     @SerializedName("profilepic")
     @Expose
     String custProfilepic;
 
-    public String getCustProfilepic() {
-        return custProfilepic;
+    public String getBussCustID() {
+        return bussCustID;
     }
 
-    public void setCustProfilepic(String custProfilepic) {
-        this.custProfilepic = custProfilepic;
-    }
-
-    public String getUniqueId() {
-        return uniqueId;
-    }
-
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
+    public void setBussCustID(String bussCustID) {
+        this.bussCustID = bussCustID;
     }
 
     public String getBussId() {
@@ -84,5 +77,21 @@ public class Customers {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCustToken() {
+        return custToken;
+    }
+
+    public void setCustToken(String custToken) {
+        this.custToken = custToken;
+    }
+
+    public String getCustProfilepic() {
+        return custProfilepic;
+    }
+
+    public void setCustProfilepic(String custProfilepic) {
+        this.custProfilepic = custProfilepic;
     }
 }

@@ -1,5 +1,6 @@
 package com.daytoday.business.dailydelivery.Network;
 
+import com.daytoday.business.dailydelivery.BuildConfig;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckResponse;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserResponse;
 import com.daytoday.business.dailydelivery.Network.Response.BussDetailsResponse;
@@ -8,15 +9,27 @@ import com.daytoday.business.dailydelivery.Network.Response.DayWiseResponse;
 import com.daytoday.business.dailydelivery.Network.Response.GeocodingResponse;
 import com.daytoday.business.dailydelivery.Network.Response.OTPSendResponse;
 import com.daytoday.business.dailydelivery.Network.Response.OTPVerifyResponse;
+import com.daytoday.business.dailydelivery.Network.Response.RequestNotification;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    String BASE_URL = "https://dailydeliver.000webhostapp.com/v1/";
+    String API_BASE_URL = "https://dailydeliver.000webhostapp.com/v1/";
+    String FCM_BASE_URL = "https://fcm.googleapis.com/";
+    String GEO_CODING_URL = "https://nominatim.openstreetmap.org/";
+
+    @Headers({"Authorization: key=" + BuildConfig.Firebase_Api_Key,
+            "Content-Type:application/json"})
+    @POST("fcm/send")
+    Call<ResponseBody> postNotification(@Body RequestNotification requestNotification);
 
     @GET("insert-buss-user-details")
     Call<YesNoResponse> addBussUserDetails(@Query("userid") String userId, @Query("username") String userName
@@ -76,4 +89,8 @@ public interface ApiInterface {
 
     @GET("is-registered-buss")
     Call<AuthUserCheckResponse> isRegisteredUser(@Query("email") String email);
+
+    @GET("update-buss-phone-token")
+    Call<YesNoResponse> updateFirebaseToken(@Query("token") String token,
+                                            @Query("bussid") String bussUserId);
 }
