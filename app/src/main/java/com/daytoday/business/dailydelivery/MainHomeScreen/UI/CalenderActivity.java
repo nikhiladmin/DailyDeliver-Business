@@ -1,26 +1,28 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.UI;
 
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.NumberPicker;
-import android.widget.ProgressBar;
-
-import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Dates;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModel;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.DatesViewModelFactory;
+import com.daytoday.business.dailydelivery.Network.Response.RequestNotification;
+import com.daytoday.business.dailydelivery.Network.Response.SendDataModel;
 import com.daytoday.business.dailydelivery.Network.Response.Transaction;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.AppUtils;
 import com.daytoday.business.dailydelivery.Utilities.FirebaseUtils;
+import com.daytoday.business.dailydelivery.Utilities.NotificationService;
 import com.daytoday.business.dailydelivery.Utilities.Request;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,7 +34,9 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class CalenderActivity extends AppCompatActivity {
+    private String productName;
 
     public static final String UNIQUE_ID = "unique_id";
     public static final String BUSINESS_ID = "business_id";
@@ -40,9 +44,11 @@ public class CalenderActivity extends AppCompatActivity {
     public static final String MOrD = "MOrD";
     public static final String PRODUCT_PRICE = "price";
     public static final String CUSTOMER_NAME = "customer_name";
+    public static final String PRODUCT_NAME = "Product_Name";
+    public static final String CUSTOMER_TOKEN = "Customer_Token";
 
     MaterialCalendarView calendarView;
-    String bussID, custID, bussCustId, bussType,custName;
+    String bussID, custID, bussCustId, bussType,custName,custToken;
     int bussPrice;
     ProgressBar progressBar;
     MaterialTextView totalAccepted, totalRejected, totalPending, totalPriceTextView, currentMonthPriceTextView;
@@ -52,20 +58,23 @@ public class CalenderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
 
+        setContentView(R.layout.activity_calender);
         bussID = getIntent().getStringExtra(BUSINESS_ID);
         bussCustId = getIntent().getStringExtra(UNIQUE_ID);
         custID = getIntent().getStringExtra(CUSTOMER_ID);
         bussType = getIntent().getStringExtra(MOrD);
         bussPrice = getIntent().getIntExtra(PRODUCT_PRICE, 0);
         custName = getIntent().getStringExtra(CUSTOMER_NAME);
+        productName = getIntent().getStringExtra(PRODUCT_NAME);
+        custToken = getIntent().getStringExtra(CUSTOMER_TOKEN);
 
         getSupportActionBar().setTitle(custName+" - Records");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+
         calendarView = findViewById(R.id.calendar);
         progressBar = findViewById(R.id.progress_bar);
-
         totalAccepted = findViewById(R.id.total_accepted);
         totalPending = findViewById(R.id.total_pending);
         totalRejected = findViewById(R.id.total_cancelled);
@@ -75,7 +84,6 @@ public class CalenderActivity extends AppCompatActivity {
         totalMonthRejected = findViewById(R.id.month_cancelled);
         currentMonthPriceTextView = findViewById(R.id.current_month_price);
 
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         datesViewModel = new ViewModelProvider(this, new DatesViewModelFactory(bussCustId)).get(DatesViewModel.class);
 
         calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -163,12 +171,22 @@ public class CalenderActivity extends AppCompatActivity {
 
     }
 
-    private void createPendingRequest(CalendarDay day, String quantity) {
+    private void createPendingRequest(CalendarDay day ,String quantity) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Buss_Cust_DayWise").child(bussCustId);
-        HashMap<String, String> value = FirebaseUtils.getValueMapOfRequest(day, quantity, Request.PENDING);
+        HashMap<String,String> value = FirebaseUtils.getValueMapOfRequest(day, quantity,Request.PENDING);
         reference.child(FirebaseUtils.getDatePath(day))
                 .setValue(value);
         FirebaseUtils.incrementAccToReq(day, reference,quantity, Request.PENDING);
+        RequestNotification requestNotification = new RequestNotification()
+                .setToken(custToken)
+                .setSendDataModel(new SendDataModel()
+                        .setFromWhichPerson(SaveOfflineManager.getUserName(this))
+                        .setFromWhichPersonID(SaveOfflineManager.getUserId(this))
+                        .setNotificationStatus(Request.PENDING)
+                        .setProductName(productName)
+                        .setQuantity(quantity)
+                        .setToWhichPerson(custName));
+        NotificationService.sendNotification(requestNotification);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.daytoday.business.dailydelivery.MainHomeScreen.View;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder> {
+
     Context context;
     List<Customers> customersList;
     Bussiness currentBussiness;
@@ -46,19 +46,24 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         holder.customer_name.setText(customersList.get(position).getName());
         holder.product_name.setText(currentBussiness.getName());
         holder.customer_address.setText(customersList.get(position).getAddress());
-        if (customersList.get(position).getCustProfilepic() != null) {
-            Picasso.get().load(customersList.get(position).getCustProfilepic()).into(holder.custProfilePic);
+        String imgPath = customersList.get(position).getCustProfilepic();
+        if (imgPath != null && !imgPath.isEmpty()) {
+            Picasso.get()
+                    .load(imgPath)
+                    .into(holder.custProfilePic);
         }
         holder.customer_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CalenderActivity.class);
-                intent.putExtra(CalenderActivity.UNIQUE_ID, customersList.get(position).getUniqueId());
+                intent.putExtra(CalenderActivity.PRODUCT_NAME, currentBussiness.getName());
+                intent.putExtra(CalenderActivity.UNIQUE_ID, customersList.get(position).getBussCustID());
                 intent.putExtra(CalenderActivity.BUSINESS_ID, currentBussiness.getBussid());
                 intent.putExtra(CalenderActivity.CUSTOMER_ID, customersList.get(position).getCustId());
                 intent.putExtra(CalenderActivity.MOrD, currentBussiness.getdOrM());
                 intent.putExtra(CalenderActivity.PRODUCT_PRICE, currentBussiness.getPrice());
                 intent.putExtra(CalenderActivity.CUSTOMER_NAME,customersList.get(position).getName());
+                intent.putExtra(CalenderActivity.CUSTOMER_TOKEN,customersList.get(position).getCustToken());
                 v.getContext().startActivity(intent);
             }
         });

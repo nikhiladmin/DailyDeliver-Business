@@ -36,8 +36,6 @@ public class CustomerRepo {
         Log.i("message ","bussid is " + bussId);
         final MutableLiveData<List<Customers>> liveData = new MutableLiveData<>();
         ApiInterface apiInterface = Client.getClient().create(ApiInterface.class);
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         /*-------------------------------          Initialise the list here   -----------------------------------------------------------*/
 
         /*reference.child("Buss_Cust_Rel").child(bussId).addValueEventListener(new ValueEventListener() {
