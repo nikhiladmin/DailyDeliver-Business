@@ -93,4 +93,11 @@ public interface ApiInterface {
     @GET("update-buss-phone-token")
     Call<YesNoResponse> updateFirebaseToken(@Query("token") String token,
                                             @Query("bussid") String bussUserId);
+
+    @GET("send-notification")
+    Call<YesNoResponse> sendNotification(@Query("to") String to ,
+                            @Query("from") String from,
+                            @Query("status") Integer status,
+                            @Query("quantity") String quantity,
+                            @Query("name") String name);
 }
