@@ -99,7 +99,8 @@ public class NotificationService extends FirebaseMessagingService {
     private Notification getNotification(Context context, PendingIntent intent,SendDataModel sendDataModel,String channelId) {
         return new NotificationCompat.Builder(context,"channel_id")
                 .setContentTitle(getNotificationTitle(sendDataModel))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo_dd)
+                .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(getNotificationText(sendDataModel,20))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getNotificationText(sendDataModel)))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -110,8 +111,7 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private String getNotificationTitle(SendDataModel sendDataModel) {
-        //TODO Title needs to be added Here
-        return "Title";
+        return "Order " + sendDataModel.getNotificationStatus();
     }
 
     private CharSequence getNotificationText(SendDataModel sendDataModel, int noOfChars) {
@@ -120,7 +120,30 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private String getNotificationText(SendDataModel sendDataModel) {
+        switch (sendDataModel.getNotificationStatus()){
+            case Request.PENDING : return getPendingText(sendDataModel);
+            case Request.ACCEPTED: return getAcceptedText(sendDataModel);
+            case Request.REJECTED: return getRejectedText(sendDataModel);
+        }
         return "You Have A New Notification Here";
+    }
+
+    private String getRejectedText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has rejected your order for " +
+                sendDataModel.getQuantity() + " " + /* Need To add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
+    }
+
+    private String getAcceptedText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has Accepted your order for " +
+                sendDataModel.getQuantity() + " " + /* Need to add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
+    }
+
+    private String getPendingText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has Requested for " +
+                sendDataModel.getQuantity() + " " + /* Need to add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
     }
 
     public static void sendNotification(RequestNotification requestNotification) {
