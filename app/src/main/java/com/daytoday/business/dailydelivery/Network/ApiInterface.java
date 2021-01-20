@@ -11,6 +11,9 @@ import com.daytoday.business.dailydelivery.Network.Response.OTPSendResponse;
 import com.daytoday.business.dailydelivery.Network.Response.OTPVerifyResponse;
 import com.daytoday.business.dailydelivery.Network.Response.RequestNotification;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
+import com.daytoday.business.dailydelivery.NotificationUI.NotificationModelResponse;
+
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ApiInterface {
 
@@ -93,4 +97,6 @@ public interface ApiInterface {
     @GET("update-buss-phone-token")
     Call<YesNoResponse> updateFirebaseToken(@Query("token") String token,
                                             @Query("bussid") String bussUserId);
+    @GET("/v1/get-notification")
+    Call<NotificationModelResponse> getNotifications(@QueryMap Map<String,String> map);
 }

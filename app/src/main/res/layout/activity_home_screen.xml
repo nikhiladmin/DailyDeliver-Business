@@ -50,6 +50,15 @@
                         android:clickable="true"
                         android:paddingRight="5dp"
                         android:src="@drawable/qrlogo" />
+
+                    <ImageView
+                        android:id="@+id/notification_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/bell_icon_click"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/ic_bell" />
                 </RelativeLayout>
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>

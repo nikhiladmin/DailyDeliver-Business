@@ -28,6 +28,7 @@ import com.daytoday.business.dailydelivery.MainHomeScreen.UI.QrCodeActivity;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
+import com.daytoday.business.dailydelivery.NotificationUI.NotificationActivity;
 import com.daytoday.business.dailydelivery.R;
 import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 import com.facebook.login.LoginManager;
@@ -47,7 +48,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    ImageView imageView;
+    ImageView imageView,notificationIcon;
     MaterialTextView userName;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -61,6 +62,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
         mAuth = FirebaseAuth.getInstance();
         imageView= findViewById(R.id.bell_icon_click);
+        notificationIcon = findViewById(R.id.notification_icon);
         toolbar = findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
 
@@ -115,6 +117,9 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
             public void onClick(View v) {
                 startActivity(new Intent(HomeScreenActivity.this, QrCodeActivity.class));
             }
+        });
+        notificationIcon.setOnClickListener(v->{
+            startActivity(new Intent(HomeScreenActivity.this, NotificationActivity.class));
         });
 
         //-------------------- Updating the Token Of Firebase Here ---------------------------------------------------//
