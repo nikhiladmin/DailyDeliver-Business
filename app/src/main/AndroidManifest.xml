@@ -17,13 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-
-        android:theme="@style/SplashTheme">
-        <activity android:name=".LoginActivity.EmailSignUpActivity"></activity>
+        android:theme="@style/SplashTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".NotificationUI.NotificationActivity"></activity>
+        <activity android:name=".LoginActivity.EmailSignUpActivity" />
         <activity android:name=".LoginActivity.AdditionalInfoActivity" />
         <activity android:name=".MainHomeScreen.UI.QrCodeActivity" />
-
         <activity android:name=".MainHomeScreen.UI.SingleBusinessDetail" />
         <activity android:name=".MainHomeScreen.UI.CalenderActivity" />
         <activity android:name=".MainHomeScreen.View.CustomerActivity" />
@@ -57,7 +56,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <service android:name=".Utilities.NotificationService"
+
+        <service
+            android:name=".Utilities.NotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
