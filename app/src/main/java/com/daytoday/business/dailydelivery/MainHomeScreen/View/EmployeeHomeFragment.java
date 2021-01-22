@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,8 @@ public class EmployeeHomeFragment extends Fragment {
         emp_list.setLayoutManager(new LinearLayoutManager(getContext()));
         EmployeeViewModel employeeViewModel = new EmployeeViewModel();
 
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        emp_list.addItemDecoration(itemDecor);
         employeeViewModel.getEmployee().observe(getActivity(), new Observer<List<EmployeeInfo>>() {
             @Override
             public void onChanged(List<EmployeeInfo> employeeInfos) {

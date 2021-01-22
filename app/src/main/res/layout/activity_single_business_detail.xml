@@ -186,54 +186,55 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:layout_constraintVertical_bias="0.0">
+
         <View
             android:id="@+id/divider23"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorGrey50" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/delivery_from_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorGrey"
-            android:text="Delivery From" />
+            android:text="Delivery From"
+            android:textColor="@color/colorGrey" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/delivery_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textSize="20sp"
             android:textColor="@color/colorBlack"
-            />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorGrey50" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textView10"
-            android:textColor="@color/colorGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delivery Mode" />
+            android:text="Delivery Mode"
+            android:textColor="@color/colorGrey" />
 
         <com.google.android.material.textview.MaterialTextView
 
@@ -241,24 +242,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Online"
-            android:textSize="20sp"
             android:textColor="@color/colorBlack"
-            />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/divider12"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorGrey50" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textView13"
-            android:textColor="@color/colorGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Paymant Mode" />
+            android:text="Paymant Mode"
+            android:textColor="@color/colorGrey" />
 
         <com.google.android.material.textview.MaterialTextView
 
@@ -266,18 +266,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Online"
-            android:textSize="20sp"
             android:textColor="@color/colorBlack"
-            />
+            android:textSize="20sp" />
 
         <View
             android:id="@+id/divider4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorGrey50" />
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button2"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:textColor="@color/colorDelete"
+        app:icon="@drawable/ic_baseline_delete_24"
+app:iconPadding="5dp"
+        app:iconTint="@color/colorDelete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

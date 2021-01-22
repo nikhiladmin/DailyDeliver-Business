@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.EmployeeInfo;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.EmpInfoActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder> {
     List<EmployeeInfo> employeeInfoList;
     Context context;
+
 
     public EmployeeAdapter(List<EmployeeInfo> employeeInfoList, Context context) {
         this.employeeInfoList = employeeInfoList;
@@ -50,22 +52,16 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
 
         /*-------------------------------          Click Listener on Details Button     --------------------------------------------------*/
-        holder.empl_detail_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), EmpInfoActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
+
 
 
         /*-------------------------------          Click Listener on Delete Button     --------------------------------------------------*/
-        holder.del_emp_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        holder.del_emp_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
 
         /*-------------------------------          Click Listener on Call Button     --------------------------------------------------*/
@@ -76,6 +72,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                 intent.setData(Uri.parse("tel:"+employeeInfoList.get(position).getPhoneNo()));
                 view.getContext().startActivity(intent);
             }
+        });
+
+        holder.employeeCard.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), EmpInfoActivity.class);
+            view.getContext().startActivity(intent);
         });
 
 
@@ -94,15 +95,16 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
     public class EmployeeViewHolder extends RecyclerView.ViewHolder {
         ImageView empl_img,call_emp_btn;
         TextView emp_name,emp_id;
-        Button del_emp_btn,empl_detail_btn;
+
+        MaterialCardView employeeCard;
         public EmployeeViewHolder(@NonNull View itemView) {
             super(itemView);
             emp_id = itemView.findViewById(R.id.emp_id);
             emp_name = itemView.findViewById(R.id.emp_name);
-            empl_detail_btn = itemView.findViewById(R.id.empl_detail_btn);
             empl_img = itemView.findViewById(R.id.empl_img);
             call_emp_btn = itemView.findViewById(R.id.call_emp_btn);
-            del_emp_btn = itemView.findViewById(R.id.del_empl_btn);
+//            del_emp_btn = itemView.findViewById(R.id.del_empl_btn);
+            employeeCard = itemView.findViewById(R.id.employee_card);
         }
     }
 }

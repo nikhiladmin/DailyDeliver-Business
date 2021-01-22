@@ -49,7 +49,7 @@
                         android:adjustViewBounds="true"
                         android:clickable="true"
                         android:paddingRight="5dp"
-                        android:src="@drawable/qrlogo" />
+                        android:src="@drawable/ic_baseline_qr_code_24" />
                 </RelativeLayout>
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>

@@ -1,5 +1,6 @@
 package com.daytoday.business.dailydelivery.MainHomeScreen.View;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
 import com.daytoday.business.dailydelivery.MainHomeScreen.UI.CalenderActivity;
 import com.daytoday.business.dailydelivery.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -53,6 +56,16 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
                 v.getContext().startActivity(intent);
             }
         });
+
+        holder.customerCard.setOnClickListener(view -> {
+            Dialog dialog;
+            final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(),R.style.CustomAlertDialog);
+            View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.customer_details_dialog, holder.viewGroup, false);
+            builder.setView(dialogView);
+            builder.setCancelable(true);
+            dialog= builder.create();
+            dialog.show();
+        });
     }
 
     @Override
@@ -64,6 +77,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         ImageView customerImg,call_customer_btn;
         TextView customer_name,customer_address,product_name;
         Button customer_status_btn;
+        MaterialCardView customerCard;
+        ViewGroup viewGroup;
         public CustomerViewHolder(@NonNull View itemView) {
             super(itemView);
             customer_address = itemView.findViewById(R.id.customer_address);
@@ -72,6 +87,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
             call_customer_btn = itemView.findViewById(R.id.call_customer_btn);
             product_name = itemView.findViewById(R.id.product_name);
             customer_status_btn = itemView.findViewById(R.id.customer_status_btn);
+            customerCard = itemView.findViewById(R.id.customer_card);
+            viewGroup = itemView.findViewById(android.R.id.content);
         }
     }
 }

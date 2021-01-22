@@ -87,43 +87,11 @@ if(privacyPolicyCheck.isChecked()) {
         }
     }
 
-    private void signupWithEmail(String email,String password,String confirmPassword){
-
-        if(passwordMatch(password, confirmPassword)){
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isComplete()&&task.isSuccessful()){
-                        FirebaseUser user = mAuth.getCurrentUser();
-
-                    }else{
-                        Toast.makeText(EmailSignup.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-    }
     private  boolean passwordMatch(String password,String confirmPassword){
         return password.equals(confirmPassword);
     }
 
-    public void SendUserHomePage() {
-        Intent loginIntent = new Intent(EmailSignup.this, HomeScreen.class);
-        loginIntent.putExtra("isPhoneAuth",false);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
-        finish();
-    }
 
-    public void saveOffline(FirebaseUser currentUser, String name, String adress) {
-        SaveOfflineManager.setUserName(this, name);
-        SaveOfflineManager.setUserId(this, currentUser.getUid());
-        SaveOfflineManager.setUserAddress(this, adress);
-        SaveOfflineManager.setUserPhoneNumber(this, currentUser.getPhoneNumber());
-    }
 
     private void  isUserExist(String email){
         Call<AuthUserCheckResponse> authUserCheckResponseCall = Client.getClient().create(ApiInterface.class).isRegisteredUser(email);
