@@ -185,7 +185,8 @@ public class CalenderActivity extends AppCompatActivity {
                         .setNotificationStatus(Request.PENDING)
                         .setProductName(productName)
                         .setQuantity(quantity)
-                        .setToWhichPerson(custName));
+                        .setToWhichPerson(custName)
+                        .setToWhichPersonId(custID));
         NotificationService.sendNotification(requestNotification);
     }
 

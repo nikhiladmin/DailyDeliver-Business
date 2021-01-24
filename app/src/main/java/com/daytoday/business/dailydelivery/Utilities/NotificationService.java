@@ -19,6 +19,7 @@ import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.ChannelInformation;
 import com.daytoday.business.dailydelivery.Network.Response.RequestNotification;
 import com.daytoday.business.dailydelivery.Network.Response.SendDataModel;
+import com.daytoday.business.dailydelivery.Network.Response.YesNoResponse;
 import com.daytoday.business.dailydelivery.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -99,7 +100,8 @@ public class NotificationService extends FirebaseMessagingService {
     private Notification getNotification(Context context, PendingIntent intent,SendDataModel sendDataModel,String channelId) {
         return new NotificationCompat.Builder(context,"channel_id")
                 .setContentTitle(getNotificationTitle(sendDataModel))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.logo_dd)
+                .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(getNotificationText(sendDataModel,20))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getNotificationText(sendDataModel)))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -110,8 +112,7 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private String getNotificationTitle(SendDataModel sendDataModel) {
-        //TODO Title needs to be added Here
-        return "Title";
+        return "Order " + sendDataModel.getNotificationStatus();
     }
 
     private CharSequence getNotificationText(SendDataModel sendDataModel, int noOfChars) {
@@ -120,11 +121,62 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private String getNotificationText(SendDataModel sendDataModel) {
+        switch (sendDataModel.getNotificationStatus()){
+            case Request.PENDING : return getPendingText(sendDataModel);
+            case Request.ACCEPTED: return getAcceptedText(sendDataModel);
+            case Request.REJECTED: return getRejectedText(sendDataModel);
+        }
         return "You Have A New Notification Here";
     }
 
+    private String getRejectedText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has rejected your order for " +
+                sendDataModel.getQuantity() + " " + /* Need To add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
+    }
+
+    private String getAcceptedText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has Accepted your order for " +
+                sendDataModel.getQuantity() + " " + /* Need to add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
+    }
+
+    private String getPendingText(SendDataModel sendDataModel) {
+        String ans = sendDataModel.getFromWhichPerson() + " has Requested for " +
+                sendDataModel.getQuantity() + " " + /* Need to add units here */ "" + " of " + sendDataModel.getProductName().toUpperCase();
+        return ans;
+    }
+
     public static void sendNotification(RequestNotification requestNotification) {
+        //Sending Notification to fcm
         ApiInterface service = Client.getFirebaseClient().create(ApiInterface.class);
+        sendNotificationToFCM(requestNotification, service);
+        // Send Notification To Our Server
+        service = Client.getClient().create(ApiInterface.class);
+        SendDataModel sendDataModel = requestNotification.getSendDataModel();
+        sendNotificationToOurServer(service, sendDataModel);
+    }
+
+    private static void sendNotificationToOurServer(ApiInterface service, SendDataModel sendDataModel) {
+        Call<YesNoResponse> notificationCall = service.sendNotification(sendDataModel.getToWhichPersonId(),
+                sendDataModel.getFromWhichPersonID(),
+                Request.getRespectiveIntegerValue(sendDataModel.getNotificationStatus()),
+                sendDataModel.getQuantity()
+                ,sendDataModel.getProductName());
+        notificationCall.enqueue(new Callback<YesNoResponse>() {
+            @Override
+            public void onResponse(Call<YesNoResponse> call, Response<YesNoResponse> response) {
+                Log.i(TAG,"Response Successful " + response.body().getMessage());
+            }
+
+            @Override
+            public void onFailure(Call<YesNoResponse> call, Throwable t) {
+                Log.i(TAG,"Error Occurred :-> " + t.getMessage());
+            }
+        });
+    }
+
+    private static void sendNotificationToFCM(RequestNotification requestNotification, ApiInterface service) {
         Call<ResponseBody> messagingCall = service.postNotification(requestNotification);
         messagingCall.enqueue(new Callback<ResponseBody>() {
             @Override
