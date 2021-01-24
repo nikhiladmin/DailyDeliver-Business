@@ -25,11 +25,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "Firebase_Api_Key", '"AAAARpUoFuM:APA91bHraE6ioNM9ztqVy-Ocyhjnd1f91X78XDUA-6-qjxqsZ6w9ucqbwmmuiC6uuK-VVaXd9AX8nbRzmtes2CiP6lCHKimSuEsPuW2fpom-_8fjUtvh7Si3BUDs5T6EKlwiWMeKD_dw"'
+            buildConfigField "String", "Firebase_Api_Key", '"AAAAgGBzLak:APA91bHGHJbMQqHvg62JUir3bnTjXHthiLEGgiuam6cqPrGBBrpSePs99dakBF3lMbH4cvcbr0cEK4EvMyzfXmFl9NWBo0jND4xMMzKaSCtvrnxb9cbhhghlB61BcmjHvTU_DoUmD4rs"'
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "Firebase_Api_Key", '"AAAARpUoFuM:APA91bHraE6ioNM9ztqVy-Ocyhjnd1f91X78XDUA-6-qjxqsZ6w9ucqbwmmuiC6uuK-VVaXd9AX8nbRzmtes2CiP6lCHKimSuEsPuW2fpom-_8fjUtvh7Si3BUDs5T6EKlwiWMeKD_dw"'
+            buildConfigField "String", "Firebase_Api_Key", '"AAAAgGBzLak:APA91bHGHJbMQqHvg62JUir3bnTjXHthiLEGgiuam6cqPrGBBrpSePs99dakBF3lMbH4cvcbr0cEK4EvMyzfXmFl9NWBo0jND4xMMzKaSCtvrnxb9cbhhghlB61BcmjHvTU_DoUmD4rs"'
         }
     }
 }

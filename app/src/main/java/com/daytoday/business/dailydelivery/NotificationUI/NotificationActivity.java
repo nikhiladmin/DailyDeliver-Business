@@ -15,6 +15,7 @@ import com.daytoday.business.dailydelivery.NotificationUI.NotificationAdapter;
 import com.daytoday.business.dailydelivery.NotificationUI.NotificationViewModel;
 import com.daytoday.business.dailydelivery.NotificationUI.NotificationViewModelFactory;
 import com.daytoday.business.dailydelivery.R;
+import com.daytoday.business.dailydelivery.Utilities.SaveOfflineManager;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class NotificationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final NotificationAdapter adapter = new NotificationAdapter(this);
 
-        viewModel = new ViewModelProvider(this, new NotificationViewModelFactory(this.getApplication(), "1212")).get(NotificationViewModel.class);
+        viewModel = new ViewModelProvider(this, new NotificationViewModelFactory(this.getApplication(), SaveOfflineManager.getUserId(this))).get(NotificationViewModel.class);
         viewModel.pagedListLiveData.observe(this, notifications -> adapter.submitList(notifications));
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(() -> {
