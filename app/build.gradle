@@ -76,6 +76,5 @@ dependencies {
 
     implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-
-
+    implementation 'androidx.paging:paging-runtime:2.1.2'
 }
