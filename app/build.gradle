@@ -25,9 +25,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "Firebase_Api_Key", '"AAAAgGBzLak:APA91bHGHJbMQqHvg62JUir3bnTjXHthiLEGgiuam6cqPrGBBrpSePs99dakBF3lMbH4cvcbr0cEK4EvMyzfXmFl9NWBo0jND4xMMzKaSCtvrnxb9cbhhghlB61BcmjHvTU_DoUmD4rs"'
+        }
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "Firebase_Api_Key", '"AAAAgGBzLak:APA91bHGHJbMQqHvg62JUir3bnTjXHthiLEGgiuam6cqPrGBBrpSePs99dakBF3lMbH4cvcbr0cEK4EvMyzfXmFl9NWBo0jND4xMMzKaSCtvrnxb9cbhhghlB61BcmjHvTU_DoUmD4rs"'
         }
     }
-
 }
 
 dependencies {
@@ -48,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
     testImplementation 'junit:junit:4.13'
     implementation 'com.chaos.view:pinview:1.4.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -71,6 +76,5 @@ dependencies {
 
     implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-
-
+    implementation 'androidx.paging:paging-runtime:2.1.2'
 }

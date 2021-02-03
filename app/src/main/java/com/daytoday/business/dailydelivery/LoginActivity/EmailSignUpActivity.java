@@ -15,7 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreenActivity;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckResponse;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EmailSignup extends AppCompatActivity {
+public class EmailSignUpActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -63,7 +63,7 @@ public class EmailSignup extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         signinNow.setOnClickListener(view -> {
-            Intent signin = new Intent(EmailSignup.this, LoginPage.class);
+            Intent signin = new Intent(EmailSignUpActivity.this, LoginPageActivity.class);
             startActivity(signin);
         });
 
@@ -87,10 +87,37 @@ if(privacyPolicyCheck.isChecked()) {
         }
     }
 
+
+    private void signupWithEmail(String email,String password,String confirmPassword){
+
+        if(passwordMatch(password, confirmPassword)){
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isComplete()&&task.isSuccessful()){
+                        FirebaseUser user = mAuth.getCurrentUser();
+
+                    }else{
+                        Toast.makeText(EmailSignUpActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
     private  boolean passwordMatch(String password,String confirmPassword){
         return password.equals(confirmPassword);
     }
 
+    public void SendUserHomePage() {
+        Intent loginIntent = new Intent(EmailSignUpActivity.this, HomeScreenActivity.class);
+        loginIntent.putExtra("isPhoneAuth",false);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+        finish();
+    }
 
 
     private void  isUserExist(String email){
@@ -103,7 +130,7 @@ if(privacyPolicyCheck.isChecked()) {
                         String em = emailEditText.getText().toString();
                         String con_pass = confirmPasswordEditText.getText().toString();
                         if(passwordMatch(pass,con_pass)){
-                            Intent signup = new Intent(EmailSignup.this, OtpVerification.class);
+                            Intent signup = new Intent(EmailSignUpActivity.this, OtpVerificationActivity.class);
                             signup.putExtra("email",em);
                             signup.putExtra("password",pass);
                             signup.putExtra("isPhoneAuth",false);
@@ -129,12 +156,12 @@ if(privacyPolicyCheck.isChecked()) {
             });
     }
 
-    void DialogBoxShow(View v){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(EmailSignup.this,R.style.CustomAlertDialog);
+    void DialogBoxShow(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(EmailSignUpActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_dialog, viewGroup, false);
+        View dialogView = LayoutInflater.from(EmailSignUpActivity.this).inflate(R.layout.custom_dialog, viewGroup, false);
         builder.setView(dialogView);
-        builder.setCancelable(true);
+        builder.setCancelable(false);
         alertDialog = builder.create();
         alertDialog.show();
     }

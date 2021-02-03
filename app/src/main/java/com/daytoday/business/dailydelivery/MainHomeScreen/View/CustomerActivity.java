@@ -11,43 +11,51 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.daytoday.business.dailydelivery.LoginActivity.LoginPage;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Bussiness;
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.Customers;
 import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.CustomerViewModel;
+import com.daytoday.business.dailydelivery.MainHomeScreen.ViewModel.CustomerViewModelFactory;
 import com.daytoday.business.dailydelivery.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
+
 public class CustomerActivity extends AppCompatActivity {
     RecyclerView customerlist;
+    CustomerViewModel viewModel;
+    public static final String BUSINESS_OBJECT = "business-object";
+    Bussiness currentBusiness;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
-        String bussID  = getIntent().getStringExtra("buisness-Id");
-        String bussName = getIntent().getStringExtra("buisness-Name");
+        currentBusiness = getIntent().getParcelableExtra(BUSINESS_OBJECT);
+
+        String bussID  = currentBusiness.getBussid();
+        String bussName = currentBusiness.getName();
 
         customerlist = findViewById(R.id.customer_list);
-        DividerItemDecoration itemDecor = new DividerItemDecoration(CustomerActivity.this, DividerItemDecoration.VERTICAL);
-        customerlist.addItemDecoration(itemDecor);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         customerlist.setHasFixedSize(true);
         customerlist.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle("My Customers");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        CustomerViewModel viewModel = new CustomerViewModel(bussID);
+        viewModel = new ViewModelProvider(this,new CustomerViewModelFactory(bussID)).get(CustomerViewModel.class);
         viewModel.getCustomers().observe(this, new Observer<List<Customers>>() {
             @Override
             public void onChanged(List<Customers> customers) {
-                CustomerAdapter adapter = new CustomerAdapter(CustomerActivity.this, customers, bussName, bussID );
+                CustomerAdapter adapter = new CustomerAdapter(CustomerActivity.this, customers, currentBusiness );
                 customerlist.setAdapter(adapter);
-                Log.i("msg","done");
+                progressBar.setVisibility(View.GONE);
             }
         });
 

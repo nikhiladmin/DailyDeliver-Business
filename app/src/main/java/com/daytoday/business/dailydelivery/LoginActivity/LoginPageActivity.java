@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 
 import com.daytoday.business.dailydelivery.MainHomeScreen.Model.AuthUser;
-import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreen;
+import com.daytoday.business.dailydelivery.MainHomeScreen.View.HomeScreenActivity;
 import com.daytoday.business.dailydelivery.Network.ApiInterface;
 import com.daytoday.business.dailydelivery.Network.Client;
 import com.daytoday.business.dailydelivery.Network.Response.AuthUserCheckResponse;
@@ -47,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPageActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     private Button phoneLogin;
     private Button googleLogin;
@@ -107,7 +107,7 @@ public class LoginPage extends AppCompatActivity {
 
         //==========================Signup======================================================
         signup.setOnClickListener(view -> {
-            Intent signup = new Intent(LoginPage.this, EmailSignup.class);
+            Intent signup = new Intent(LoginPageActivity.this, EmailSignUpActivity.class);
             startActivity(signup);
         });
         //==========================Phone Login==================================================
@@ -115,7 +115,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(LoginPage.this, PhoneVerification.class);
+                Intent intent = new Intent(LoginPageActivity.this, PhoneVerification.class);
                 intent.putExtra("isPhoneAuth",true);
                 startActivity(intent);
             }
@@ -174,7 +174,7 @@ public class LoginPage extends AppCompatActivity {
                             if(user!=null){
                                 if(task.getResult().getAdditionalUserInfo().isNewUser()){
                                     alertDialog.dismiss();
-                                    Intent loginIntent = new Intent(LoginPage.this, AdditionalInfo.class);
+                                    Intent loginIntent = new Intent(LoginPageActivity.this, AdditionalInfoActivity.class);
                                     loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     loginIntent.putExtra("isPhoneAuth",false);
@@ -198,9 +198,9 @@ public class LoginPage extends AppCompatActivity {
                             } catch(FirebaseAuthWeakPasswordException e) {
 
                             } catch(FirebaseAuthInvalidCredentialsException e) {
-                                Toast.makeText(LoginPage.this,"Invalid Login Credentials",Toast.LENGTH_LONG);
+                                Toast.makeText(LoginPageActivity.this,"Invalid Login Credentials",Toast.LENGTH_LONG);
                             } catch(com.google.firebase.auth.FirebaseAuthUserCollisionException e) {
-                                Toast.makeText(LoginPage.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG);
+                                Toast.makeText(LoginPageActivity.this,"The email address is already in use by google account. Please login with google account",Toast.LENGTH_LONG);
                             } catch(Exception e) {
 
                             }
@@ -215,7 +215,7 @@ public class LoginPage extends AppCompatActivity {
 //=====================show Custom Dialog Box================================
 
     void DialogBoxShow(View v){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginPage.this,R.style.CustomAlertDialog);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(LoginPageActivity.this,R.style.CustomAlertDialog);
         ViewGroup viewGroup = findViewById(android.R.id.content);
         View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.custom_dialog, viewGroup, false);
         builder.setView(dialogView);
@@ -256,9 +256,9 @@ public class LoginPage extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            Log.i("AUTHENT_US", "onStart: "+SaveOfflineManager.getUserAddress(LoginPage.this));
-            if(SaveOfflineManager.getUserAddress(LoginPage.this)==null||SaveOfflineManager.getUserAddress(LoginPage.this).length()==0){
-                Intent signupIntent = new Intent(LoginPage.this, AdditionalInfo.class);
+            Log.i("AUTHENT_US", "onStart: "+SaveOfflineManager.getUserAddress(LoginPageActivity.this));
+            if(SaveOfflineManager.getUserAddress(LoginPageActivity.this)==null||SaveOfflineManager.getUserAddress(LoginPageActivity.this).length()==0){
+                Intent signupIntent = new Intent(LoginPageActivity.this, AdditionalInfoActivity.class);
                 if(currentUser.getPhoneNumber()!=null&&currentUser.getPhoneNumber().length()!=0){
                     signupIntent.putExtra("isPhoneAuth",true);
                 }else if(currentUser.getEmail()!=null&&currentUser.getEmail().length()!=0){
@@ -269,7 +269,7 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(signupIntent);
                 finish();
             }else{
-                Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
+                Intent loginIntent = new Intent(LoginPageActivity.this, HomeScreenActivity.class);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
@@ -291,7 +291,7 @@ public class LoginPage extends AppCompatActivity {
             public void onResponse(Call<AuthUserResponse> call, Response<AuthUserResponse> response) {
                 alertDialog.dismiss();
                 if(response.body().getError()){
-                    Intent loginIntent = new Intent(LoginPage.this, AdditionalInfo.class);
+                    Intent loginIntent = new Intent(LoginPageActivity.this, AdditionalInfoActivity.class);
                     loginIntent.putExtra("isPhoneAuth",false);
                     startActivity(loginIntent);
                     finish();
@@ -313,7 +313,7 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void SendUserHomePage() {
-        Intent loginIntent = new Intent(LoginPage.this, HomeScreen.class);
+        Intent loginIntent = new Intent(LoginPageActivity.this, HomeScreenActivity.class);
         loginIntent.putExtra("isPhoneAuth",false);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -354,13 +354,15 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     };
+
+
     private void  isUserExist(String email,String uid){
         Call<AuthUserCheckResponse> authUserCheckResponseCall = Client.getClient().create(ApiInterface.class).isRegisteredUser(email);
         authUserCheckResponseCall.enqueue(new Callback<AuthUserCheckResponse>() {
             @Override
             public void onResponse(Call<AuthUserCheckResponse> call, Response<AuthUserCheckResponse> response) {
                 if (response.body().getError()) {
-                    Intent signupIntent = new Intent(LoginPage.this, AdditionalInfo.class);
+                    Intent signupIntent = new Intent(LoginPageActivity.this, AdditionalInfoActivity.class);
                     signupIntent.putExtra("isPhoneAuth",false);
                     signupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     signupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

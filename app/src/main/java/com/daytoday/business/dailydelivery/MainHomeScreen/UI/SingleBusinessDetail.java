@@ -22,38 +22,35 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 
+import static com.daytoday.business.dailydelivery.MainHomeScreen.UI.BusinessDetailActivity.BUSINESS_OBJECT;
+
 public class SingleBusinessDetail extends AppCompatActivity {
-    MaterialTextView earning,pending,cancelled,price,customers,payment,name,deliveryFrom,deliveryMode;
+
+    MaterialTextView earning, pending, cancelled, price, customers, payment, name;
     Bussiness bussiness;
     ImageView bussImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_business_detail);
-        name=findViewById(R.id.buss_detail_name);
-        earning=findViewById(R.id.buss_detail_earning);
-//        pending=findViewById(R.id.buss_detail_pending);
-//        cancelled=findViewById(R.id.buss_detail_cancelled);
-        price=findViewById(R.id.buss_detail_price);
-        customers=findViewById(R.id.buss_detail_customer);
-        deliveryFrom = findViewById(R.id.delivery_from);
-        payment=findViewById(R.id.payment_mode);
+        name = findViewById(R.id.buss_detail_name);
+        earning = findViewById(R.id.buss_detail_earning);
+        price = findViewById(R.id.buss_detail_price);
+        customers = findViewById(R.id.buss_detail_customer);
         bussImg = findViewById(R.id.single_buss_img);
-        deliveryMode = findViewById(R.id.delivery_mode);
-        bussiness = (Bussiness) getIntent().getSerializableExtra("buisness-object");
+        bussiness = getIntent().getParcelableExtra(BUSINESS_OBJECT);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(bussiness.getName().substring(0,1).toUpperCase()+bussiness.getName().substring(1));
+        getSupportActionBar().setTitle(bussiness.getName() + " - Details");
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-      earning.setText("" +bussiness.getTotEarn());
+        earning.setText("" + bussiness.getTotEarn());
         price.setText("" + bussiness.getPrice());
         customers.setText("" + bussiness.getNoOfCust());
-        deliveryFrom.setText(bussiness.getAddress());
-        deliveryMode.setText( bussiness.getdOrM().equals("M")? "Montly":"Daily");
-        payment.setText(bussiness.getPayment().equals("Both") ? "Online and Cash on Delivery" :bussiness.getPayment());
-//        pending.setText("" + bussiness.getTotPen());
-//        cancelled.setText("" + bussiness.getTotCan());
-        name.setText(bussiness.getName().substring(0,1).toUpperCase()+bussiness.getName().substring(1));
-        if (bussiness.getImgurl()!=null) {
+        payment.setText("" + bussiness.getdOrM());
+        pending.setText("" + bussiness.getTotPen());
+        cancelled.setText("" + bussiness.getTotCan());
+        name.setText("" + bussiness.getName());
+        if (bussiness.getImgurl() != null) {
             Picasso.get()
                     .load(bussiness.getImgurl())
                     .resize(5000, 5000)
@@ -62,7 +59,7 @@ public class SingleBusinessDetail extends AppCompatActivity {
             bussImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new LargeImageView(getApplicationContext(),v,bussiness.getImgurl(),null);
+                    new LargeImageView(getApplicationContext(), v, bussiness.getImgurl(), null);
                 }
             });
         }
@@ -86,7 +83,7 @@ public class SingleBusinessDetail extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.edit:
                 Intent intent = new Intent(getBaseContext(), BusinessDetailActivity.class);
-                intent.putExtra("buisness-object", bussiness);
+                intent.putExtra(BUSINESS_OBJECT, bussiness);
                 startActivity(intent);
 
             default:

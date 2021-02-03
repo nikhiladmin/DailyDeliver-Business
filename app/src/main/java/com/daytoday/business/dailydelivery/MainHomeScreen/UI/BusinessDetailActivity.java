@@ -53,19 +53,20 @@ import retrofit2.Response;
 
 public class BusinessDetailActivity extends AppCompatActivity {
     RadioGroup rg1, rg2;
-    TextInputEditText buss_name, buss_price, buss_address,buss_phone;
+    TextInputEditText buss_name, buss_price, buss_address, buss_phone;
     Button button;
     Bussiness bussiness;
     String paymode, mord;
     CircleImageView businessImage;
     FloatingActionButton imageEditButton;
+    public static final String BUSINESS_OBJECT = "business-object";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buisness_detail);
-        bussiness = (Bussiness) getIntent().getSerializableExtra("buisness-object");
-        getSupportActionBar().setTitle(bussiness.getName());
+        bussiness = getIntent().getParcelableExtra(BUSINESS_OBJECT);
+        getSupportActionBar().setTitle(bussiness.getName() + " - Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -79,7 +80,7 @@ public class BusinessDetailActivity extends AppCompatActivity {
         businessImage = findViewById(R.id.business_profile_pic);
         imageEditButton = findViewById(R.id.profilepiceditbtn);
         buss_name.setText(bussiness.getName());
-        buss_phone=findViewById(R.id.buss_phone);
+        buss_phone = findViewById(R.id.buss_phone);
         buss_price.setText("" + bussiness.getPrice());
         if (bussiness.getImgurl() != null) {
             Picasso.get()
@@ -135,16 +136,13 @@ public class BusinessDetailActivity extends AppCompatActivity {
             intent.setAction(Intent.ACTION_GET_CONTENT).setType("image/*");
             startActivityForResult(intent, 1);
         });
-        businessImage.setOnClickListener(v->{
-            if(picture!=null)
-            {
-                new LargeImageView(getApplication(),v,null,picture);
-            }else if(bussiness.getImgurl()==null)
-            {
-                new LargeImageView(getApplication(),v,null,null);
-            }else if(bussiness.getImgurl()!=null)
-            {
-                new LargeImageView(getApplication(),v,bussiness.getImgurl(),null);
+        businessImage.setOnClickListener(v -> {
+            if (picture != null) {
+                new LargeImageView(getApplication(), v, null, picture);
+            } else if (bussiness.getImgurl() == null) {
+                new LargeImageView(getApplication(), v, null, null);
+            } else if (bussiness.getImgurl() != null) {
+                new LargeImageView(getApplication(), v, bussiness.getImgurl(), null);
             }
         });
         setFalse();

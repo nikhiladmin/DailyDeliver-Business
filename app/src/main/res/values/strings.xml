@@ -26,6 +26,8 @@
 
     <string name="facebook_app_id">535536857326543</string>
     <string name="fb_login_protocol_scheme">fb535536857326543</string>
+    <string name="notificationMsg">%s has added %s %s in %s list.\n• %s</string>
+
 
 
 </resources>
